@@ -1,7 +1,7 @@
 /*Created By: Gugino
  *Date Created: Apr 23, 2020
  */
-package com.gugino.engine.graphics.renderer;
+package com.gugino.engine.graphics.renderers;
 
 import java.awt.Color;
 import java.awt.Font;

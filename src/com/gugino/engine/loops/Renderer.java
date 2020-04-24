@@ -8,9 +8,9 @@ import java.awt.image.BufferStrategy;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
-import com.gugino.engine.graphics.renderer.FontRenderer;
-import com.gugino.engine.graphics.renderer.ImageRenderer;
-import com.gugino.engine.graphics.renderer.ShapeRenderer;
+import com.gugino.engine.graphics.renderers.FontRenderer;
+import com.gugino.engine.graphics.renderers.ImageRenderer;
+import com.gugino.engine.graphics.renderers.ShapeRenderer;
 
 public class Renderer {
 	

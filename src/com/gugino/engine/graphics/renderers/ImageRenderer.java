@@ -1,7 +1,7 @@
 /*Created By: Gugino
  *Date Created: Apr 24, 2020
  */
-package com.gugino.engine.graphics.renderer;
+package com.gugino.engine.graphics.renderers;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,9 +22,7 @@ public class ImageRenderer {
 		renderer.getGraphics().drawImage(_image, (int)_x, (int)_y, null);	
 	}
 	public void drawImage(BufferedImage _image, float _x, float _y, int _width, int _height) {
-		if(_image != null) {
-			renderer.getGraphics().drawImage(_image, (int)_x, (int)_y, _width, _height, null);	
-		}
+		renderer.getGraphics().drawImage(_image, (int)_x, (int)_y, _width, _height, null);	
 	}
 	
 	public BufferedImage getImageFromPath(String _path) {
