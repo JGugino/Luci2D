@@ -4,10 +4,9 @@
 package com.gugino.engine;
 
 import com.gugino.engine.abstractinterfacers.Game;
-import com.gugino.engine.gameloops.RenderLoop;
-import com.gugino.engine.gameloops.UpdateLoop;
+import com.gugino.engine.gameloops.Renderer;
+import com.gugino.engine.gameloops.Updater;
 import com.gugino.engine.graphics.WindowHandler;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
@@ -25,10 +24,10 @@ public class GameManager implements Runnable{
 	public Game currentGame;
 	
 	//Object to the games update loop
-	private UpdateLoop updateLoop;
+	private Updater updater;
 	
 	//Object to the games render loop
-	private RenderLoop renderLoop;
+	public Renderer renderer;
 	
 	//Games main thread
 	private Thread mainThread;
@@ -63,10 +62,10 @@ public class GameManager implements Runnable{
 		mainThread = new Thread(this);
 		
 		//Creates new instance of UpdateLoop
-		updateLoop = new UpdateLoop();
+		updater = new Updater();
 		
 		//Creates new instance of RenderLoop
-		renderLoop = new RenderLoop();
+		renderer = new Renderer();
 		
 		//Creates new instance of the StateManager
 		stateManager = new StateManager(this);
@@ -91,11 +90,7 @@ public class GameManager implements Runnable{
 		isRunning = true;
 		
 		//Starts the update loop
-		updateLoop.start(this, renderLoop.graphicsRenderer);
+		updater.start(this);
 	}
 
-	//Getter to access the render loop
-	public RenderLoop getRenderLoop() {
-		return renderLoop;
-	}
 }

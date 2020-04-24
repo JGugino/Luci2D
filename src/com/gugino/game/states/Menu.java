@@ -3,10 +3,8 @@
  */
 package com.gugino.game.states;
 
-import java.awt.Color;
-
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
+import com.gugino.engine.gameloops.Renderer;
 import com.gugino.engine.states.GameState;
 
 public class Menu extends GameState{
@@ -26,7 +24,7 @@ public class Menu extends GameState{
 	}
 
 	@Override
-	public void render(GameManager _gm, GraphicsRenderer _gr) {
+	public void render(GameManager _gm, Renderer _r) {
 		
 	}
 	

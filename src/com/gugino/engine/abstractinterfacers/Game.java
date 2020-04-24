@@ -4,13 +4,13 @@
 package com.gugino.engine.abstractinterfacers;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
+import com.gugino.engine.gameloops.Renderer;
 
 public abstract class Game {
 	//Runs before first update frame
-	public abstract void start(GameManager _gm, GraphicsRenderer _gr);
+	public abstract void start(GameManager _gm);
 	//Runs every frame
 	public abstract void update(GameManager _gm, double _deltaTime);
 	//Runs every frame that it should render (Determined by shouldRender boolean in GameManager class)
-	public abstract void render(GameManager _gm, GraphicsRenderer _gr);
+	public abstract void render(GameManager _gm, Renderer _r);
 }

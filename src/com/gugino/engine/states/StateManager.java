@@ -6,7 +6,7 @@ package com.gugino.engine.states;
 import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
+import com.gugino.engine.gameloops.Renderer;
 
 public class StateManager {
 	
@@ -35,13 +35,13 @@ public class StateManager {
 	}
 	
 	//Render method for StateManager
-	public void render(GameManager _gm, GraphicsRenderer _gr) {
+	public void render(GameManager _gm, Renderer _r) {
 		//Checks to make sure there are enabled states
 		if(!enabledStates.isEmpty()) {
 			//Loops through all the enabled states
 			for(GameState _state : enabledStates.values()) {
 				//Runs render method for currently selected state
-				_state.render(_gm, _gr);
+				_state.render(_gm, _r);
 			}
 		}
 	}

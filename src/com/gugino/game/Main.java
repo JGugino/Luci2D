@@ -7,7 +7,7 @@ import java.awt.Color;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.abstractinterfacers.Game;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
+import com.gugino.engine.gameloops.Renderer;
 import com.gugino.game.states.Menu;
 
 public class Main extends Game{
@@ -24,7 +24,7 @@ public class Main extends Game{
 	
 
 	@Override
-	public void start(GameManager _gm, GraphicsRenderer _gr) {
+	public void start(GameManager _gm) {
 		_gm.stateManager.addState(MENU_STATE, new Menu(MENU_STATE, _gm));
 		_gm.stateManager.setActiveState(MENU_STATE);
 	}
@@ -35,7 +35,7 @@ public class Main extends Game{
 	}
 
 	@Override
-	public void render(GameManager _gm, GraphicsRenderer _gr) {		
-		_gr.fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20);
+	public void render(GameManager _gm, Renderer _r) {		
+		_r.fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);
 	} 
 }

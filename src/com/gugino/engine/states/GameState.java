@@ -4,7 +4,7 @@
 package com.gugino.engine.states;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.renderer.GraphicsRenderer;
+import com.gugino.engine.gameloops.Renderer;
 
 public abstract class GameState {
 	//Game State's ID
@@ -22,7 +22,7 @@ public abstract class GameState {
 	//Runs every frame
 	public abstract void update(GameManager _gm, double _deltaTime);
 	//Runs every frame if shouldRender in GameManager is true
-	public abstract void render(GameManager _gm, GraphicsRenderer _gr);
+	public abstract void render(GameManager _gm, Renderer _r);
 	
 	//Getter for getting the states ID
 	public int getStateID() {
