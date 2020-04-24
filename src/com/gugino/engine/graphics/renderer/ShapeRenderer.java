@@ -5,7 +5,7 @@ package com.gugino.engine.graphics.renderer;
 
 import java.awt.Color;
 
-import com.gugino.engine.gameloops.Renderer;
+import com.gugino.engine.loops.Renderer;
 
 public class ShapeRenderer {
 	

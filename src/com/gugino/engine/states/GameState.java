@@ -4,7 +4,7 @@
 package com.gugino.engine.states;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.gameloops.Renderer;
+import com.gugino.engine.loops.Renderer;
 
 public abstract class GameState {
 	//Game State's ID

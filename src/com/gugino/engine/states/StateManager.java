@@ -6,7 +6,7 @@ package com.gugino.engine.states;
 import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.gameloops.Renderer;
+import com.gugino.engine.loops.Renderer;
 
 public class StateManager {
 	

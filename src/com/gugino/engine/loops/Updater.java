@@ -1,13 +1,15 @@
 /*Created By: Gugino
  *Date Created: Apr 23, 2020
  */
-package com.gugino.engine.gameloops;
+package com.gugino.engine.loops;
 
 import com.gugino.engine.GameManager;
 
 public class Updater {
 	
-	public void start(GameManager _gm) {
+	private boolean gameStartRan = false;
+	
+	public void start(GameManager _gm, Renderer _r) {
 		//GameLoop
 		long _lastTime = System.nanoTime();
 		double _amountOfTicks = 60.0;
@@ -16,8 +18,12 @@ public class Updater {
 		long _timer = System.currentTimeMillis();
 		int _frames = 0;
 		
-		//Runs start method for the currently created abstract game
-		_gm.currentGame.start(_gm);
+		if(!gameStartRan) {
+			gameStartRan = true;
+			//Runs start method for the currently created abstract game
+			_gm.currentGame.start(_gm, _r);
+			
+		}
 		
 		//Runs while the game is running
 		while(_gm.isRunning) {	
@@ -41,9 +47,9 @@ public class Updater {
 			}
 			
 			//Checks if the frame should render
-			if(_gm.shouldRender) {
+			if(_gm.shouldRender) {				
 				//Runs the render loop
-				_gm.renderer.render(_gm);	
+				_gm.renderer.render(_gm);
 			}
 			
 			_frames++;	

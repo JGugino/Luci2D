@@ -4,9 +4,9 @@
 package com.gugino.engine;
 
 import com.gugino.engine.abstractinterfacers.Game;
-import com.gugino.engine.gameloops.Renderer;
-import com.gugino.engine.gameloops.Updater;
 import com.gugino.engine.graphics.WindowHandler;
+import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.loops.Updater;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
@@ -90,7 +90,7 @@ public class GameManager implements Runnable{
 		isRunning = true;
 		
 		//Starts the update loop
-		updater.start(this);
+		updater.start(this, renderer);
 	}
 
 }

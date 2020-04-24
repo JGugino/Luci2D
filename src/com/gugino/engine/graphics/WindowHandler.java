@@ -13,6 +13,9 @@ public class WindowHandler {
 	//Default title for untitled windows
 	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.1a";
 	
+	public static int windowWidth;
+	public static int windowHeight;
+	
 	//Games FPS
 	public long fps = 0;
 	
@@ -29,6 +32,9 @@ public class WindowHandler {
 		
 		//Creates new instance of Canvas
 		windowCanvas = new Canvas();
+		
+		windowWidth = _windowWidth;
+		windowHeight = _windowHeight;
 		
 		//Create new Dimensions object using defined width/height
 		Dimension _windowDimensions = new Dimension(_windowWidth, _windowHeight);

@@ -1,19 +1,22 @@
 /*Created By: Gugino
  *Date Created: Apr 23, 2020
  */
-package com.gugino.engine.gameloops;
+package com.gugino.engine.loops;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.graphics.renderer.FontRenderer;
+import com.gugino.engine.graphics.renderer.ImageRenderer;
 import com.gugino.engine.graphics.renderer.ShapeRenderer;
 
 public class Renderer {
 	
 	public FontRenderer fontRenderer;
 	public ShapeRenderer shapeRenderer;
+	public ImageRenderer imageRenderer;
 	
 	//BufferStrategy object
 	private BufferStrategy bufferStrategy;
@@ -24,6 +27,7 @@ public class Renderer {
 	public Renderer() {
 		fontRenderer = new FontRenderer(this);
 		shapeRenderer = new ShapeRenderer(this);
+		imageRenderer = new ImageRenderer(this);
 	}
 	
 	public void render(GameManager _gm) {
@@ -42,9 +46,8 @@ public class Renderer {
 		
 		
 		//Clears the screen based on the windows width/height
-		graphics2D.clearRect(0, 0, _gm.windowHandler.windowCanvas.getWidth(),
-				_gm.windowHandler.windowCanvas.getHeight());
-		
+		graphics2D.clearRect(0, 0, WindowHandler.windowWidth,
+				WindowHandler.windowHeight);
 		
 		if(graphics2D != null) {
 			/*

@@ -4,7 +4,7 @@
 package com.gugino.game.states;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.gameloops.Renderer;
+import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 
 public class Menu extends GameState{
