@@ -3,9 +3,11 @@
  */
 package com.gugino.game;
 
+import java.awt.Color;
+
 import com.gugino.engine.GameManager;
 import com.gugino.engine.abstractinterfacers.Game;
-import com.gugino.engine.graphics.GraphicsRenderer;
+import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 import com.gugino.game.states.Menu;
 
 public class Main extends Game{
@@ -33,7 +35,7 @@ public class Main extends Game{
 	}
 
 	@Override
-	public void render(GameManager _gm, GraphicsRenderer _gr) {
-		
+	public void render(GameManager _gm, GraphicsRenderer _gr) {		
+		_gr.fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20);
 	} 
 }

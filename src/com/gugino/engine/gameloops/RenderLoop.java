@@ -8,15 +8,23 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.GraphicsRenderer;
+import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 
 public class RenderLoop {
+	
+	//GraphicsRenderer object
+	public GraphicsRenderer graphicsRenderer;
 	
 	//BufferStrategy object
 	private BufferStrategy bufferStrategy;
 	
 	//Graphics2D object
 	private Graphics2D graphics2D;
+	
+	public RenderLoop() {
+		//Creates new instance of the GraphicsRenderer
+		graphicsRenderer = new GraphicsRenderer();
+	}
 	
 	public void render(GameManager _gm, GraphicsRenderer _gr) {
 		//Gets the BufferStrategy from the windows canvas
@@ -32,6 +40,10 @@ public class RenderLoop {
 		//Gets the graphics object from the buffer strategy
 		graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
 		
+		if(graphicsRenderer.graphics == null) {
+			graphicsRenderer.setGraphics(graphics2D);
+		}
+		
 		//Clears the screen based on the windows width/height
 		graphics2D.clearRect(0, 0, _gm.windowHandler.windowCanvas.getWidth(),
 				_gm.windowHandler.windowCanvas.getHeight());
@@ -46,13 +58,6 @@ public class RenderLoop {
 		
 		//Runs the render method for the state manager
 		_gm.stateManager.render(_gm, _gr);
-		
-		//Sets color to black
-		graphics2D.setColor(Color.black);
-		//Draws FPS at x:10 y:30
-		graphics2D.drawString("FPS: " + _gm.windowHandler.fps, 10, 30);
-		
-		
 		
 		/*
 		 * RENDER STUFF HERE

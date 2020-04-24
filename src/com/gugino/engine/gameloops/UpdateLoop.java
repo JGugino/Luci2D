@@ -4,7 +4,7 @@
 package com.gugino.engine.gameloops;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.GraphicsRenderer;
+import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 
 public class UpdateLoop {
 	

@@ -4,7 +4,7 @@
 package com.gugino.engine.abstractinterfacers;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.graphics.GraphicsRenderer;
+import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 
 public abstract class Game {
 	//Runs before first update frame

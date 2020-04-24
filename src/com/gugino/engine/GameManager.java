@@ -6,8 +6,8 @@ package com.gugino.engine;
 import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.gameloops.RenderLoop;
 import com.gugino.engine.gameloops.UpdateLoop;
-import com.gugino.engine.graphics.GraphicsRenderer;
 import com.gugino.engine.graphics.WindowHandler;
+import com.gugino.engine.graphics.renderer.GraphicsRenderer;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
@@ -17,9 +17,6 @@ public class GameManager implements Runnable{
 	
 	//WindowHandler object
 	public WindowHandler windowHandler;
-	
-	//GraphicsRenderer object
-	public GraphicsRenderer graphicsRenderer;
 	
 	//StateManager object
 	public StateManager stateManager;
@@ -65,16 +62,14 @@ public class GameManager implements Runnable{
 		//Creates the main thread and sets this class as the target
 		mainThread = new Thread(this);
 		
-		//Creates new instance of the GraphicsRenderer
-		graphicsRenderer = new GraphicsRenderer();
-		
-		stateManager = new StateManager(this);
-		
 		//Creates new instance of UpdateLoop
 		updateLoop = new UpdateLoop();
 		
 		//Creates new instance of RenderLoop
 		renderLoop = new RenderLoop();
+		
+		//Creates new instance of the StateManager
+		stateManager = new StateManager(this);
 		
 		//Starts the main thread
 		mainThread.start();
@@ -96,7 +91,7 @@ public class GameManager implements Runnable{
 		isRunning = true;
 		
 		//Starts the update loop
-		updateLoop.start(this, graphicsRenderer);
+		updateLoop.start(this, renderLoop.graphicsRenderer);
 	}
 
 	//Getter to access the render loop
