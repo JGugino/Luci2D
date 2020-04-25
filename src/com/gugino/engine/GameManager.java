@@ -5,6 +5,8 @@ package com.gugino.engine;
 
 import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.graphics.WindowHandler;
+import com.gugino.engine.input.KeyboardHandler;
+import com.gugino.engine.input.MouseHandler;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.loops.Updater;
 import com.gugino.engine.states.StateManager;
@@ -16,6 +18,10 @@ public class GameManager implements Runnable{
 	
 	//WindowHandler object
 	public WindowHandler windowHandler;
+	
+	public KeyboardHandler keyboardHandler;
+	
+	public MouseHandler mouseHandler;
 	
 	//StateManager object
 	public StateManager stateManager;
@@ -37,6 +43,10 @@ public class GameManager implements Runnable{
 		//Creates the game window using default title and defined width/height
 		windowHandler = new WindowHandler(WindowHandler.DEFAULT_WINDOW_TITLE, _windowWidth, _windowHeight);
 		
+		//Sets the mouse and keyboard listeners
+		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
+		windowHandler.windowCanvas.addMouseListener(mouseHandler);
+		
 		//Sets the created game to the currentGame object
 		currentGame = _game;
 		
@@ -48,6 +58,10 @@ public class GameManager implements Runnable{
 	public GameManager(String _windowTitle, int _windowWidth, int _windowHeight, Game _game) {
 		//Creates the game window using defined title, and width/height
 		windowHandler = new WindowHandler(_windowTitle, _windowWidth, _windowHeight);
+		
+		//Sets the mouse and keyboard listeners
+		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
+		windowHandler.windowCanvas.addMouseListener(mouseHandler);
 		
 		//Sets the created game to the currentGame object
 		currentGame = _game;
