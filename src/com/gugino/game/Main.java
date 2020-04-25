@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.abstractinterfacers.Game;
+import com.gugino.engine.camera.CameraSettings;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.game.states.Menu;
@@ -32,6 +33,10 @@ public class Main extends Game{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
+		_r.mainCamera.cameraSettings = new CameraSettings(true, 0, 0, 1600, 800);
+		
+		System.out.println(_r.mainCamera.cameraSettings.shouldFollow);
+				
 		_gm.stateManager.addState(MENU_STATE, new Menu(MENU_STATE, _gm));
 		_gm.stateManager.setActiveState(MENU_STATE);
 		
@@ -39,7 +44,7 @@ public class Main extends Game{
 	}
 
 	@Override
-	public void update(GameManager _gm, double _deltaTime) {
+	public void update(GameManager _gm, double _deltaTime) {		
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_W)) {
 			y -= 5 * _deltaTime;
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_S)){
@@ -54,7 +59,8 @@ public class Main extends Game{
 	}
 
 	@Override
-	public void render(GameManager _gm, Renderer _r) {		
+	public void render(GameManager _gm, Renderer _r) {
+		_r.mainCamera.setCameraTarget(x, y);
 		_r.imageRenderer.drawImage(playerImage, x, y);
 		_r.shapeRenderer.drawFilledRect(WindowHandler.windowWidth / 2, WindowHandler.windowHeight / 2, 32, 32, Color.blue);
 	} 

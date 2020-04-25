@@ -59,15 +59,12 @@ public class Renderer {
 		if(graphics2D != null) {
 			/*
 			 * RENDER STUFF HERE - START
-			 */
-			//double cameraZoomedWidth = mainCamera.cameraSettings.cameraWidth * mainCamera.cameraSettings.cameraFOV;
-			//double cameraZoomedHeight = mainCamera.cameraSettings.cameraHeight * mainCamera.cameraSettings.cameraFOV;
+			 */			
 			
-			//double cameraXAnchor = (mainCamera.cameraSettings.cameraWidth - cameraZoomedWidth) / 2;
-			//double cameraYAnchor = (mainCamera.cameraSettings.cameraHeight - cameraZoomedHeight) / 2;
-			
+			//Sets start point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(mainCamera.cameraSettings.cameraX,
 					mainCamera.cameraSettings.cameraY);
+			//Scales graphics based on camera field of view (Can be changed in camera settings)
 			graphics2D.scale(mainCamera.cameraSettings.cameraFOV, mainCamera.cameraSettings.cameraFOV);
 			//Sets the default font for font renderer
 			fontRenderer.updateFont(FontRenderer.DEFAULT_FONT);
@@ -77,10 +74,14 @@ public class Renderer {
 			
 			//Runs the render method for the state manager
 			_gm.stateManager.render(_gm, this);
-
+			
+			//Sets scale back to normal
+			graphics2D.scale(1/mainCamera.cameraSettings.cameraFOV, 1/mainCamera.cameraSettings.cameraFOV);
+			//Sets end point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(-(mainCamera.cameraSettings.cameraX),
 					-(mainCamera.cameraSettings.cameraY));
-			
+
+			//Draws the frames per second to the screen
 			fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);
 			
 			/*
