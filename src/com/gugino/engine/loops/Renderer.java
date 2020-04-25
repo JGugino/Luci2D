@@ -3,28 +3,35 @@
  */
 package com.gugino.engine.loops;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.camera.Camera;
+import com.gugino.engine.camera.CameraSettings;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.graphics.renderers.FontRenderer;
 import com.gugino.engine.graphics.renderers.ImageRenderer;
 import com.gugino.engine.graphics.renderers.ShapeRenderer;
 
 public class Renderer {
-	
-	public FontRenderer fontRenderer;
-	public ShapeRenderer shapeRenderer;
-	public ImageRenderer imageRenderer;
-	
+		
 	//BufferStrategy object
 	private BufferStrategy bufferStrategy;
 	
 	//Graphics2D object
 	private Graphics2D graphics2D;
 	
+	public Camera mainCamera;
+	
+	public FontRenderer fontRenderer;
+	public ShapeRenderer shapeRenderer;
+	public ImageRenderer imageRenderer;
+	
 	public Renderer() {
+		mainCamera = new Camera(new CameraSettings(false, 0, 0, WindowHandler.windowWidth, WindowHandler.windowHeight));
+		
 		fontRenderer = new FontRenderer(this);
 		shapeRenderer = new ShapeRenderer(this);
 		imageRenderer = new ImageRenderer(this);
@@ -53,7 +60,15 @@ public class Renderer {
 			/*
 			 * RENDER STUFF HERE - START
 			 */
+			//double cameraZoomedWidth = mainCamera.cameraSettings.cameraWidth * mainCamera.cameraSettings.cameraFOV;
+			//double cameraZoomedHeight = mainCamera.cameraSettings.cameraHeight * mainCamera.cameraSettings.cameraFOV;
 			
+			//double cameraXAnchor = (mainCamera.cameraSettings.cameraWidth - cameraZoomedWidth) / 2;
+			//double cameraYAnchor = (mainCamera.cameraSettings.cameraHeight - cameraZoomedHeight) / 2;
+			
+			graphics2D.translate(mainCamera.cameraSettings.cameraX,
+					mainCamera.cameraSettings.cameraY);
+			graphics2D.scale(mainCamera.cameraSettings.cameraFOV, mainCamera.cameraSettings.cameraFOV);
 			//Sets the default font for font renderer
 			fontRenderer.updateFont(FontRenderer.DEFAULT_FONT);
 			
@@ -62,6 +77,11 @@ public class Renderer {
 			
 			//Runs the render method for the state manager
 			_gm.stateManager.render(_gm, this);
+
+			graphics2D.translate(-(mainCamera.cameraSettings.cameraX),
+					-(mainCamera.cameraSettings.cameraY));
+			
+			fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);
 			
 			/*
 			 * RENDER STUFF HERE - END

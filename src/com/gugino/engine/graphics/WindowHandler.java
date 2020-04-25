@@ -57,5 +57,7 @@ public class WindowHandler {
 		
 		//Sets the frame to visible
 		windowFrame.setVisible(true);
+		
+		windowCanvas.requestFocus();
 	}
 }

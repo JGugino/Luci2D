@@ -7,6 +7,7 @@ import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.input.KeyboardHandler;
 import com.gugino.engine.input.MouseHandler;
+import com.gugino.engine.listeners.ResizeListener;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.loops.Updater;
 import com.gugino.engine.states.StateManager;
@@ -43,6 +44,10 @@ public class GameManager implements Runnable{
 		//Creates the game window using default title and defined width/height
 		windowHandler = new WindowHandler(WindowHandler.DEFAULT_WINDOW_TITLE, _windowWidth, _windowHeight);
 		
+		//Creates new instances of the keyboard and mouse handlers
+		keyboardHandler = new KeyboardHandler();
+		mouseHandler = new MouseHandler();
+		
 		//Sets the mouse and keyboard listeners
 		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
 		windowHandler.windowCanvas.addMouseListener(mouseHandler);
@@ -59,6 +64,10 @@ public class GameManager implements Runnable{
 		//Creates the game window using defined title, and width/height
 		windowHandler = new WindowHandler(_windowTitle, _windowWidth, _windowHeight);
 		
+		//Creates new instances of the keyboard and mouse handlers
+		keyboardHandler = new KeyboardHandler();
+		mouseHandler = new MouseHandler();
+		
 		//Sets the mouse and keyboard listeners
 		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
 		windowHandler.windowCanvas.addMouseListener(mouseHandler);
@@ -71,7 +80,6 @@ public class GameManager implements Runnable{
 	}
 	
 	public synchronized void start() {
-		
 		//Creates the main thread and sets this class as the target
 		mainThread = new Thread(this);
 		
@@ -102,6 +110,8 @@ public class GameManager implements Runnable{
 	public void run() {
 		//Sets thats the game is running is equal to true
 		isRunning = true;
+		
+		windowHandler.windowCanvas.addComponentListener(new ResizeListener(this));
 		
 		//Starts the update loop
 		updater.start(this, renderer);

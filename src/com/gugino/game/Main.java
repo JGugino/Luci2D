@@ -11,6 +11,7 @@ import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.game.states.Menu;
+import com.sun.glass.events.KeyEvent;
 
 public class Main extends Game{
 	
@@ -18,12 +19,14 @@ public class Main extends Game{
 	
 	private BufferedImage playerImage;
 	
+	private float x = 100, y = 100;
+	
 	public static void main(String[] args) {
 		new Main();
 	}
 	
 	public Main() {
-		new GameManager(800, 600, this);
+		new GameManager(1600, 800, this);
 	}
 	
 
@@ -37,12 +40,22 @@ public class Main extends Game{
 
 	@Override
 	public void update(GameManager _gm, double _deltaTime) {
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_W)) {
+			y -= 5 * _deltaTime;
+		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_S)){
+			y += 5 * _deltaTime;
+		}
+		
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_A)) {
+			x -= 5 * _deltaTime;
+		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_D)){
+			x += 5 * _deltaTime;
+		}
 	}
 
 	@Override
 	public void render(GameManager _gm, Renderer _r) {		
-		_r.fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);
-		_r.imageRenderer.drawImage(playerImage, 100, 100);
+		_r.imageRenderer.drawImage(playerImage, x, y);
 		_r.shapeRenderer.drawFilledRect(WindowHandler.windowWidth / 2, WindowHandler.windowHeight / 2, 32, 32, Color.blue);
 	} 
 }
