@@ -1,9 +1,8 @@
 /*Created By: Gugino
  *Date Created: Apr 23, 2020
  */
-package com.gugino.engine.abstractinterfacers;
+package com.gugino.engine;
 
-import com.gugino.engine.GameManager;
 import com.gugino.engine.loops.Renderer;
 
 public abstract class Game {

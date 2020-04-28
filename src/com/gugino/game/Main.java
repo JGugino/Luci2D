@@ -6,8 +6,8 @@ package com.gugino.game;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import com.gugino.engine.Game;
 import com.gugino.engine.GameManager;
-import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.camera.CameraSettings;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.loops.Renderer;

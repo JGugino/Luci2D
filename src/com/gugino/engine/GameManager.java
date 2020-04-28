@@ -3,7 +3,6 @@
  */
 package com.gugino.engine;
 
-import com.gugino.engine.abstractinterfacers.Game;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.input.KeyboardHandler;
 import com.gugino.engine.input.MouseHandler;
