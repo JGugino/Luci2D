@@ -9,7 +9,9 @@ public class Camera {
 	
 	public  CameraSettings cameraSettings;
 	
-	protected float cameraTargetX, cameraTargetY;
+	public float cameraX = 0, cameraY = 0;
+	
+	protected float cameraTargetX = 0, cameraTargetY = 0;
 	
 	public Camera(CameraSettings _cameraSettings) {
 		this.cameraSettings = _cameraSettings;
@@ -18,10 +20,9 @@ public class Camera {
 	public void update(double _deltaTime) {
 		if(cameraSettings.shouldFollow) {
 			if(cameraSettings.shouldFollowX) {
-				cameraSettings.cameraX += ((cameraTargetX - cameraSettings.cameraX) - WindowHandler.windowWidth/2) * _deltaTime / cameraSettings.cameraSmoothingSpeed;
-				
+				cameraX += ((cameraTargetX - cameraX) - WindowHandler.windowWidth/2) * cameraSettings.cameraSmoothingSpeed;
 				if(cameraSettings.shouldFollowY) {
-					cameraSettings.cameraY += ((cameraTargetY - cameraSettings.cameraY ) - WindowHandler.windowHeight/2) * _deltaTime / cameraSettings.cameraSmoothingSpeed;
+					cameraY += ((cameraTargetY - cameraY ) - WindowHandler.windowHeight/2) * cameraSettings.cameraSmoothingSpeed;
 				}
 			}
 		}

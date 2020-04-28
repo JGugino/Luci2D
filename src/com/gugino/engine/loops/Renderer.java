@@ -30,7 +30,7 @@ public class Renderer {
 	public ImageRenderer imageRenderer;
 	
 	public Renderer() {
-		mainCamera = new Camera(new CameraSettings(false, 0, 0, WindowHandler.windowWidth, WindowHandler.windowHeight));
+		mainCamera = new Camera(new CameraSettings(false, WindowHandler.windowWidth, WindowHandler.windowHeight));
 		
 		fontRenderer = new FontRenderer(this);
 		shapeRenderer = new ShapeRenderer(this);
@@ -62,8 +62,8 @@ public class Renderer {
 			 */			
 			
 			//Sets start point for graphics to translate based in cameras x and y positions
-			graphics2D.translate(mainCamera.cameraSettings.cameraX,
-					mainCamera.cameraSettings.cameraY);
+			graphics2D.translate(-mainCamera.cameraX,
+					-mainCamera.cameraY);
 			//Scales graphics based on camera field of view (Can be changed in camera settings)
 			graphics2D.scale(mainCamera.cameraSettings.cameraFOV, mainCamera.cameraSettings.cameraFOV);
 			//Sets the default font for font renderer
@@ -75,11 +75,11 @@ public class Renderer {
 			//Runs the render method for the state manager
 			_gm.stateManager.render(_gm, this);
 			
+			//Sets end point for graphics to translate based in cameras x and y positions
+			graphics2D.translate((mainCamera.cameraX),
+					(mainCamera.cameraY));
 			//Sets scale back to normal
 			graphics2D.scale(1/mainCamera.cameraSettings.cameraFOV, 1/mainCamera.cameraSettings.cameraFOV);
-			//Sets end point for graphics to translate based in cameras x and y positions
-			graphics2D.translate(-(mainCamera.cameraSettings.cameraX),
-					-(mainCamera.cameraSettings.cameraY));
 
 			//Draws the frames per second to the screen
 			fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);

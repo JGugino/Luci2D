@@ -35,6 +35,9 @@ public class Updater {
 			_lastTime = _now;
 			
 			while(_deltaTime >= 1) {
+				//Runs update method on camera
+				_r.mainCamera.update(_deltaTime);
+				
 				//Runs update method for the currently created abstract game
 				_gm.currentGame.update(_gm, _deltaTime);
 				

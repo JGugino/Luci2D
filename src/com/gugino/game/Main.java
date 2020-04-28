@@ -33,7 +33,7 @@ public class Main extends Game{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
-		_r.mainCamera.cameraSettings = new CameraSettings(true, 0, 0, 1600, 800);
+		_r.mainCamera.cameraSettings = new CameraSettings(true, 1600, 800);
 		
 		System.out.println(_r.mainCamera.cameraSettings.shouldFollow);
 				
@@ -44,7 +44,8 @@ public class Main extends Game{
 	}
 
 	@Override
-	public void update(GameManager _gm, double _deltaTime) {		
+	public void update(GameManager _gm, double _deltaTime) {
+		_gm.renderer.mainCamera.setCameraTarget(x, y);
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_W)) {
 			y -= 5 * _deltaTime;
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_S)){
@@ -60,7 +61,6 @@ public class Main extends Game{
 
 	@Override
 	public void render(GameManager _gm, Renderer _r) {
-		_r.mainCamera.setCameraTarget(x, y);
 		_r.imageRenderer.drawImage(playerImage, x, y);
 		_r.shapeRenderer.drawFilledRect(WindowHandler.windowWidth / 2, WindowHandler.windowHeight / 2, 32, 32, Color.blue);
 	} 
