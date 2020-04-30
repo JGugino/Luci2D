@@ -42,14 +42,14 @@ public class WindowHandler {
 		//Sets preferred window size to defined window dimensions
 		windowFrame.setPreferredSize(_windowDimensions);
 		//Sets maximum window size to defined window dimensions
-		windowFrame.setMaximumSize(_windowDimensions);
+		//windowFrame.setMaximumSize(_windowDimensions);
 		//Sets minimum window size to defined window dimensions
 		windowFrame.setMinimumSize(_windowDimensions);
 		
 		//Sets the windows default close operation
 		windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets if the window can be resized to false
-		windowFrame.setResizable(false);
+		windowFrame.setResizable(true);
 		//Sets the windows start location to the center of the screen
 		windowFrame.setLocationRelativeTo(null);
 		//Adds the canvas to the windows frame

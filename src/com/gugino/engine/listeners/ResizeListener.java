@@ -7,6 +7,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.graphics.WindowHandler;
 
 public class ResizeListener extends ComponentAdapter{
 
@@ -20,7 +21,7 @@ public class ResizeListener extends ComponentAdapter{
 		int currentWindowWidth = gameManager.windowHandler.windowCanvas.getWidth();
 		int currentWindowHeight = gameManager.windowHandler.windowCanvas.getHeight();
 		
-		gameManager.renderer.mainCamera.cameraSettings.cameraWidth = currentWindowWidth;
-		gameManager.renderer.mainCamera.cameraSettings.cameraHeight = currentWindowHeight;
+		WindowHandler.windowWidth = currentWindowWidth;
+		WindowHandler.windowHeight = currentWindowHeight;
 	}
 }

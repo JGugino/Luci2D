@@ -18,7 +18,7 @@ public abstract class GameState {
 
 	//Runs when state gets added to StateManager
 	//Runs before first update frame
-	public abstract void start(GameManager _gm);
+	public abstract void start(GameManager _gm, Renderer _r);
 	//Runs every frame
 	public abstract void update(GameManager _gm, double _deltaTime);
 	//Runs every frame if shouldRender in GameManager is true

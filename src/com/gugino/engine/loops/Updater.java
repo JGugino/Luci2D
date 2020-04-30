@@ -36,7 +36,10 @@ public class Updater {
 			
 			while(_deltaTime >= 1) {
 				//Runs update method on camera
-				_r.mainCamera.update(_deltaTime);
+				_r.mainCamera.update(_gm, _deltaTime);
+				
+				//Runs the update method on the UICanvas
+				_r.canvas.update(_gm);
 				
 				//Runs update method for the currently created abstract game
 				_gm.currentGame.update(_gm, _deltaTime);

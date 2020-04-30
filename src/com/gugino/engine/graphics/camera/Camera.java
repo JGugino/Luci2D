@@ -1,8 +1,9 @@
 /*Created By: Gugino
  *Date Created: Apr 24, 2020
  */
-package com.gugino.engine.camera;
+package com.gugino.engine.graphics.camera;
 
+import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
 
 public class Camera {
@@ -17,12 +18,12 @@ public class Camera {
 		this.cameraSettings = _cameraSettings;
 	}
 	
-	public void update(double _deltaTime) {
+	public void update(GameManager _gm, double _deltaTime) {
 		if(cameraSettings.shouldFollow) {
 			if(cameraSettings.shouldFollowX) {
-				cameraX += ((cameraTargetX - cameraX) - WindowHandler.windowWidth/2) * cameraSettings.cameraSmoothingSpeed;
+				cameraX += ((cameraTargetX - cameraX) - WindowHandler.windowWidth/2 + cameraSettings.cameraXTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
 				if(cameraSettings.shouldFollowY) {
-					cameraY += ((cameraTargetY - cameraY ) - WindowHandler.windowHeight/2) * cameraSettings.cameraSmoothingSpeed;
+					cameraY += ((cameraTargetY - cameraY ) - WindowHandler.windowHeight/2 + cameraSettings.cameraYTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
 				}
 			}
 		}

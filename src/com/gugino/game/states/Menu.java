@@ -14,7 +14,7 @@ public class Menu extends GameState{
 	}
 
 	@Override
-	public void start(GameManager _gm) {
+	public void start(GameManager _gm, Renderer _r) {
 		
 	}
 

@@ -50,6 +50,7 @@ public class GameManager implements Runnable{
 		//Sets the mouse and keyboard listeners
 		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
 		windowHandler.windowCanvas.addMouseListener(mouseHandler);
+		windowHandler.windowCanvas.addMouseMotionListener(mouseHandler);
 		
 		//Sets the created game to the currentGame object
 		currentGame = _game;
@@ -70,6 +71,7 @@ public class GameManager implements Runnable{
 		//Sets the mouse and keyboard listeners
 		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
 		windowHandler.windowCanvas.addMouseListener(mouseHandler);
+		windowHandler.windowCanvas.addMouseMotionListener(mouseHandler);
 		
 		//Sets the created game to the currentGame object
 		currentGame = _game;

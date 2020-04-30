@@ -1,12 +1,14 @@
 /*Created By: Gugino
  *Date Created: Apr 24, 2020
  */
-package com.gugino.engine.camera;
+package com.gugino.engine.graphics.camera;
 
 public class CameraSettings {	
 	public float cameraFOV = 1f;
 	
 	public int cameraWidth, cameraHeight;
+	
+	public float cameraXTrackingOffset = 32, cameraYTrackingOffset = 0;
 	
 	public boolean shouldFollow = false;
 	public boolean shouldFollowX = false;

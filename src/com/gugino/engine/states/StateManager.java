@@ -81,7 +81,7 @@ public class StateManager {
 			//Puts the current state into the enabled states HashMap
 			enabledStates.put(activeState.stateID, activeState);
 			
-			activeState.start(gameManager);
+			activeState.start(gameManager, gameManager.renderer);
 			return;
 		}else {
 			System.err.println("State doesnt exist or already active, state-id: " + _id );

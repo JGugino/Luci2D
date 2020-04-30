@@ -8,8 +8,15 @@ import java.awt.image.BufferedImage;
 
 import com.gugino.engine.Game;
 import com.gugino.engine.GameManager;
-import com.gugino.engine.camera.CameraSettings;
 import com.gugino.engine.graphics.WindowHandler;
+import com.gugino.engine.graphics.camera.CameraSettings;
+import com.gugino.engine.graphics.renderers.FontRenderer;
+import com.gugino.engine.graphics.ui.uiobject.IClickable;
+import com.gugino.engine.graphics.ui.uiobject.UIButtonObject;
+import com.gugino.engine.graphics.ui.uiobject.UIButtonObject.ButtonStyle;
+import com.gugino.engine.graphics.ui.uiobject.UIProgressBarObject;
+import com.gugino.engine.graphics.ui.uiobject.UIProgressBarObject.BarStyle;
+import com.gugino.engine.graphics.ui.uiobject.UITextObject;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.game.states.Menu;
 import com.sun.glass.events.KeyEvent;
@@ -20,27 +27,51 @@ public class Main extends Game{
 	
 	private BufferedImage playerImage;
 	
+	private UIButtonObject button;
+	
+	private UIProgressBarObject progressBar;
+	
 	private float x = 100, y = 100;
+	
+	private float value = 100;
 	
 	public static void main(String[] args) {
 		new Main();
 	}
 	
 	public Main() {
-		new GameManager(1600, 800, this);
+		new GameManager(800, 600, this);
 	}
 	
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
-		_r.mainCamera.cameraSettings = new CameraSettings(true, 1600, 800);
-		
-		System.out.println(_r.mainCamera.cameraSettings.shouldFollow);
-				
+		_r.mainCamera.cameraSettings = new CameraSettings(true, 800, 600);
+
 		_gm.stateManager.addState(MENU_STATE, new Menu(MENU_STATE, _gm));
 		_gm.stateManager.setActiveState(MENU_STATE);
 		
 		playerImage = _r.imageRenderer.getImageFromPath("/player.png");
+		
+		_r.canvas.addUIObject("Text", new UITextObject("Fuck", WindowHandler.windowWidth - 100, 100, FontRenderer.DEFAULT_FONT, Color.BLACK));
+	
+		button = new UIButtonObject("Button", Color.black, Color.cyan, Color.pink, Color.green, 200, 200, 200, 100, ButtonStyle.ROUNDED);
+		
+		progressBar = new UIProgressBarObject(400, 400, Color.darkGray, Color.green, 150, 50, BarStyle.ROUNDED, 100);
+		
+		button.assignButtonListener(new IClickable() {
+			@Override
+			public void onClick(String _inputSource) {
+				System.out.println("Button " + _inputSource + " clicked");
+				
+			}
+		});
+		
+		_r.canvas.addUIObject("Test_Progress_Bar", progressBar);
+		
+		_r.canvas.addUIObject("Button_Test", button);
+	
+		
 	}
 
 	@Override
@@ -56,6 +87,23 @@ public class Main extends Game{
 			x -= 5 * _deltaTime;
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_D)){
 			x += 5 * _deltaTime;
+		}
+		
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_1)) {
+			progressBar.barCurrentValue--;
+		}
+		
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_2)) {
+			progressBar.barCurrentValue++;
+		}
+		
+		
+		if(_gm.keyboardHandler.isKeyPressed(KeyEvent.VK_F3)) {
+			if(button.buttonActive) {
+				button.buttonActive = false;
+			}else {
+				button.buttonActive = true;
+			}
 		}
 	}
 
