@@ -3,6 +3,8 @@
  */
 package com.gugino.engine;
 
+import java.awt.event.WindowEvent;
+
 import com.gugino.engine.loops.Renderer;
 
 public abstract class Game {
@@ -12,4 +14,6 @@ public abstract class Game {
 	public abstract void update(GameManager _gm, double _deltaTime);
 	//Runs every frame that it should render (Determined by shouldRender boolean in GameManager class)
 	public abstract void render(GameManager _gm, Renderer _r);
+	
+	public void onWindowClose(WindowEvent e) {}
 }

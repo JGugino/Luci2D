@@ -4,6 +4,7 @@
 package com.gugino.game;
 
 import java.awt.Color;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 import com.gugino.engine.Game;
@@ -90,11 +91,13 @@ public class Main extends Game{
 		}
 		
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_1)) {
-			progressBar.barCurrentValue--;
+			value--;
+			progressBar.barCurrentValue = value;
 		}
 		
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_2)) {
-			progressBar.barCurrentValue++;
+			value ++;
+			progressBar.barCurrentValue = value;
 		}
 		
 		
@@ -111,5 +114,10 @@ public class Main extends Game{
 	public void render(GameManager _gm, Renderer _r) {
 		_r.imageRenderer.drawImage(playerImage, x, y);
 		_r.shapeRenderer.drawFilledRect(WindowHandler.windowWidth / 2, WindowHandler.windowHeight / 2, 32, 32, Color.blue);
-	} 
+	}
+	
+	@Override
+	public void onWindowClose(WindowEvent e) {
+		
+	}
 }
