@@ -3,6 +3,7 @@
  */
 package com.gugino.engine;
 
+import com.gugino.engine.gameobjects.GameObjectHandler;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.input.KeyboardHandler;
 import com.gugino.engine.input.MouseHandler;
@@ -26,6 +27,9 @@ public class GameManager implements Runnable{
 	
 	//StateManager object
 	public StateManager stateManager;
+	
+	//GameObjectHandler object
+	public GameObjectHandler gameObjectHandler;
 	
 	//Object of the abstract class Game
 	public Game currentGame;
@@ -82,7 +86,10 @@ public class GameManager implements Runnable{
 		renderer = new Renderer();
 		
 		//Creates new instance of the StateManager
-		stateManager = new StateManager(this);
+		stateManager = new StateManager(this, renderer);
+		
+		//Creates new instance of the GameObjectHandler
+		gameObjectHandler = new GameObjectHandler(this, renderer);
 		
 		//Starts the main thread
 		mainThread.start();

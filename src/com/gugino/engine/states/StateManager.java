@@ -12,14 +12,17 @@ public class StateManager {
 	
 	private GameManager gameManager;
 	
+	private Renderer renderer;
+	
 	public static GameState activeState;
 	
 	private HashMap<Integer, GameState> enabledStates = new HashMap<Integer, GameState>();
 	
 	private HashMap<Integer, GameState> disabledStates = new HashMap<Integer, GameState>();
 	
-	public StateManager(GameManager _gm) {
+	public StateManager(GameManager _gm, Renderer _r) {
 		gameManager = _gm;
+		renderer = _r;
 	}
 	
 	//Update method for StateManager
@@ -81,9 +84,21 @@ public class StateManager {
 			//Puts the current state into the enabled states HashMap
 			enabledStates.put(activeState.stateID, activeState);
 			
-			activeState.start(gameManager, gameManager.renderer);
+			renderer.canvas.updateUIForStateChange();
+			
+			gameManager.gameObjectHandler.updateGameObjectsForStateSwitch();
+			
+			//Checks to see that the start method didn't already run
+			if(!activeState.startRan) {
+				//Sets boolean for keeping track of start method state to true
+				activeState.startRan = true;
+				//Runs the start method for the active state
+				activeState.start(gameManager, gameManager.renderer);	
+			}
+			
 			return;
 		}else {
+			//Error message for if the state doesn't exist or is already active
 			System.err.println("State doesnt exist or already active, state-id: " + _id );
 		}
 	}

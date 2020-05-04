@@ -10,13 +10,15 @@ public abstract class GameState {
 	//Game State's ID
 	protected int stateID;
 
+	protected boolean startRan = false;
+	
 	//Constructor for Game States
-	public GameState(int _stateID, GameManager _gm) {
+	public GameState(int _stateID) {
 		//sets the game states id to the set id
 		this.stateID = _stateID;
 	}
 
-	//Runs when state gets added to StateManager
+	//Runs when state gets set to active for the first time
 	//Runs before first update frame
 	public abstract void start(GameManager _gm, Renderer _r);
 	//Runs every frame

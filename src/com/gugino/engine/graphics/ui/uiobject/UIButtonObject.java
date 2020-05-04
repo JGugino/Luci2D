@@ -11,6 +11,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.enums.ButtonStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.states.GameState;
 
 public class UIButtonObject extends UIObject{
 	public String buttonText;
@@ -24,8 +25,8 @@ public class UIButtonObject extends UIObject{
 	
 	private boolean useImage = false, hasHoverColor = false;
 	
-	public UIButtonObject(String _buttonText, Color _buttonTextColor ,Color _buttonColor, float _objectX, float _objectY, int _objectWidth, int _objectHeight, ButtonStyle _buttonStyle, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer);
+	public UIButtonObject(String _buttonText, Color _buttonTextColor ,Color _buttonColor, float _objectX, float _objectY, int _objectWidth, int _objectHeight, ButtonStyle _buttonStyle, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer, _parentState);
 		this.buttonText = _buttonText;
 		this.buttonColor = _buttonColor;
 		this.buttonTextColor = _buttonTextColor;
@@ -36,8 +37,8 @@ public class UIButtonObject extends UIObject{
 		hasHoverColor = false;
 	}
 	
-	public UIButtonObject(String _buttonText, Color _buttonTextColor ,Color _buttonColor, Color _buttonHoverColor, Color _buttonDisabledColor, float _objectX, float _objectY, int _objectWidth, int _objectHeight, ButtonStyle _buttonStyle, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer);
+	public UIButtonObject(String _buttonText, Color _buttonTextColor ,Color _buttonColor, Color _buttonHoverColor, Color _buttonDisabledColor, float _objectX, float _objectY, int _objectWidth, int _objectHeight, ButtonStyle _buttonStyle, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer, _parentState);
 		this.buttonText = _buttonText;
 		this.buttonColor = _buttonColor;
 		this.buttonDisabledColor = _buttonDisabledColor;
@@ -50,8 +51,8 @@ public class UIButtonObject extends UIObject{
 		hasHoverColor = true;
 	}
 	
-	public UIButtonObject(String _buttonText, Color _buttonTextColor, BufferedImage _buttonImage, float _objectX, float _objectY, int _objectWidth, int _objectHeight, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer);
+	public UIButtonObject(String _buttonText, Color _buttonTextColor, BufferedImage _buttonImage, float _objectX, float _objectY, int _objectWidth, int _objectHeight, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.BUTTON, _objectLayer, _parentState);
 		this.buttonText = _buttonText;
 		this.buttonImage = _buttonImage;
 		this.buttonTextColor = _buttonTextColor;

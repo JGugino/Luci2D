@@ -9,6 +9,7 @@ import java.awt.Font;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.states.GameState;
 
 public class UITextObject extends UIObject{
 	public String objectText;
@@ -17,22 +18,22 @@ public class UITextObject extends UIObject{
 	
 	public Color objectColor;
 	
-	public UITextObject(String _text, float _objectX, float _objectY, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY,  UIObjectType.TEXT, _objectLayer);
+	public UITextObject(String _text, float _objectX, float _objectY, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY,  UIObjectType.TEXT, _objectLayer, _parentState);
 		this.objectText = _text;
 		this.objectFont = new Font("San-Serif", Font.PLAIN, 18);
 		this.objectColor = Color.BLACK;
 	}
 	
-	public UITextObject(String _text, float _objectX, float _objectY, Font _font, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.TEXT, _objectLayer);
+	public UITextObject(String _text, float _objectX, float _objectY, Font _font, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.TEXT, _objectLayer, _parentState);
 		this.objectText = _text;
 		this.objectFont = _font;
 		this.objectColor = Color.BLACK;
 	}
 	
-	public UITextObject(String _text, float _objectX, float _objectY, Font _font, Color _color, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.TEXT, _objectLayer);
+	public UITextObject(String _text, float _objectX, float _objectY, Font _font, Color _color, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.TEXT, _objectLayer, _parentState);
 		this.objectText = _text;
 		this.objectFont = _font;
 		this.objectColor = _color;

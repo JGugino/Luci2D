@@ -81,6 +81,9 @@ public class Renderer {
 			//Runs the render method for the state manager
 			_gm.stateManager.render(_gm, this);
 			
+			//Runs the render method for the GameObjectHandler
+			_gm.gameObjectHandler.render(_gm, this);
+			
 			//Sets end point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(mainCamera.cameraX, mainCamera.cameraY);
 			
@@ -90,6 +93,7 @@ public class Renderer {
 			/*
 			 * RENDER STUFF HERE TO TRANSLATE WITH CAMERA POSITION - END
 			 */
+			
 			
 			/*
 			 * RENDER UI STUFF HERE - START

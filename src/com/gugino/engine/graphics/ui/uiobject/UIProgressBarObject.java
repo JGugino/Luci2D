@@ -10,6 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.enums.ProgressBarStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.states.GameState;
 
 public class UIProgressBarObject extends UIObject{
 
@@ -20,8 +21,8 @@ public class UIProgressBarObject extends UIObject{
 	
 	private boolean hasImage = false;
 	
-	public UIProgressBarObject(float _objectX, float _objectY, Color _barBackgroundColor ,Color _barFillColor, int _objectWidth, int _objectHeight, ProgressBarStyle _barStyle, UIObjectLayer _objectLayer, float _maxValue) {
-		super(_objectX, _objectY, UIObjectType.PROGRESS_BAR, _objectLayer);
+	public UIProgressBarObject(float _objectX, float _objectY, Color _barBackgroundColor ,Color _barFillColor, int _objectWidth, int _objectHeight, ProgressBarStyle _barStyle, UIObjectLayer _objectLayer, float _maxValue, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.PROGRESS_BAR, _objectLayer, _parentState);
 		this.barBackgroundColor = _barBackgroundColor;
 		this.barFillColor = _barFillColor;
 		this.objectWidth = _objectWidth;
@@ -32,8 +33,8 @@ public class UIProgressBarObject extends UIObject{
 		hasImage = false;
 	}
 	
-	public UIProgressBarObject(float _objectX, float _objectY, BufferedImage _barBackgroundImage ,BufferedImage _barFillImage, int _objectWidth, int _objectHeight, ProgressBarStyle _barStyle, UIObjectLayer _objectLayer, float _maxValue) {
-		super(_objectX, _objectY, UIObjectType.PROGRESS_BAR, _objectLayer);
+	public UIProgressBarObject(float _objectX, float _objectY, BufferedImage _barBackgroundImage ,BufferedImage _barFillImage, int _objectWidth, int _objectHeight, ProgressBarStyle _barStyle, UIObjectLayer _objectLayer, float _maxValue, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.PROGRESS_BAR, _objectLayer, _parentState);
 		this.barBackgroundImage = _barBackgroundImage;
 		this.barFillImage = _barFillImage;
 		this.objectWidth = _objectWidth;

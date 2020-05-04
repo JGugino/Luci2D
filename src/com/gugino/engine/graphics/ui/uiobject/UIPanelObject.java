@@ -9,6 +9,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.enums.PanelStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.states.GameState;
 
 public class UIPanelObject extends UIObject{
 
@@ -16,8 +17,8 @@ public class UIPanelObject extends UIObject{
 	public PanelStyle panelStyle;
 	public float panelRoundedArcWidth, panelRoundedArcHeight;
 	
-	public UIPanelObject(float _objectX, float _objectY, int _panelWidth, int _panelHeight, Color _panelColor, PanelStyle _panelStyle, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.PANEL, _objectLayer);
+	public UIPanelObject(float _objectX, float _objectY, int _panelWidth, int _panelHeight, Color _panelColor, PanelStyle _panelStyle, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.PANEL, _objectLayer, _parentState);
 		
 		this.objectWidth = _panelWidth;
 		this.objectHeight = _panelHeight;
@@ -29,8 +30,8 @@ public class UIPanelObject extends UIObject{
 		this.panelRoundedArcHeight = 5;
 	}
 	
-	public UIPanelObject(float _objectX, float _objectY, int _panelWidth, int _panelHeight, float _roundedArcWidth, float _roundedArcHeight, Color _panelColor, PanelStyle _panelStyle, UIObjectLayer _objectLayer) {
-		super(_objectX, _objectY, UIObjectType.PANEL, _objectLayer);
+	public UIPanelObject(float _objectX, float _objectY, int _panelWidth, int _panelHeight, float _roundedArcWidth, float _roundedArcHeight, Color _panelColor, PanelStyle _panelStyle, UIObjectLayer _objectLayer, GameState _parentState) {
+		super(_objectX, _objectY, UIObjectType.PANEL, _objectLayer, _parentState);
 		
 		this.objectWidth = _panelWidth;
 		this.objectHeight = _panelHeight;

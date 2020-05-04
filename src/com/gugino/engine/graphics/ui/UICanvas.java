@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.UIObject;
-import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.states.StateManager;
 
 public class UICanvas {
 	private HashMap<String, UIObject> enabledUIObjects = new HashMap<String, UIObject>();
@@ -58,6 +58,10 @@ public class UICanvas {
 			for(UIObject _foregroundObject : _foregroundObjects) {
 				_foregroundObject.render(_gm, _r);
 			}
+			
+			_backgroundObjects.clear();
+			_midgroundObjects.clear();
+			_foregroundObjects.clear();
 		}
 	
 	}
@@ -73,31 +77,56 @@ public class UICanvas {
 		}
 	}
 	
-	public void enableUIObject(String _componentID) {
-		UIObject _component = disabledUIObjects.get(_componentID);
+	public void enableUIObject(String _objectID) {
+		UIObject _object = disabledUIObjects.get(_objectID);
 		
-		if(_component != null) {
-			_component.setEnabled(true);
-			enabledUIObjects.put(_componentID, _component);
-			disabledUIObjects.remove(_componentID, _component);
+		if(_object != null) {
+			_object.setEnabled(true);
+			enabledUIObjects.put(_objectID, _object);
+			disabledUIObjects.remove(_objectID, _object);
 		}else {
-			if(enabledUIObjects.containsKey(_componentID)) {
-				System.err.println("UIObject: " + _componentID + " is already enabled");
+			if(enabledUIObjects.containsKey(_objectID)) {
+				System.err.println("UIObject: " + _objectID + " is already enabled");
 			}
 		}
 	}
 	
-	public void disableUIObject(String _componentID) {
-		UIObject _component = enabledUIObjects.get(_componentID);
+	public void disableUIObject(String _objectID) {
+		UIObject _object = enabledUIObjects.get(_objectID);
 		
-		if(_component != null) {
-			_component.setEnabled(false);
-			disabledUIObjects.put(_componentID, _component);
-			enabledUIObjects.remove(_componentID, _component);
+		if(_object != null) {
+			_object.setEnabled(false);
+			disabledUIObjects.put(_objectID, _object);
+			enabledUIObjects.remove(_objectID, _object);
 		}else {
-			if(disabledUIObjects.containsKey(_componentID)) {
-				System.err.println("UIObject: " + _componentID + " is already disabled");
+			if(disabledUIObjects.containsKey(_objectID)) {
+				System.err.println("UIObject: " + _objectID + " is already disabled");
 			}
+		}
+	}
+	
+	public void updateUIForStateChange() {
+		ArrayList<UIObject> _uiToDisable = new ArrayList<UIObject>();
+		ArrayList<UIObject> _uiToEnable = new ArrayList<UIObject>();
+		
+		for(UIObject _enabledObject : enabledUIObjects.values()) {
+			if(_enabledObject.getParentState().getStateID() != StateManager.activeState.getStateID()) {
+				_uiToDisable.add(_enabledObject);
+			}	
+		}
+	
+		for(UIObject _disabledObject : disabledUIObjects.values()) {
+			if(_disabledObject.getParentState().getStateID() == StateManager.activeState.getStateID()) {
+				_uiToEnable.add(_disabledObject);
+			}
+		}
+		
+		for(UIObject _objectToDisable : _uiToDisable) {
+			disableUIObject(_objectToDisable.getObjectID());
+		}
+		
+		for(UIObject _objectToEnable : _uiToEnable) {
+			enableUIObject(_objectToEnable.getObjectID());
 		}
 	}
 	

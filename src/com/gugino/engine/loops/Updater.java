@@ -47,6 +47,9 @@ public class Updater {
 				//Runs the update method for the state manager
 				_gm.stateManager.update(_gm, _deltaTime);
 				
+				//Runs the update method for the GameObjectHandler
+				_gm.gameObjectHandler.update(_gm, _deltaTime);
+				
 				//Sets thats the frame should render equal to true
 				_gm.shouldRender = true;
 				_deltaTime --;	
