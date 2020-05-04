@@ -3,10 +3,12 @@
  */
 package com.gugino.engine.graphics.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.UIObject;
+import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
 
 public class UICanvas {
@@ -25,10 +27,36 @@ public class UICanvas {
 	
 	public void render(GameManager _gm, Renderer _r) {
 		if(!enabledUIObjects.isEmpty()) {
+			ArrayList<UIObject> _foregroundObjects = new ArrayList<UIObject>();
+			ArrayList<UIObject> _midgroundObjects = new ArrayList<UIObject>();
+			ArrayList<UIObject> _backgroundObjects = new ArrayList<UIObject>();
+			
 			for(UIObject _object : enabledUIObjects.values()) {
 				if(_object.getEnabled()) {
-					_object.render(_gm, _r);
+					switch(_object.getUIObjectSortingLayer()) {
+						case FOREGROUND:
+						_foregroundObjects.add(_object);
+							break;
+						case MIDGROUND:
+						_midgroundObjects.add(_object);
+							break;
+						case BACKGROUND:
+						_backgroundObjects.add(_object);
+							break;
+					}
 				}
+			}
+			
+			for(UIObject _backgroundObject : _backgroundObjects) {
+				_backgroundObject.render(_gm, _r);
+			}
+			
+			for(UIObject _midgroundObject : _midgroundObjects) {
+				_midgroundObject.render(_gm, _r);
+			}
+			
+			for(UIObject _foregroundObject : _foregroundObjects) {
+				_foregroundObject.render(_gm, _r);
 			}
 		}
 	

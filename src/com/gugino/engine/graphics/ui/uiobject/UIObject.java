@@ -4,19 +4,22 @@
 package com.gugino.engine.graphics.ui.uiobject;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
 
 public abstract class UIObject {
 	protected String objectID;
 	protected UIObjectType objectType;
+	protected UIObjectLayer objectSortingLayer;
 	protected float objectXPosition, objectYPosition;
 	protected int objectWidth, objectHeight;
 	protected boolean isEnabled = false;
 	
-	public UIObject(float _objectX, float _objectY, UIObjectType _objectType) {
+	public UIObject(float _objectX, float _objectY, UIObjectType _objectType, UIObjectLayer _objectLayer) {
 		this.objectXPosition = _objectX;
 		this.objectYPosition = _objectY;
 		this.objectType = _objectType;
+		this.objectSortingLayer = _objectLayer;
 	}
 	
 	public abstract void update(GameManager _gm);
@@ -47,7 +50,11 @@ public abstract class UIObject {
 	public String getObjectID() {
 		return objectID;
 	}
-		
+	
+	public UIObjectLayer getUIObjectSortingLayer() {
+		return objectSortingLayer;
+	}
+	
 	public UIObjectType getObjectType() {
 		return objectType;
 	}

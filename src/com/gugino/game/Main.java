@@ -12,12 +12,8 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.graphics.camera.CameraSettings;
 import com.gugino.engine.graphics.renderers.FontRenderer;
-import com.gugino.engine.graphics.ui.uiobject.IClickable;
-import com.gugino.engine.graphics.ui.uiobject.UIButtonObject;
-import com.gugino.engine.graphics.ui.uiobject.UIButtonObject.ButtonStyle;
-import com.gugino.engine.graphics.ui.uiobject.UIProgressBarObject;
-import com.gugino.engine.graphics.ui.uiobject.UIProgressBarObject.BarStyle;
-import com.gugino.engine.graphics.ui.uiobject.UITextObject;
+import com.gugino.engine.graphics.ui.uiobject.*;
+import com.gugino.engine.graphics.ui.uiobject.enums.*;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.game.states.Menu;
 import com.sun.glass.events.KeyEvent;
@@ -54,11 +50,13 @@ public class Main extends Game{
 		
 		playerImage = _r.imageRenderer.getImageFromPath("/player.png");
 		
-		_r.canvas.addUIObject("Text", new UITextObject("Fuck", WindowHandler.windowWidth - 100, 100, FontRenderer.DEFAULT_FONT, Color.BLACK));
-	
-		button = new UIButtonObject("Button", Color.black, Color.cyan, Color.pink, Color.green, 200, 200, 200, 100, ButtonStyle.ROUNDED);
+		_r.canvas.addUIObject("panel", new UIPanelObject(WindowHandler.windowWidth / 2 - 150, 0, 250, 100, 100, 100, Color.lightGray, PanelStyle.ROUNDED, UIObjectLayer.MIDGROUND));
 		
-		progressBar = new UIProgressBarObject(400, 400, Color.darkGray, Color.green, 150, 50, BarStyle.ROUNDED, 100);
+		_r.canvas.addUIObject("Text", new UITextObject("GAME", WindowHandler.windowWidth / 2 - 50, 50, FontRenderer.DEFAULT_FONT, Color.BLACK, UIObjectLayer.FOREGROUND));
+	
+		button = new UIButtonObject("Button", Color.black, Color.cyan, Color.pink, Color.green, 200, 200, 200, 100, ButtonStyle.ROUNDED, UIObjectLayer.FOREGROUND);
+		
+		progressBar = new UIProgressBarObject(400, 400, Color.darkGray, Color.green, 150, 50, ProgressBarStyle.ROUNDED, UIObjectLayer.FOREGROUND, 100);
 		
 		button.assignButtonListener(new IClickable() {
 			@Override
@@ -68,9 +66,9 @@ public class Main extends Game{
 			}
 		});
 		
-		_r.canvas.addUIObject("Test_Progress_Bar", progressBar);
+		//_r.canvas.addUIObject("Test_Progress_Bar", progressBar);
 		
-		_r.canvas.addUIObject("Button_Test", button);
+		//_r.canvas.addUIObject("Button_Test", button);
 	
 		
 	}
