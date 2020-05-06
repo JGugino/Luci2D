@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
+import com.gugino.engine.gameobjects.interfaces.IKillable;
+import com.gugino.engine.gameobjects.objectcomponents.GameObjectHealthManagerComponent;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
@@ -16,6 +18,8 @@ import com.gugino.engine.states.GameState;
 public class Player extends GameObject{
 
 	private BufferedImage playerImage;
+	
+	private GameObjectHealthManagerComponent _healthManager;
 	
 	public Player(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayers _objectLayer,
 			GameState _parentState) {
@@ -28,11 +32,28 @@ public class Player extends GameObject{
 		
 		GameObjectSpriteRenderer _spriteRenderer = new GameObjectSpriteRenderer(this, playerImage);
 		addGameObjectComponent(_spriteRenderer);
+		
+		_healthManager = new GameObjectHealthManagerComponent(this, 100);
+		
+		_healthManager.addKillAction(new IKillable() {
+			@Override
+			public void kill() {
+				killPlayer();
+			}
+		});
+		
+		addGameObjectComponent(_healthManager);
 	}
 	
 	@Override
 	public void update(GameManager _gm, double _deltaTime) {
 		characterMovement(_gm, _deltaTime);
+		
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_9)) {
+			_healthManager.takeHealth(2);
+		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_0)) {
+			_healthManager.addHealth(2);
+		}
 	}
 
 	private void characterMovement(GameManager _gm, double _deltaTime) {
@@ -48,6 +69,10 @@ public class Player extends GameObject{
 		gameObjectX += 5 * _deltaTime;
 	}
 }
+	
+	private void killPlayer() {
+		System.out.println("Player dead");
+	}
 	
 	@Override
 	public void render(GameManager _gm, Renderer _r) {}

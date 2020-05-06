@@ -7,11 +7,11 @@ import java.awt.Color;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
-import com.gugino.engine.graphics.ui.uiobject.IClickable;
 import com.gugino.engine.graphics.ui.uiobject.UIButtonObject;
 import com.gugino.engine.graphics.ui.uiobject.UITextObject;
 import com.gugino.engine.graphics.ui.uiobject.enums.ButtonStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
+import com.gugino.engine.graphics.ui.uiobject.interfaces.IClickable;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 import com.gugino.game.Main;

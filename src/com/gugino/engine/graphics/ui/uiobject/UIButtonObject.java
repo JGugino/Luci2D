@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.enums.ButtonStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
+import com.gugino.engine.graphics.ui.uiobject.interfaces.IClickable;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 
