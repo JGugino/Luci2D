@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
-import com.gugino.engine.gameobjects.enums.GameObjectLayer;
+import com.gugino.engine.gameobjects.enums.GameObjectLayers;
+import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 
@@ -16,7 +17,7 @@ public class Player extends GameObject{
 
 	private BufferedImage playerImage;
 	
-	public Player(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayer _objectLayer,
+	public Player(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayers _objectLayer,
 			GameState _parentState) {
 		super(_objectX, _objectY, _objectWidth, _objectHeight, _objectLayer, _parentState);
 	}
@@ -24,6 +25,9 @@ public class Player extends GameObject{
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
 		playerImage = _r.imageRenderer.getImageFromPath("/player.png");
+		
+		GameObjectSpriteRenderer _spriteRenderer = new GameObjectSpriteRenderer(this, playerImage);
+		addGameObjectComponent(_spriteRenderer);
 	}
 	
 	@Override
@@ -46,7 +50,14 @@ public class Player extends GameObject{
 }
 	
 	@Override
-	public void render(GameManager _gm, Renderer _r) {
-		_r.imageRenderer.drawImage(playerImage, gameObjectX, gameObjectY, gameObjectWidth, gameObjectHeight);
-	}
+	public void render(GameManager _gm, Renderer _r) {}
+	
+	@Override
+	public void onCollisionEnter(GameObject _collision) {}
+	
+	@Override
+	public void onCollisionStay(GameObject _collision) {}
+	
+	@Override
+	public void onCollisionExit(GameObject _collision) {}
 }

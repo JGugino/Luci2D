@@ -19,12 +19,16 @@ public abstract class GameState {
 	}
 
 	//Runs when state gets set to active for the first time
-	//Runs before first update frame
 	public abstract void start(GameManager _gm, Renderer _r);
+	
 	//Runs every frame
 	public abstract void update(GameManager _gm, double _deltaTime);
+	
 	//Runs every frame if shouldRender in GameManager is true
 	public abstract void render(GameManager _gm, Renderer _r);
+	
+	//Runs whenever the state gets set to active
+	public void onActive() {}
 	
 	//Getter for getting the states ID
 	public int getStateID() {

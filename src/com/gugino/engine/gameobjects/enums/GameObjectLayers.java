@@ -3,7 +3,7 @@
  */
 package com.gugino.engine.gameobjects.enums;
 
-public enum GameObjectLayer {
+public enum GameObjectLayers {
 	FOREGROUND,
 	MIDGROUND,
 	FARGROUND,

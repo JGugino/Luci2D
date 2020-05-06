@@ -66,11 +66,11 @@ public class Renderer {
 			 * RENDER STUFF HERE TO TRANSLATE WITH CAMERA POSITION  - START
 			 */			
 			
+			//Scales graphics based on camera field of view (Can be changed in camera settings)
+			graphics2D.scale(mainCamera.cameraSettings.cameraScale, mainCamera.cameraSettings.cameraScale);
+			
 			//Sets start point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(-mainCamera.cameraX,-mainCamera.cameraY);
-			
-			//Scales graphics based on camera field of view (Can be changed in camera settings)
-			graphics2D.scale(mainCamera.cameraSettings.cameraFOV, mainCamera.cameraSettings.cameraFOV);
 			
 			//Sets the default font for font renderer
 			fontRenderer.updateFont(FontRenderer.DEFAULT_FONT);
@@ -88,7 +88,7 @@ public class Renderer {
 			graphics2D.translate(mainCamera.cameraX, mainCamera.cameraY);
 			
 			//Sets scale back to normal
-			graphics2D.scale(1/mainCamera.cameraSettings.cameraFOV, 1/mainCamera.cameraSettings.cameraFOV);
+			graphics2D.scale(1/mainCamera.cameraSettings.cameraScale, 1/mainCamera.cameraSettings.cameraScale);
 			
 			/*
 			 * RENDER STUFF HERE TO TRANSLATE WITH CAMERA POSITION - END

@@ -4,11 +4,12 @@
 package com.gugino.game.states;
 
 import com.gugino.engine.GameManager;
-import com.gugino.engine.gameobjects.enums.GameObjectLayer;
+import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.graphics.ui.uiobject.UIProgressBarObject;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 import com.gugino.game.Main;
+import com.gugino.game.objects.Block;
 import com.gugino.game.objects.Player;
 import com.sun.glass.events.KeyEvent;
 
@@ -19,6 +20,7 @@ public class LevelOne extends GameState{
 	private float value = 100;
 	
 	private Player player;
+	private Block block;
 	
 	public LevelOne(int _stateID) {
 		super(_stateID);
@@ -26,9 +28,13 @@ public class LevelOne extends GameState{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
-		player = new Player(100, 100, 64, 64, GameObjectLayer.FOREGROUND, this);
+		player = new Player(100, 100, 64, 64, GameObjectLayers.MIDGROUND, this);
+		
+		block = new Block(300, 300, 100, 100, GameObjectLayers.FARGROUND, this);
 		
 		_gm.gameObjectHandler.addGameObject("Player", player);
+		_gm.gameObjectHandler.addGameObject("Block", block);
+		
 	}
 
 	@Override
@@ -56,6 +62,11 @@ public class LevelOne extends GameState{
 	
 	@Override
 	public void render(GameManager _gm, Renderer _r) {
+	}
+	
+	@Override
+	public void onActive() {
+		//Main.mainCameraSettings.cameraScale = 1.2f;
 	}
 
 }

@@ -21,9 +21,9 @@ public class Camera {
 	public void update(GameManager _gm, double _deltaTime) {
 		if(cameraSettings.shouldFollow) {
 			if(cameraSettings.shouldFollowX) {
-				cameraX += ((cameraTargetX - cameraX) - WindowHandler.windowWidth/2 + cameraSettings.cameraXTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
+				cameraX += (((cameraTargetX - cameraX) * cameraSettings.cameraScale) - WindowHandler.windowWidth/2 + cameraSettings.cameraXTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
 				if(cameraSettings.shouldFollowY) {
-					cameraY += ((cameraTargetY - cameraY ) - WindowHandler.windowHeight/2 + cameraSettings.cameraYTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
+					cameraY += (((cameraTargetY - cameraY) * cameraSettings.cameraScale) - WindowHandler.windowHeight/2 + cameraSettings.cameraYTrackingOffset) * cameraSettings.cameraSmoothingSpeed;
 				}
 			}
 		}

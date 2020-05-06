@@ -51,4 +51,9 @@ public class Menu extends GameState{
 		
 	}
 	
+	@Override
+	public void onActive() {
+		Main.mainCameraSettings.cameraScale = 1f;
+	}
+	
 }

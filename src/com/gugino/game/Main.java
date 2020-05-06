@@ -17,6 +17,8 @@ public class Main extends Game{
 	public static final int MENU_STATE = 0;
 	public static final int LEVEL_ONE_STATE = 1;
 	
+	public static CameraSettings mainCameraSettings;
+	
 	public static void main(String[] args) {
 		new Main();
 	}
@@ -28,7 +30,9 @@ public class Main extends Game{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
-		_r.mainCamera.cameraSettings = new CameraSettings(true, 800, 600);
+		mainCameraSettings = new CameraSettings(true, 800, 600);
+		
+		_r.mainCamera.cameraSettings = mainCameraSettings;
 
 		_gm.stateManager.addState(MENU_STATE, new Menu(MENU_STATE));
 		_gm.stateManager.addState(LEVEL_ONE_STATE, new LevelOne(LEVEL_ONE_STATE));

@@ -96,6 +96,8 @@ public class StateManager {
 				activeState.start(gameManager, gameManager.renderer);	
 			}
 			
+			activeState.onActive();
+			
 			return;
 		}else {
 			//Error message for if the state doesn't exist or is already active

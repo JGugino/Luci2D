@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.gameobjects.objectcomponents.GameObjectComponent;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
 
@@ -17,15 +18,25 @@ public class GameObjectHandler {
 	private GameManager gameManager;
 	private Renderer renderer;
 	
+	public GameObjectCollisionHandler objectCollisionHandler;
+	
 	public GameObjectHandler(GameManager _gm, Renderer _r) {
+		objectCollisionHandler = new GameObjectCollisionHandler();
 		gameManager = _gm;
 		renderer = _r;
 	}
 	
 	public void update(GameManager _gm, double _deltaTime) {
 		if(!enabledGameObjects.isEmpty()) {
+			objectCollisionHandler.update(_gm);
 			for(GameObject _object : enabledGameObjects.values()) {
 				_object.update(_gm, _deltaTime);
+				
+				if(!_object.gameObjectComponents.isEmpty()) {
+					for(GameObjectComponent _gameObjectComponent : _object.gameObjectComponents.values()) {
+						_gameObjectComponent.componentUpdate(_gm, _deltaTime);
+					}
+				}
 			}	
 		}
 	}
@@ -60,18 +71,38 @@ public class GameObjectHandler {
 			
 			for(GameObject _background : _backgroundObjects) {
 				_background.render(_gm, _r);
+				if(!_background.gameObjectComponents.isEmpty()) {
+					for(GameObjectComponent _gameObjectComponent : _background.gameObjectComponents.values()) {
+						_gameObjectComponent.componentRender(_gm, _r);
+					}
+				}
 			}
 			
 			for(GameObject _farground : _fargroundObjects) {
 				_farground.render(_gm, _r);
+				if(!_farground.gameObjectComponents.isEmpty()) {
+					for(GameObjectComponent _gameObjectComponent : _farground.gameObjectComponents.values()) {
+						_gameObjectComponent.componentRender(_gm, _r);
+					}
+				}
 			}
 			
 			for(GameObject _midground : _midgroundObjects) {
 				_midground.render(_gm, _r);
+				if(!_midground.gameObjectComponents.isEmpty()) {
+					for(GameObjectComponent _gameObjectComponent : _midground.gameObjectComponents.values()) {
+						_gameObjectComponent.componentRender(_gm, _r);
+					}
+				}
 			}
 			
 			for(GameObject _foreground : _foregroundObjects) {
 				_foreground.render(_gm, _r);
+				if(!_foreground.gameObjectComponents.isEmpty()) {
+					for(GameObjectComponent _gameObjectComponent : _foreground.gameObjectComponents.values()) {
+						_gameObjectComponent.componentRender(_gm, _r);
+					}
+				}
 			}
 		}
 	}
@@ -119,6 +150,7 @@ public class GameObjectHandler {
 		if(!enabledGameObjects.containsKey(_objectID) && disabledGameObjects.containsKey(_objectID)) {
 			disabledGameObjects.get(_objectID).gameObjectActive = true;
 			enabledGameObjects.put(_objectID, disabledGameObjects.get(_objectID));
+			disabledGameObjects.get(_objectID).onEnable();
 			disabledGameObjects.remove(_objectID);
 		}else if(enabledGameObjects.containsKey(_objectID) && !disabledGameObjects.containsKey(_objectID)) {
 			System.out.println("GameObject already enabled - " + _objectID);
@@ -131,8 +163,8 @@ public class GameObjectHandler {
 		if(enabledGameObjects.containsKey(_objectID) && !disabledGameObjects.containsKey(_objectID)) {
 			
 			enabledGameObjects.get(_objectID).gameObjectActive = false;
-			
 			disabledGameObjects.put(_objectID, enabledGameObjects.get(_objectID));
+			enabledGameObjects.get(_objectID).onDisable();
 			enabledGameObjects.remove(_objectID);
 		}else if(!enabledGameObjects.containsKey(_objectID) && disabledGameObjects.containsKey(_objectID)) {
 			System.out.println("GameObject already disabled - " + _objectID);

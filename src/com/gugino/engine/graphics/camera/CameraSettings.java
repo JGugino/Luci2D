@@ -4,7 +4,7 @@
 package com.gugino.engine.graphics.camera;
 
 public class CameraSettings {	
-	public float cameraFOV = 1f;
+	public float cameraScale = 1f;
 	
 	public int cameraWidth, cameraHeight;
 	
