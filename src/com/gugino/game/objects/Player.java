@@ -14,6 +14,7 @@ import com.gugino.engine.gameobjects.objectcomponents.GameObjectHealthManagerCom
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
+import com.gugino.engine.util.RandomHelper;
 
 public class Player extends GameObject{
 
@@ -49,7 +50,7 @@ public class Player extends GameObject{
 	public void update(GameManager _gm, double _deltaTime) {
 		characterMovement(_gm, _deltaTime);
 		
-		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_9)) {
+		if(_gm.keyboardHandler.isKeyPressed(KeyEvent.VK_9)) {
 			_healthManager.takeHealth(2);
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_0)) {
 			_healthManager.addHealth(2);
