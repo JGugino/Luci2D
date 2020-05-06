@@ -10,13 +10,14 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.gameobjects.interfaces.IKillable;
+import com.gugino.engine.gameobjects.objectcomponents.GameObjectColliderComponent;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectHealthManagerComponent;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
-import com.gugino.engine.util.RandomHelper;
+import com.gugino.engine.util.debug.Debug;
 
-public class Player extends GameObject{
+public class Player extends GameObject implements IKillable{
 
 	private BufferedImage playerImage;
 	
@@ -34,23 +35,20 @@ public class Player extends GameObject{
 		GameObjectSpriteRenderer _spriteRenderer = new GameObjectSpriteRenderer(this, playerImage);
 		addGameObjectComponent(_spriteRenderer);
 		
-		_healthManager = new GameObjectHealthManagerComponent(this, 100);
-		
-		_healthManager.addKillAction(new IKillable() {
-			@Override
-			public void kill() {
-				killPlayer();
-			}
-		});
-		
+		_healthManager = new GameObjectHealthManagerComponent(this, 100, true);
+		_healthManager.addKillAction(this);
 		addGameObjectComponent(_healthManager);
+		
+		GameObjectColliderComponent _collider = new GameObjectColliderComponent(this);
+		
+		addGameObjectComponent(_collider);
 	}
 	
 	@Override
 	public void update(GameManager _gm, double _deltaTime) {
 		characterMovement(_gm, _deltaTime);
 		
-		if(_gm.keyboardHandler.isKeyPressed(KeyEvent.VK_9)) {
+		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_9)) {
 			_healthManager.takeHealth(2);
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_0)) {
 			_healthManager.addHealth(2);
@@ -71,12 +69,15 @@ public class Player extends GameObject{
 	}
 }
 	
-	private void killPlayer() {
-		System.out.println("Player dead");
+	@Override
+	public void kill() {
+		Debug.printError("Player killed");
 	}
 	
 	@Override
-	public void render(GameManager _gm, Renderer _r) {}
+	public void render(GameManager _gm, Renderer _r) {
+		//_r.shapeRenderer.drawFilledRect(gameObjectX, gameObjectY, gameObjectWidth, gameObjectHeight, Color.green);
+	}
 	
 	@Override
 	public void onCollisionEnter(GameObject _collision) {}

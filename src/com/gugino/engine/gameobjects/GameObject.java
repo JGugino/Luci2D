@@ -53,4 +53,8 @@ public abstract class GameObject {
 	//Optional methods for when GameObject is enabled or disabled
 	public void onEnable() {}
 	public void onDisable() {}
+	
+	public String getGameObjectID() {
+		return gameObjectID;
+	}
 }

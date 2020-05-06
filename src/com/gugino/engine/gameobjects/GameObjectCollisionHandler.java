@@ -48,19 +48,17 @@ public class GameObjectCollisionHandler {
 			if(!collidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)) {
 				collidingObjects.put(_object01.gameObjectID + "-" + _object02.gameObjectID, new GameObject[] {_object01, _object02});	
 			}
+		}
+		
+		if((_object01.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))
+				&& (_object02.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))) {
 			
-			if((_object01.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))
-					&& (_object02.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))) {
-				
-				GameObjectColliderComponent _object01Collider = (GameObjectColliderComponent)_object01.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
-				GameObjectColliderComponent _object02Collider = (GameObjectColliderComponent)_object02.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
-				
-				_object01Collider.componentCollisionUpdate(_object02);
-				_object02Collider.componentCollisionUpdate(_object01);
-				
-			}else {
-				System.out.println("doesn't have collider");
-			}
+			GameObjectColliderComponent _object01Collider = (GameObjectColliderComponent)_object01.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
+			GameObjectColliderComponent _object02Collider = (GameObjectColliderComponent)_object02.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
+			
+			_object01Collider.componentCollisionUpdate(_object02);
+			_object02Collider.componentCollisionUpdate(_object01);
+			
 		}
 		
 		_object01.onCollisionStay(_object02);
