@@ -12,6 +12,7 @@ import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.gameobjects.interfaces.IKillable;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectColliderComponent;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectHealthManagerComponent;
+import com.gugino.engine.gameobjects.objectcomponents.GameObjectPhysicsComponent;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
@@ -21,6 +22,8 @@ public class Player extends GameObject implements IKillable{
 
 	private BufferedImage playerImage;
 	
+	private float jumpForce = 5f;
+
 	private GameObjectHealthManagerComponent _healthManager;
 	
 	public Player(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayers _objectLayer,
@@ -39,6 +42,8 @@ public class Player extends GameObject implements IKillable{
 		_healthManager.addKillAction(this);
 		addGameObjectComponent(_healthManager);
 		
+		addGameObjectComponent(new GameObjectPhysicsComponent(this));
+
 		GameObjectColliderComponent _collider = new GameObjectColliderComponent(this);
 		
 		addGameObjectComponent(_collider);
@@ -56,16 +61,21 @@ public class Player extends GameObject implements IKillable{
 	}
 
 	private void characterMovement(GameManager _gm, double _deltaTime) {
-	if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_W)) {
-		gameObjectY -= 5 * _deltaTime;
-	}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_S)){
-		gameObjectY += 5 * _deltaTime;
+	if(_gm.keyboardHandler.isKeyPressed(KeyEvent.VK_SPACE)) {
+		gameObjectYVelocity = (float)(-jumpForce * _deltaTime);
+		gameObjectY += gameObjectYVelocity;
 	}
 	
 	if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_A)) {
-		gameObjectX -= 5 * _deltaTime;
+		gameObjectXVelocity = (float)(-5 *_deltaTime);
+		gameObjectX += gameObjectXVelocity;
 	}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_D)){
-		gameObjectX += 5 * _deltaTime;
+		gameObjectXVelocity = (float)(5 *_deltaTime);
+		gameObjectX += gameObjectXVelocity;
+	}else{
+		if(gameObjectXVelocity > 0 || gameObjectXVelocity < 0){
+			gameObjectXVelocity = 0;
+		}
 	}
 }
 	

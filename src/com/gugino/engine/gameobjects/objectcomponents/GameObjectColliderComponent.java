@@ -15,89 +15,79 @@ public class GameObjectColliderComponent extends GameObjectComponent{
 	public boolean showBoundingBox = true;
 	
 	public Color boundingBoxColor = Color.red;
-	
-	private boolean yCollision = false, xCollision = false;
-	
+
+	//private boolean yCollision = false, xCollision = false;
+
 	public GameObjectColliderComponent(GameObject _componentParent) {
 		super(GameObjectComponentTypes.COLLIDER, _componentParent);
 	}
 	
 	@Override
 	public void componentCollisionUpdate(GameObject _collision) {
-		//TODO: Finish, needs to make objects seem solid and if has physics object make objects push able
-		//(Kinda works still needs tweaking, favors y collision over x)
+		//TODO: Finish, needs to make objects with physics component push able
+		objectCollision(_collision);
+	}
+
+	private void objectCollision(GameObject _collision){
+		int _offset = 2;
+
+		//TODO: Still glitchy when colliding on top and bottom
 
 		//GameObject Y Collision
 		//Top Collision
-		if(!xCollision) {
-			if(((componentParent.gameObjectY + componentParent.gameObjectHeight) > _collision.gameObjectY)
-					&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) < (_collision.gameObjectY + _collision.gameObjectHeight/4))
-					&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) > _collision.gameObjectX)
-					&& ((componentParent.gameObjectX) < (_collision.gameObjectX + _collision.gameObjectWidth))) {
-				yCollision = true;
+		if(componentParent.gameObjectYVelocity > 0){
+			if(((componentParent.gameObjectY + componentParent.gameObjectHeight) >= _collision.gameObjectY)
+			&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) < (_collision.gameObjectY + _collision.gameObjectHeight/4 + _offset))
+			&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) > _collision.gameObjectX)
+			&& ((componentParent.gameObjectX) < (_collision.gameObjectX + _collision.gameObjectWidth))) {
 				componentParent.gameObjectY = _collision.gameObjectY - componentParent.gameObjectHeight;
-				System.out.println("Contacting top - Component Parent: " + componentParent.getGameObjectID());
+				componentParent.gameObjectYVelocity = 0;
+				//Debug.printLine("Contacting top - Component Parent: " + componentParent.getGameObjectID());
 				return;
-			}else {
-				if(yCollision) {
-					yCollision = false;
-					return;
-				}
-			}
-			//Bottom Collision
-			if((componentParent.gameObjectY < (_collision.gameObjectY + _collision.gameObjectHeight))
-					&& (componentParent.gameObjectY > (_collision.gameObjectY - _collision.gameObjectHeight/4))
-					&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) > _collision.gameObjectX)
-					&& ((componentParent.gameObjectX) < (_collision.gameObjectX + _collision.gameObjectWidth))) {
-				yCollision = true;
-				componentParent.gameObjectY = _collision.gameObjectY + _collision.gameObjectHeight;
-				System.out.println("Contacting bottom - Component Parent: " + componentParent.getGameObjectID());
-				return;
-			}else {
-				if(yCollision) {
-					yCollision = false;
-					return;
-				}
 			}
 		}
+		
+		//Bottom Collision
+		if(componentParent.gameObjectYVelocity < 0){
+			if((componentParent.gameObjectY <= (_collision.gameObjectY + _collision.gameObjectHeight))
+			&& (componentParent.gameObjectY > (_collision.gameObjectY - _collision.gameObjectHeight/4 - _offset))
+			&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) > _collision.gameObjectX)
+			&& ((componentParent.gameObjectX) < (_collision.gameObjectX + _collision.gameObjectWidth))) {
+				componentParent.gameObjectY = _collision.gameObjectY + _collision.gameObjectHeight + _offset;
+				componentParent.gameObjectYVelocity = 0;
+				//Debug.printLine("Contacting bottom - Component Parent: " + componentParent.getGameObjectID());
+				return;
+			}
+		}
+
 		//GameObject X Collision
 		//Left Collision
-		//Makes sures colliding component is on the left side
-		if(!yCollision) {
+		if(componentParent.gameObjectXVelocity > 0){
 			if(((componentParent.gameObjectX + componentParent.gameObjectWidth) >= _collision.gameObjectX)
-					&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) < (_collision.gameObjectX + _collision.gameObjectWidth/4))
-					//Makes sure colliding component isn't above or below the object their colliding with
-					&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) > _collision.gameObjectY)
-					&& (componentParent.gameObjectY < (_collision.gameObjectY + _collision.gameObjectHeight))){
-				xCollision = true;
-				componentParent.gameObjectX = _collision.gameObjectX - componentParent.gameObjectWidth;
-				System.out.println("Contacting left - Component Parent: " + componentParent.getGameObjectID());
+			&& ((componentParent.gameObjectX + componentParent.gameObjectWidth) < (_collision.gameObjectX + _collision.gameObjectWidth/4 + _offset))
+			&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) > _collision.gameObjectY)
+			&& (componentParent.gameObjectY < (_collision.gameObjectY + _collision.gameObjectHeight))){
+				componentParent.gameObjectX = _collision.gameObjectX - componentParent.gameObjectWidth - _offset;
+				componentParent.gameObjectXVelocity = 0;
+				//Debug.printLine("Contacting left - Component Parent: " + componentParent.getGameObjectID());
 				return;
-			}else {
-				if(xCollision) {
-					xCollision = false;
-					return;
-				}
 			}
-			
-			//Right Collision
+		}
+
+		//Right Collision
+		if(componentParent.gameObjectXVelocity < 0){
 			if((componentParent.gameObjectX <= (_collision.gameObjectX + _collision.gameObjectWidth))
-					&& (componentParent.gameObjectX > (_collision.gameObjectX - _collision.gameObjectWidth/4))
-					&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) > _collision.gameObjectY)
-					&& (componentParent.gameObjectY < (_collision.gameObjectY + _collision.gameObjectHeight))) {
-				xCollision = true;
-				componentParent.gameObjectX = _collision.gameObjectX + _collision.gameObjectWidth;
-				System.out.println("Contacting right - Component Parent: " + componentParent.getGameObjectID());
+			&& (componentParent.gameObjectX > (_collision.gameObjectX - _collision.gameObjectWidth/4 - _offset))
+			&& ((componentParent.gameObjectY + componentParent.gameObjectHeight) > _collision.gameObjectY)
+			&& (componentParent.gameObjectY < (_collision.gameObjectY + _collision.gameObjectHeight))) {
+				componentParent.gameObjectX = _collision.gameObjectX + _collision.gameObjectWidth + _offset;
+				componentParent.gameObjectXVelocity = 0;
+				//Debug.printLine("Contacting right - Component Parent: " + componentParent.getGameObjectID());
 				return;
-			}else {
-				if(xCollision) {
-					xCollision = false;
-					return;
-				}
 			}	
 		}
 	}
-	
+
 	@Override
 	public void componentRender(GameManager _gm, Renderer _r) {
 		if(showBoundingBox) {

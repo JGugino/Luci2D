@@ -11,16 +11,18 @@ import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectComponent;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
+import com.gugino.engine.util.debug.Debug;
 
 public abstract class GameObject {
 	
 	protected String gameObjectID;
 	public float gameObjectX, gameObjectY;
+	public double gameObjectXVelocity, gameObjectYVelocity;
 	public int gameObjectWidth, gameObjectHeight;
 	public GameObjectLayers gameObjectSortingLayer;
 	public GameState gameObjectParentState;
 	public boolean gameObjectActive = false;
-	
+
 	protected HashMap<GameObjectComponentTypes, GameObjectComponent> gameObjectComponents = new HashMap<GameObjectComponentTypes, GameObjectComponent>();
 	
 	public GameObject(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayers _objectLayer, GameState _parentState) {
@@ -36,7 +38,7 @@ public abstract class GameObject {
 		if(!gameObjectComponents.containsKey(_componentToAdd.componentType)) {
 			gameObjectComponents.put(_componentToAdd.componentType, _componentToAdd);
 		}else {
-			System.err.println("GameObject " + gameObjectID + " already contains the " + _componentToAdd.componentType + " component!");
+			Debug.printError("GameObject " + gameObjectID + " already contains the " + _componentToAdd.componentType + " component!");
 		}
 	}
 	
@@ -56,5 +58,9 @@ public abstract class GameObject {
 	
 	public String getGameObjectID() {
 		return gameObjectID;
+	}
+
+	public HashMap<GameObjectComponentTypes, GameObjectComponent> getGameObjectsComponents(){
+		return gameObjectComponents;
 	}
 }
