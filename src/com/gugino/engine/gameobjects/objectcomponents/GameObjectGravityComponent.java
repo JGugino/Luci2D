@@ -7,14 +7,14 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
 
-public class GameObjectPhysicsComponent extends GameObjectComponent {
+public class GameObjectGravityComponent extends GameObjectComponent {
 
-    protected double gravity = 0.5;
+    protected double gravity = 0.54;
     protected double maxVelocity = 6;
     protected boolean isFalling = true;
 
-    public GameObjectPhysicsComponent(GameObject _componentParent) {
-        super(GameObjectComponentTypes.PHYSICS, _componentParent);
+    public GameObjectGravityComponent(GameObject _componentParent) {
+        super(GameObjectComponentTypes.GRAVITY, _componentParent);
     }
 
     @Override

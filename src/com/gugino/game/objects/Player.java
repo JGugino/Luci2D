@@ -10,10 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.gameobjects.interfaces.IKillable;
-import com.gugino.engine.gameobjects.objectcomponents.GameObjectColliderComponent;
-import com.gugino.engine.gameobjects.objectcomponents.GameObjectHealthManagerComponent;
-import com.gugino.engine.gameobjects.objectcomponents.GameObjectPhysicsComponent;
-import com.gugino.engine.gameobjects.objectcomponents.GameObjectSpriteRenderer;
+import com.gugino.engine.gameobjects.objectcomponents.*;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 import com.gugino.engine.util.debug.Debug;
@@ -35,17 +32,20 @@ public class Player extends GameObject implements IKillable{
 	public void start(GameManager _gm, Renderer _r) {
 		playerImage = _r.imageRenderer.getImageFromPath("/player.png");
 		
+		//Adds SpriteRenderer to Player GameObject
 		GameObjectSpriteRenderer _spriteRenderer = new GameObjectSpriteRenderer(this, playerImage);
 		addGameObjectComponent(_spriteRenderer);
 		
+		//Adds HealthManager to Player GameObject
 		_healthManager = new GameObjectHealthManagerComponent(this, 100, true);
 		_healthManager.addKillAction(this);
 		addGameObjectComponent(_healthManager);
 		
-		addGameObjectComponent(new GameObjectPhysicsComponent(this));
+		//Adds Gravity Component to Player GameObject
+		addGameObjectComponent(new GameObjectGravityComponent(this));
 
+		//Adds Collider to Player GameObject
 		GameObjectColliderComponent _collider = new GameObjectColliderComponent(this);
-		
 		addGameObjectComponent(_collider);
 	}
 	

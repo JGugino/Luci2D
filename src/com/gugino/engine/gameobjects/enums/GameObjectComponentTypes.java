@@ -5,7 +5,8 @@ package com.gugino.engine.gameobjects.enums;
 
 public enum GameObjectComponentTypes {
 	COLLIDER,
-	PHYSICS,
+	GRAVITY,
 	SPRITE_RENDERER,
 	HEALTH_MANAGER,
+	MOVEMENT_MANAGER
 }
