@@ -7,24 +7,24 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
 
-public class GameObjectGravityComponent extends GameObjectComponent {
+public class ObjectGravityComponent extends GameObjectComponent {
 
-    protected double gravity = 0.54;
-    protected double maxVelocity = 6;
+    protected double gravity = 0.485;
+    protected double maxVelocity = 5.85;
     protected boolean isFalling = true;
 
-    public GameObjectGravityComponent(GameObject _componentParent) {
+    public ObjectGravityComponent(GameObject _componentParent) {
         super(GameObjectComponentTypes.GRAVITY, _componentParent);
     }
 
     @Override
     public void componentUpdate(GameManager _gm, double _deltaTime) {
         if(isFalling){
-            objectFall();
+            objectFall(_deltaTime);
         }
     }
 
-    private void objectFall(){
+    private void objectFall(double _deltaTime){
         componentParent.gameObjectYVelocity += gravity;
         componentParent.gameObjectY += componentParent.gameObjectYVelocity;
         if(componentParent.gameObjectYVelocity > maxVelocity) componentParent.gameObjectYVelocity = maxVelocity;

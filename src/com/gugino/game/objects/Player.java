@@ -18,11 +18,11 @@ import com.gugino.engine.util.debug.Debug;
 public class Player extends GameObject implements IKillable{
 
 	private BufferedImage playerImage;
-	
-	private float jumpForce = 5f;
 
-	private GameObjectHealthManagerComponent _healthManager;
+	private ObjectHealthManagerComponent _healthManager;
 	
+	private ObjectGravityComponent _gravity;
+
 	public Player(float _objectX, float _objectY, int _objectWidth, int _objectHeight, GameObjectLayers _objectLayer,
 			GameState _parentState) {
 		super(_objectX, _objectY, _objectWidth, _objectHeight, _objectLayer, _parentState);
@@ -33,25 +33,31 @@ public class Player extends GameObject implements IKillable{
 		playerImage = _r.imageRenderer.getImageFromPath("/player.png");
 		
 		//Adds SpriteRenderer to Player GameObject
-		GameObjectSpriteRenderer _spriteRenderer = new GameObjectSpriteRenderer(this, playerImage);
+		ObjectSpriteRenderer _spriteRenderer = new ObjectSpriteRenderer(this, playerImage);
 		addGameObjectComponent(_spriteRenderer);
 		
 		//Adds HealthManager to Player GameObject
-		_healthManager = new GameObjectHealthManagerComponent(this, 100, true);
+		_healthManager = new ObjectHealthManagerComponent(this, 100);
 		_healthManager.addKillAction(this);
 		addGameObjectComponent(_healthManager);
 		
 		//Adds Gravity Component to Player GameObject
-		addGameObjectComponent(new GameObjectGravityComponent(this));
+		_gravity = new ObjectGravityComponent(this);
+		addGameObjectComponent(_gravity);
 
 		//Adds Collider to Player GameObject
-		GameObjectColliderComponent _collider = new GameObjectColliderComponent(this);
+		ObjectColliderComponent _collider = new ObjectColliderComponent(this, _gravity);
 		addGameObjectComponent(_collider);
+
+		//Adds platformer style controls to Player GameObject
+		ObjectPlatformerControlsComponent _controls = new ObjectPlatformerControlsComponent(this);
+		_controls.hasDoubleJump(true);
+		addGameObjectComponent(_controls);
 	}
 	
 	@Override
 	public void update(GameManager _gm, double _deltaTime) {
-		characterMovement(_gm, _deltaTime);
+		//characterMovement(_gm, _deltaTime);
 		
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_9)) {
 			_healthManager.takeHealth(2);
@@ -59,25 +65,6 @@ public class Player extends GameObject implements IKillable{
 			_healthManager.addHealth(2);
 		}
 	}
-
-	private void characterMovement(GameManager _gm, double _deltaTime) {
-	if(_gm.keyboardHandler.isKeyPressed(KeyEvent.VK_SPACE)) {
-		gameObjectYVelocity = (float)(-jumpForce * _deltaTime);
-		gameObjectY += gameObjectYVelocity;
-	}
-	
-	if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_A)) {
-		gameObjectXVelocity = (float)(-5 *_deltaTime);
-		gameObjectX += gameObjectXVelocity;
-	}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_D)){
-		gameObjectXVelocity = (float)(5 *_deltaTime);
-		gameObjectX += gameObjectXVelocity;
-	}else{
-		if(gameObjectXVelocity > 0 || gameObjectXVelocity < 0){
-			gameObjectXVelocity = 0;
-		}
-	}
-}
 	
 	@Override
 	public void kill() {
@@ -90,11 +77,15 @@ public class Player extends GameObject implements IKillable{
 	}
 	
 	@Override
-	public void onCollisionEnter(GameObject _collision) {}
+	public void onCollisionEnter(GameObject _collision) {
+		//Debug.printLine("Player Enter - " + _collision.getGameObjectID());
+	}
 	
 	@Override
 	public void onCollisionStay(GameObject _collision) {}
 	
 	@Override
-	public void onCollisionExit(GameObject _collision) {}
+	public void onCollisionExit(GameObject _collision) {
+		//Debug.printLine("Player Exit - " + _collision.getGameObjectID());
+	}
 }

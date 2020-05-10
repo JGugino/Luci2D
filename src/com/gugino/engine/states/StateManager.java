@@ -77,6 +77,7 @@ public class StateManager {
 			//checks if the activeState is not null
 			if(activeState != null) {
 				//removes current state from the enabled states
+				activeState.onDisable(gameManager);
 				enabledStates.remove(activeState.stateID);	
 			}
 			//sets the current state equal to the state inside the disabled states HashMap
@@ -96,7 +97,7 @@ public class StateManager {
 				activeState.start(gameManager, gameManager.renderer);	
 			}
 			
-			activeState.onActive();
+			activeState.onActive(gameManager);
 			
 			return;
 		}else {

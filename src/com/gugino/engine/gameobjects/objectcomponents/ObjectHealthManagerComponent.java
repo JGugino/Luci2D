@@ -11,7 +11,7 @@ import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
 import com.gugino.engine.gameobjects.interfaces.IKillable;
 import com.gugino.engine.loops.Renderer;
 
-public class GameObjectHealthManagerComponent extends GameObjectComponent{
+public class ObjectHealthManagerComponent extends GameObjectComponent{
 	
 	public float currentHealth;
 	public float maxHealth;
@@ -26,14 +26,14 @@ public class GameObjectHealthManagerComponent extends GameObjectComponent{
 	
 	protected IKillable killAction;
 	
-	public GameObjectHealthManagerComponent(GameObject _componentParent, float _maxHealth) {
+	public ObjectHealthManagerComponent(GameObject _componentParent, float _maxHealth) {
 		super(GameObjectComponentTypes.HEALTH_MANAGER, _componentParent);
 		this.maxHealth = _maxHealth;
 		this.currentHealth = _maxHealth;
 		this.showHealthBar = false;
 	}
 	
-	public GameObjectHealthManagerComponent(GameObject _componentParent, float _maxHealth, boolean _showHealthBar) {
+	public ObjectHealthManagerComponent(GameObject _componentParent, float _maxHealth, boolean _showHealthBar) {
 		super(GameObjectComponentTypes.HEALTH_MANAGER, _componentParent);
 		this.maxHealth = _maxHealth;
 		this.currentHealth = _maxHealth;

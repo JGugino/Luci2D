@@ -28,8 +28,11 @@ public abstract class GameState {
 	public abstract void render(GameManager _gm, Renderer _r);
 	
 	//Runs whenever the state gets set to active
-	public void onActive() {}
+	public void onActive(GameManager _gm) {}
 	
+	//Runs whenever the state is removed from active
+	public void onDisable(GameManager _gm){}
+
 	//Getter for getting the states ID
 	public int getStateID() {
 		return this.stateID;

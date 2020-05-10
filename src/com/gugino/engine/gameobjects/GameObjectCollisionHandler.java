@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
-import com.gugino.engine.gameobjects.objectcomponents.GameObjectColliderComponent;
-import com.gugino.engine.util.Distance;
+import com.gugino.engine.gameobjects.objectcomponents.ObjectColliderComponent;
+import com.gugino.engine.gameobjects.objectcomponents.ObjectPlatformerControlsComponent;
 
 public class GameObjectCollisionHandler {
 	private HashMap<String, GameObject[]> collidingObjects = new HashMap<String, GameObject[]>();
@@ -29,20 +29,26 @@ public class GameObjectCollisionHandler {
 	}
 
 	protected void checkForCollision(GameObject _object01, GameObject _object02) {
-		float _objectDistance = Distance.getDistance(_object01.gameObjectX, _object01.gameObjectY, _object02.gameObjectX, _object02.gameObjectY);
-		
-		if((_objectDistance < _object02.gameObjectWidth)) {			
+		if(_object01.getBoundingBox().intersects(_object02.getBoundingBox())){
 			doCollisionEnterTrigger(_object01, _object02);
-		}else {
+		}else{
 			doCollisionExitTrigger(_object01, _object02);
 		}
 	}
 	
 	private void doCollisionEnterTrigger(GameObject _object01, GameObject _object02) {
-
 		if(!didEnterTrigger) {
 			didEnterTrigger = true;
 			didExitTrigger = false;
+			_object01.isColliding = true;
+			_object02.isColliding = true;
+
+			if(_object01.getGameObjectsComponents().containsKey(GameObjectComponentTypes.MOVEMENT_MANAGER)){
+				ObjectPlatformerControlsComponent _platformer = (ObjectPlatformerControlsComponent)_object01.getGameObjectsComponents().get(GameObjectComponentTypes.MOVEMENT_MANAGER);
+				_platformer.isJumping = false;
+				_platformer.resetRemainingJumps();
+			}
+
 			_object01.onCollisionEnter(_object02);
 			_object02.onCollisionEnter(_object01);
 			if(!collidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)) {
@@ -53,8 +59,8 @@ public class GameObjectCollisionHandler {
 		if((_object01.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))
 				&& (_object02.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))) {
 			
-			GameObjectColliderComponent _object01Collider = (GameObjectColliderComponent)_object01.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
-			GameObjectColliderComponent _object02Collider = (GameObjectColliderComponent)_object02.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
+			ObjectColliderComponent _object01Collider = (ObjectColliderComponent)_object01.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
+			ObjectColliderComponent _object02Collider = (ObjectColliderComponent)_object02.gameObjectComponents.get(GameObjectComponentTypes.COLLIDER);
 			
 			_object01Collider.componentCollisionUpdate(_object02);
 			_object02Collider.componentCollisionUpdate(_object01);
@@ -68,13 +74,15 @@ public class GameObjectCollisionHandler {
 	private void doCollisionExitTrigger(GameObject _object01, GameObject _object02) {
 		if(didEnterTrigger) {
 			if(!didExitTrigger && didEnterTrigger) {
-				
 				didExitTrigger = true;
 				didEnterTrigger = false;
 				
+				_object01.isColliding = false;
+				_object02.isColliding = false;
+
 				_object01.onCollisionExit(_object02);
 				_object02.onCollisionExit(_object01);
-				
+
 				if(collidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID) && 
 						!prevCollidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)) {
 					prevCollidingObjects.put(_object01.gameObjectID + "-" + _object02.gameObjectID, collidingObjects.get(_object01.gameObjectID + "-" + _object02.gameObjectID));

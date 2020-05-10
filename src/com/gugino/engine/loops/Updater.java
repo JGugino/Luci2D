@@ -16,7 +16,10 @@ public class Updater {
 		double _ns = 1000000000 / _amountOfTicks;
 		double _deltaTime = 0;
 		long _timer = System.currentTimeMillis();
+		long _frameTimeDiffNanoSeconds = 0;
+		long _frameTimeDiffMilliSeconds = 0;
 		int _frames = 0;
+		int _renderedFrames = 0, _missedRenderFrames = 0;
 		
 		if(!gameStartRan) {
 			gameStartRan = true;
@@ -29,11 +32,16 @@ public class Updater {
 		while(_gm.isRunning) {	
 			//Sets shouldRender back to false
 			_gm.shouldRender = false;
-			
+
 			long _now = System.nanoTime();
 			_deltaTime += (_now - _lastTime) / _ns;
+			_frameTimeDiffNanoSeconds = (_now - _lastTime);
+			_frameTimeDiffMilliSeconds = (_now - _lastTime)/1000000;
 			_lastTime = _now;
-			
+
+			_gm.windowHandler.frameTimeNanoSec = _frameTimeDiffNanoSeconds;
+			_gm.windowHandler.frameTimeMilliSec = _frameTimeDiffMilliSeconds;
+
 			while(_deltaTime >= 1) {
 				//Runs update method on camera
 				_r.mainCamera.update(_gm, _deltaTime);
@@ -59,8 +67,13 @@ public class Updater {
 			if(_gm.shouldRender) {				
 				//Runs the render loop
 				_gm.renderer.render(_gm);
+				_renderedFrames++;
+				_gm.windowHandler.renderedFrames = _renderedFrames;
+			}else{
+				_missedRenderFrames++;
+				_gm.windowHandler.missedRenderFrames = _missedRenderFrames;
 			}
-			
+
 			_frames++;	
 			
 			if(System.currentTimeMillis() - _timer > 1000) {

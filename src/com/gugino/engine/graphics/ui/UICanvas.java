@@ -140,4 +140,12 @@ public class UICanvas {
 			return null;
 		}
 	}
+
+	public HashMap<String, UIObject> getEnabledUIObjects(){
+		return enabledUIObjects;
+	}
+
+	public HashMap<String, UIObject> getDisabledUIObjects(){
+		return disabledUIObjects;
+	}
 }

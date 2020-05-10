@@ -10,11 +10,11 @@ import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
 import com.gugino.engine.loops.Renderer;
 
-public class GameObjectSpriteRenderer extends GameObjectComponent{
+public class ObjectSpriteRenderer extends GameObjectComponent{
 
 	public BufferedImage objectSprite;
 	
-	public GameObjectSpriteRenderer(GameObject _componentParent, BufferedImage _objectSprite) {
+	public ObjectSpriteRenderer(GameObject _componentParent, BufferedImage _objectSprite) {
 		super(GameObjectComponentTypes.SPRITE_RENDERER, _componentParent);
 		this.objectSprite = _objectSprite;
 	}

@@ -3,7 +3,6 @@
  */
 package com.gugino.engine.loops;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
@@ -15,6 +14,7 @@ import com.gugino.engine.graphics.renderers.FontRenderer;
 import com.gugino.engine.graphics.renderers.ImageRenderer;
 import com.gugino.engine.graphics.renderers.ShapeRenderer;
 import com.gugino.engine.graphics.ui.UICanvas;
+import com.gugino.engine.util.debug.DebugRenderer;
 
 public class Renderer {
 		
@@ -32,14 +32,18 @@ public class Renderer {
 	public ShapeRenderer shapeRenderer;
 	public ImageRenderer imageRenderer;
 	
+	private DebugRenderer debugRenderer;
+
 	public Renderer() {
 		mainCamera = new Camera(new CameraSettings(false, WindowHandler.windowWidth, WindowHandler.windowHeight));
 		
 		canvas = new UICanvas();
-		
+
 		fontRenderer = new FontRenderer(this);
 		shapeRenderer = new ShapeRenderer(this);
 		imageRenderer = new ImageRenderer(this);
+
+		debugRenderer = new DebugRenderer();
 	}
 	
 	public void render(GameManager _gm) {
@@ -99,9 +103,12 @@ public class Renderer {
 			 * RENDER UI STUFF HERE - START
 			 */
 			
-			//Draws the frames per second to the screen
-			fontRenderer.drawString("FPS: " + _gm.windowHandler.fps, 10, 20, Color.black);
-			
+			if(_gm.showDebugInformation){
+			//Runs the render method for the debug information
+			debugRenderer.render(_gm, this);
+			}
+
+			//Runs the render method to render all canvas objects
 			canvas.render(_gm, this);
 			
 			/*

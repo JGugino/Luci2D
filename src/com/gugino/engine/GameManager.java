@@ -40,6 +40,8 @@ public class GameManager implements Runnable{
 	//Object to the games render loop
 	public Renderer renderer;
 	
+	public boolean showDebugInformation = true;
+
 	//Games main thread
 	private Thread mainThread;
 	

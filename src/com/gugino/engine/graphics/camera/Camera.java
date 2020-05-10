@@ -29,6 +29,14 @@ public class Camera {
 		}
 	}
 	
+	public float getCameraTargetX(){
+		return cameraTargetX;
+	}
+
+	public float getCameraTargetY(){
+		return cameraTargetY;
+	}
+
 	public void setCameraTarget(float _targetX, float _targetY) {
 		cameraTargetX = _targetX;
 		cameraTargetY = _targetY;

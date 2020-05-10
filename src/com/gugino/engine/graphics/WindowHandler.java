@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 public class WindowHandler {
 	
 	//Default title for untitled windows
-	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.2a";
+	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.6a";
 	
 	public static int windowWidth;
 	public static int windowHeight;
@@ -19,6 +19,12 @@ public class WindowHandler {
 	//Games FPS
 	public long fps = 0;
 	
+	public long frameTimeNanoSec = 0;
+
+	public long frameTimeMilliSec = 0;
+
+	public int renderedFrames = 0, missedRenderFrames = 0;
+
 	//Windows JFrame object
 	public JFrame windowFrame;
 	
