@@ -43,8 +43,8 @@ public class GameObjectCollisionHandler {
 			_object01.isColliding = true;
 			_object02.isColliding = true;
 
-			if(_object01.getGameObjectsComponents().containsKey(GameObjectComponentTypes.MOVEMENT_MANAGER)){
-				ObjectPlatformerControlsComponent _platformer = (ObjectPlatformerControlsComponent)_object01.getGameObjectsComponents().get(GameObjectComponentTypes.MOVEMENT_MANAGER);
+			if(_object01.getGameObjectsComponents().containsKey(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER)){
+				ObjectPlatformerControlsComponent _platformer = (ObjectPlatformerControlsComponent)_object01.getGameObjectsComponents().get(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER);
 				_platformer.isJumping = false;
 				_platformer.resetRemainingJumps();
 			}

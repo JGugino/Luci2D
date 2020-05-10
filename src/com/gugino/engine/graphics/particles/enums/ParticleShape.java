@@ -7,5 +7,6 @@ package com.gugino.engine.graphics.particles.enums;
 public enum ParticleShape {
     SQUARE,
     ROUNDED_SQUARE,
-    CIRCLE
+    CIRCLE,
+    IMAGE
 }

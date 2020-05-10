@@ -17,7 +17,7 @@ public class ObjectTopDownControlsComponent extends GameObjectComponent {
     public float objectWalkingSpeed = 2.5f;
 
     public ObjectTopDownControlsComponent(GameObject _componentParent) {
-        super(GameObjectComponentTypes.MOVEMENT_MANAGER, _componentParent);
+        super(GameObjectComponentTypes.TOP_DOWN_MOVEMENT_MANAGER, _componentParent);
     }
 
     @Override

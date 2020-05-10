@@ -21,7 +21,9 @@ public class DebugRenderer {
         _r.fontRenderer.drawString("GameObjects (Enabled/Disabled): " + _gm.gameObjectHandler.getEnabledGameObjects().size() + "/" + _gm.gameObjectHandler.getDisabledGameObjects().size(), 5, 80, _fontColor);
         _r.fontRenderer.drawString("UI Objects (Enabled/Disabled): " + _r.canvas.getEnabledUIObjects().size() + "/" + _r.canvas.getDisabledUIObjects().size(), 5, 100, _fontColor);
         _r.fontRenderer.drawString("Game States (Enabled/Disabled): " + _gm.stateManager.getEnabledStates().size() + "/" + _gm.stateManager.getDisabledStates().size(), 5, 120, _fontColor);
-        _r.fontRenderer.drawString("Camera Position (X/Y): " + Math.round(_r.mainCamera.cameraX) + "/" + Math.round(_r.mainCamera.cameraY), 5, 140, _fontColor);
-        _r.fontRenderer.drawString("Camera Target (X/Y - shouldFollow): " + Math.round(_r.mainCamera.getCameraTargetX()) + "/" + Math.round(_r.mainCamera.getCameraTargetY()) + " - " + _r.mainCamera.cameraSettings.shouldFollow, 5, 160, _fontColor);
+        _r.fontRenderer.drawString("Particle Systems (Enabled/Disabled): " + _r.particleHandler.getEnabledParticleSystems().size() + "/" + _r.particleHandler.getDisabledParticleSystems().size(), 5, 140, _fontColor);
+        _r.fontRenderer.drawString("Active Particles: " + _r.particleHandler.calculateTotalParticles(), 5, 160, _fontColor);
+        _r.fontRenderer.drawString("Camera Position (X/Y): " + Math.round(_r.mainCamera.cameraX) + "/" + Math.round(_r.mainCamera.cameraY), 5, 180, _fontColor);
+        _r.fontRenderer.drawString("Camera Target (X/Y - shouldFollow): " + Math.round(_r.mainCamera.getCameraTargetX()) + "/" + Math.round(_r.mainCamera.getCameraTargetY()) + " - " + _r.mainCamera.cameraSettings.shouldFollow, 5, 200, _fontColor);
     }
 }

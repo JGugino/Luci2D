@@ -10,6 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.graphics.camera.Camera;
 import com.gugino.engine.graphics.camera.CameraSettings;
+import com.gugino.engine.graphics.particles.ParticleHandler;
 import com.gugino.engine.graphics.renderers.FontRenderer;
 import com.gugino.engine.graphics.renderers.ImageRenderer;
 import com.gugino.engine.graphics.renderers.ShapeRenderer;
@@ -28,6 +29,8 @@ public class Renderer {
 	
 	public UICanvas canvas;
 	
+	public ParticleHandler particleHandler;
+
 	public FontRenderer fontRenderer;
 	public ShapeRenderer shapeRenderer;
 	public ImageRenderer imageRenderer;
@@ -42,6 +45,8 @@ public class Renderer {
 		fontRenderer = new FontRenderer(this);
 		shapeRenderer = new ShapeRenderer(this);
 		imageRenderer = new ImageRenderer(this);
+
+		particleHandler = new ParticleHandler();
 
 		debugRenderer = new DebugRenderer();
 	}
@@ -88,6 +93,9 @@ public class Renderer {
 			//Runs the render method for the GameObjectHandler
 			_gm.gameObjectHandler.render(_gm, this);
 			
+			//Runs the render method for the particle handler
+			particleHandler.render(_gm, this);
+
 			//Sets end point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(mainCamera.cameraX, mainCamera.cameraY);
 			

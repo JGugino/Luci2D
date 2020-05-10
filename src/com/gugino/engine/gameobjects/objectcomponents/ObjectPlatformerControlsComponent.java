@@ -22,7 +22,7 @@ public class ObjectPlatformerControlsComponent extends GameObjectComponent{
     protected int jumpsRemaining, totalJumps = 2;
 
     public ObjectPlatformerControlsComponent(GameObject _componentParent) {
-        super(GameObjectComponentTypes.MOVEMENT_MANAGER, _componentParent);
+        super(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER, _componentParent);
         jumpsRemaining = totalJumps;
     }
 

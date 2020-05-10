@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import com.gugino.engine.Game;
 import com.gugino.engine.GameManager;
+import com.gugino.engine.graphics.camera.Camera;
 import com.gugino.engine.graphics.camera.CameraSettings;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.game.states.LevelOne;
@@ -19,6 +20,8 @@ public class Main extends Game{
 	
 	public static CameraSettings mainCameraSettings;
 	
+	public static Camera cameraRef;
+
 	public static void main(String[] args) {
 		new Main();
 	}
@@ -32,7 +35,9 @@ public class Main extends Game{
 	public void start(GameManager _gm, Renderer _r) {
 		mainCameraSettings = new CameraSettings(true, 800, 600);
 		
-		_r.mainCamera.cameraSettings = mainCameraSettings;
+		cameraRef = _r.mainCamera;
+
+		cameraRef.cameraSettings = mainCameraSettings;
 
 		_gm.stateManager.addState(MENU_STATE, new Menu(MENU_STATE));
 		_gm.stateManager.addState(LEVEL_ONE_STATE, new LevelOne(LEVEL_ONE_STATE));

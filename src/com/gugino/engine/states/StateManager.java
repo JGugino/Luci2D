@@ -87,6 +87,8 @@ public class StateManager {
 			
 			renderer.canvas.updateUIForStateChange();
 			
+			renderer.particleHandler.updateParticleSystemsForStateSwitch();
+
 			gameManager.gameObjectHandler.updateGameObjectsForStateSwitch();
 			
 			//Checks to see that the start method didn't already run

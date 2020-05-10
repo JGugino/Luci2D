@@ -9,7 +9,7 @@ public class RandomHelper {
 
 	public static int getRandomInt(int _minValue, int _maxValue) {
 		Random _r = new Random();
-		return _r.nextInt((_maxValue + 1) - _minValue) + _minValue;
+		return _r.nextInt((_maxValue) - _minValue) + _minValue;
 	}
 	
 	public static float getRandomFloat() {
