@@ -8,6 +8,9 @@ Luci2D is a 2D game framework built upon java's awt library with the goal of pro
 
 **DISCLAIMER: LUCI2D is solely maintained by Gugino so please be patient with updates and bug fixes. Also if anyone who would like to contribute to the LUCI2D project please submit a pull request, or you can reach out to me directly on [Twitter](https://twitter.com/JoshuaGugino).**
 
+
+## **WORK IN PROGRESS - WILL BE UPDATED SOON**
+
 ## **TABLE OF CONTENTS**
 
 - [Setting up your project](#setting-up-your-project)
@@ -32,7 +35,7 @@ Luci2D is a 2D game framework built upon java's awt library with the goal of pro
 
 ## Setting up your project
 
-To begin working with the Luci2D framework first you need to download the latest version of the framework from [here](http://www.google.com).
+To begin working with the Luci2D framework first you need to download the latest version of the framework from here.
 
 ---
 
