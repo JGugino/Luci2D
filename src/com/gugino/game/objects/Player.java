@@ -43,16 +43,17 @@ public class Player extends GameObject implements IKillable{
 		
 		//Adds Gravity Component to Player GameObject
 		_gravity = new ObjectGravityComponent(this);
-		//addGameObjectComponent(_gravity);
+		addGameObjectComponent(_gravity);
 
 		//Adds Collider to Player GameObject
 		ObjectColliderComponent _collider = new ObjectColliderComponent(this, _gravity);
 		addGameObjectComponent(_collider);
 
 		//Adds platformer style controls to Player GameObject
-		//ObjectPlatformerControlsComponent _controls = new ObjectPlatformerControlsComponent(this);
-		//_controls.hasDoubleJump(true);
-		addGameObjectComponent(new ObjectTopDownControlsComponent(this));
+		ObjectPlatformerControlsComponent _controls = new ObjectPlatformerControlsComponent(this);
+		_controls.hasDoubleJump(true);
+		//new ObjectTopDownControlsComponent(this)
+		addGameObjectComponent(_controls);
 	}
 	
 	@Override

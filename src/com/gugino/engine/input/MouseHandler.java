@@ -6,6 +6,7 @@ package com.gugino.engine.input;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.HashMap;
 
 public class MouseHandler extends MouseAdapter{
@@ -13,6 +14,12 @@ public class MouseHandler extends MouseAdapter{
 	//Long variable to store mouse x and y position
 	public long mouseX, mouseY;
 	
+	//A more percise value of the scroll wheels position (Up = -1.0 || Down = 1.0) NOTE:Doesn't reset to zero after scrolling
+	public double mouseScrollWheelPercise;
+
+	//A simple 1 or -1 depending on the scroll wheels position (Up = -1 || Down = 1) NOTE:Doesn't reset to zero after scrolling
+	public int mouseScrollWheel;
+
 	//HashMap for pressed mouse buttons
 	private HashMap<String, Dimension> pressedButton = new HashMap<String, Dimension>();
 	
@@ -32,6 +39,20 @@ public class MouseHandler extends MouseAdapter{
 		if(mouseY != _event.getY()) {
 			mouseY = _event.getY();	
 		}
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		//checks to make sure not updating rotation unnecessarily and then updates the scroll wheels rotations
+		if(mouseScrollWheelPercise != e.getPreciseWheelRotation()){
+			mouseScrollWheelPercise = e.getPreciseWheelRotation();
+		}
+
+		if(mouseScrollWheel != e.getWheelRotation()){
+			mouseScrollWheel = e.getWheelRotation();
+		}
+
+		super.mouseWheelMoved(e);
 	}
 	
 	//Triggered when mouse button is pressed

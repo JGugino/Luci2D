@@ -4,9 +4,11 @@
 package com.gugino.game.states;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
+import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
 import com.gugino.engine.graphics.ui.uiobject.UIButtonObject;
 import com.gugino.engine.graphics.ui.uiobject.UITextObject;
 import com.gugino.engine.graphics.ui.uiobject.enums.ButtonStyle;
@@ -22,6 +24,9 @@ public class Menu extends GameState{
 	
 	private UIButtonObject playButton;
 	
+	private BufferedImage spriteSheet;
+	private SpriteSheet groundTiles = null;
+
 	public Menu(int _stateID) {
 		super(_stateID);
 	}
@@ -30,7 +35,11 @@ public class Menu extends GameState{
 	public void start(GameManager _gm, Renderer _r) {
 		titleText = new UITextObject("Luci2D Demo Game", WindowHandler.windowWidth/2 - 75, 25, UIObjectLayer.FOREGROUND, this);
 		playButton = new UIButtonObject("Play", Color.black, Color.lightGray, Color.gray, Color.white, WindowHandler.windowWidth/2 - 125, WindowHandler.windowHeight/2 - 100, 250, 100, ButtonStyle.ROUNDED, UIObjectLayer.FOREGROUND, this);
-	
+
+		spriteSheet = _r.imageRenderer.getImageFromPath("/ground_tiles_sprite_sheet.png");
+
+		groundTiles = _r.imageRenderer.generateSpriteSheet("ground_tiles", spriteSheet, 7, 1, 64, 64);
+
 		playButton.assignButtonListener(new IClickable() {
 			@Override
 			public void onClick(String _inputSource) {
@@ -53,7 +62,7 @@ public class Menu extends GameState{
 	
 	@Override
 	public void onActive(GameManager _gm) {
-		_gm.showDebugInformation = true;
+		_gm.showDebugInformation = false;
 	}
 	
 }

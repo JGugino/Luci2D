@@ -61,6 +61,7 @@ public class ParticleHandler {
         if(!enabledParticleSystems.containsKey(_system.particleSystemID) && disabledParticleSystems.containsKey(_system.particleSystemID)){
             enabledParticleSystems.put(_system.particleSystemID, _system);
             disabledParticleSystems.remove(_system.particleSystemID, _system);
+            _system.resetParticleSystem();
             _system.isEnabled = true;
         }else{
             Debug.printError("Particle System - " + _system.particleSystemID + "doesn't exist or is already enabled");

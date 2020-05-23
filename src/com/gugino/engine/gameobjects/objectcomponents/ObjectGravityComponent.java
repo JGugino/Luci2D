@@ -25,7 +25,7 @@ public class ObjectGravityComponent extends GameObjectComponent {
     }
 
     private void objectFall(double _deltaTime){
-        componentParent.gameObjectYVelocity += gravity;
+        componentParent.gameObjectYVelocity += gravity * _deltaTime;
         componentParent.gameObjectY += componentParent.gameObjectYVelocity;
         if(componentParent.gameObjectYVelocity > maxVelocity) componentParent.gameObjectYVelocity = maxVelocity;
     }

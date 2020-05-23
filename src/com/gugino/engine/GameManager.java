@@ -116,6 +116,7 @@ public class GameManager implements Runnable{
 		windowHandler.windowCanvas.addKeyListener(keyboardHandler);
 		windowHandler.windowCanvas.addMouseListener(mouseHandler);
 		windowHandler.windowCanvas.addMouseMotionListener(mouseHandler);
+		windowHandler.windowCanvas.addMouseWheelListener(mouseHandler);
 		
 		//Sets the listener for the JFrame window
 		windowHandler.windowFrame.addWindowListener(new GameWindowListener(this));

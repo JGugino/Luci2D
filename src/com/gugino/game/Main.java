@@ -46,7 +46,6 @@ public class Main extends Game{
 
 	@Override
 	public void update(GameManager _gm, double _deltaTime) {
-		
 	}
 
 	@Override

@@ -14,19 +14,22 @@ public class ParticleSystem {
     public ArrayList<Particle> particles = new ArrayList<Particle>();
 
     protected String particleSystemID;
+    protected float systemXPosition, systemYPosition;
     public int particlesLifeSpan = 0, maxParticles = 0;
-    public float startingXPosition = 0, startingYPosition = 0;
-    public double startingXVelocity = 0, startingYVelocity = -1;
+    public float particleStartingXPosition = 0, particleStartingYPosition = 0;
+    public double particleStartingXVelocity = 0, particleStartingYVelocity = -1;
     public boolean isEnabled = false;
 
     public GameState parentState;
 
-    public ParticleSystem(String _systemID, float _startingX, float _startingY, double _startingXVel, double _startingYVel, int _particleLifeSpan, int _maxParticles, GameState _parentState){
+    public ParticleSystem(String _systemID, float _systemXPos, float _systemYPos, float _particleStartingX, float _particleStartingY, double _particleStartingXVel, double _particleStartingYVel, int _particleLifeSpan, int _maxParticles, GameState _parentState){
         this.particleSystemID = _systemID;
-        this.startingXPosition = _startingX;
-        this.startingYPosition = _startingY;
-        this.startingXVelocity = _startingXVel;
-        this.startingYVelocity = _startingYVel;
+        this.systemXPosition = _systemXPos;
+        this.systemYPosition = _systemYPos;
+        this.particleStartingXPosition = _particleStartingX;
+        this.particleStartingYPosition = _particleStartingY;
+        this.particleStartingXVelocity = _particleStartingXVel;
+        this.particleStartingYVelocity = _particleStartingYVel;
 
         this.particlesLifeSpan = _particleLifeSpan;
         this.maxParticles = _maxParticles;
@@ -38,11 +41,11 @@ public class ParticleSystem {
         if (particles.size() <= maxParticles) {
             Particle _newParticle = new Particle(_particle.particleWidth, _particle.particleHeight,
                     _particle.particleShape, _particle.particleColor);
-            _newParticle.particleX = startingXPosition;
-            _newParticle.particleY = startingYPosition;
+            _newParticle.particleX = particleStartingXPosition;
+            _newParticle.particleY = particleStartingYPosition;
             _newParticle.particleLifeSpan = particlesLifeSpan;
-            _newParticle.particleXVelocity = startingXVelocity;
-            _newParticle.particleYVelocity = startingYVelocity;
+            _newParticle.particleXVelocity = particleStartingXVelocity;
+            _newParticle.particleYVelocity = particleStartingYVelocity;
 
             particles.add(_newParticle);
         }
@@ -55,7 +58,7 @@ public class ParticleSystem {
                 _particle.particleX += _particle.particleXVelocity * _deltaTime;
                 _particle.particleY += _particle.particleYVelocity * _deltaTime;
                 if(!_particle.isDead()){
-                    _particle.particleLifeSpan--;
+                    _particle.particleLifeSpan-= _deltaTime;
                 }else{
                     _particleToRemove.add(_particle);
                 }
@@ -109,6 +112,14 @@ public class ParticleSystem {
 
             _particles.clear();
         }
+    }
+
+    public float getSystemXPosition(){
+        return systemXPosition;
+    }
+
+    public float getSystemYPosition(){
+        return systemYPosition;
     }
 
     public String getParticleSystemID(){
