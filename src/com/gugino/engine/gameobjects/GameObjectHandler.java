@@ -10,6 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectComponent;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
+import com.gugino.engine.util.debug.Debug;
 
 public class GameObjectHandler {
 	private HashMap<String, GameObject> enabledGameObjects = new HashMap<String, GameObject>();
@@ -179,7 +180,7 @@ public class GameObjectHandler {
 		}else if(disabledGameObjects.containsKey(_objectID)) {
 			return disabledGameObjects.get(_objectID);
 		}else {
-			System.err.println("GameObject not found - " + _objectID);
+			//Debug.printWarning("GameObject not found - " + _objectID);
 			return null;
 		}
 	}

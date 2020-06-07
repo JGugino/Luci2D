@@ -14,8 +14,6 @@ import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.util.debug.Debug;
 
-import jdk.nashorn.internal.ir.ReturnNode;
-
 public class ImageRenderer {
 
 	private Renderer renderer;
@@ -55,6 +53,9 @@ public class ImageRenderer {
 		}
 
 		_createdSheet = new SpriteSheet(_spriteSheetID, _spritesToAdd);
+
+		_createdSheet.spriteWidth = _spriteWidth;
+		_createdSheet.spriteHeight = _spriteHeight;
 
 		if(!generatedSpriteSheets.containsKey(_spriteSheetID)){
 			generatedSpriteSheets.put(_spriteSheetID, _createdSheet);

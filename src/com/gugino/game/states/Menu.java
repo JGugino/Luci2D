@@ -25,7 +25,7 @@ public class Menu extends GameState{
 	private UIButtonObject playButton;
 	
 	private BufferedImage spriteSheet;
-	private SpriteSheet groundTiles = null;
+	public SpriteSheet groundTiles;
 
 	public Menu(int _stateID) {
 		super(_stateID);
