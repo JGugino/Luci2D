@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 public class WindowHandler {
 	
 	//Default title for untitled windows
-	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.6a";
+	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.7a";
 	
 	public static int windowWidth;
 	public static int windowHeight;

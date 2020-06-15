@@ -18,8 +18,13 @@ public class KeyboardHandler extends KeyAdapter{
 	//Prefix for key when stored in HashMap
 	private String keyPrefix = "key_";
 	
+	protected String pressedKeys = "";
+
 	//Triggered when a keyboard button is pressed
 	public void keyPressed(KeyEvent _event) {
+		//Appends each character pressed to pressedKeys String
+		pressedKeys += _event.getKeyChar();
+
 		//Checks if the key isn't in pressed keys HashMap and isn't in the previous pressed keys HashMap(To check for when a key is pressed for the first time)
 		if(!keyPressed.containsKey(keyPrefix + _event.getKeyCode()) && !prevPressedKeys.containsKey(keyPrefix + _event.getKeyCode())) {
 			//Puts the key into the pressed keys HashMap
@@ -39,6 +44,8 @@ public class KeyboardHandler extends KeyAdapter{
 		keyPressed.remove(keyPrefix + _event.getKeyCode());
 		//Puts the key into the previous pressed keys HashMap
 		prevPressedKeys.put(keyPrefix + _event.getKeyCode(), new Dimension(_event.getKeyCode(), _event.getKeyCode()));
+		
+		resetPressedKeys();
 	}
 	
 	//Method to check if a key is down
@@ -79,5 +86,13 @@ public class KeyboardHandler extends KeyAdapter{
 			//Return false if its not
 			return false;	
 		}
+	}
+
+	public void resetPressedKeys(){
+		pressedKeys = "";
+	}
+
+	public String getPressedKeys(){
+		return pressedKeys;
 	}
 }

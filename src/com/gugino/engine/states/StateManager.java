@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.util.debug.Debug;
 
 public class StateManager {
 	
@@ -28,24 +29,16 @@ public class StateManager {
 	//Update method for StateManager
 	public void update(GameManager _gm, double _deltaTime) {
 		//Checks to make sure there are enabled states
-		if(!enabledStates.isEmpty()) {
-			//Loops through all the enabled states
-			for(GameState _state : enabledStates.values()) {
-				//Runs update method for currently selected state
-				_state.update(_gm, _deltaTime);
-			}
+		if(activeState != null) {
+			activeState.update(_gm, _deltaTime);
 		}
 	}
 	
 	//Render method for StateManager
 	public void render(GameManager _gm, Renderer _r) {
 		//Checks to make sure there are enabled states
-		if(!enabledStates.isEmpty()) {
-			//Loops through all the enabled states
-			for(GameState _state : enabledStates.values()) {
-				//Runs render method for currently selected state
-				_state.render(_gm, _r);
-			}
+		if(activeState != null) {
+			activeState.render(_gm, _r);
 		}
 	}
 	
@@ -71,25 +64,32 @@ public class StateManager {
 	}
 	
 	//Method to get state by ID
-	public void setActiveState(int _id) {
+	public void setActiveState(int _id){
+		boolean _foundState = disabledStates.containsKey(_id);
+		
 		//Checks if the state is in the disabled states
-		if(disabledStates.containsKey(_id)) {
+		if(_foundState) {
 			//checks if the activeState is not null
 			if(activeState != null) {
 				//removes current state from the enabled states
 				activeState.onDisable(gameManager);
+				disabledStates.put(activeState.stateID, activeState);
 				enabledStates.remove(activeState.stateID);	
 			}
 			//sets the current state equal to the state inside the disabled states HashMap
 			activeState = disabledStates.get(_id);
-			//Puts the current state into the enabled states HashMap
-			enabledStates.put(activeState.stateID, activeState);
+			if(!enabledStates.containsKey(activeState.stateID)) {
+				//Puts the current state into the enabled states HashMap
+				enabledStates.put(activeState.stateID, activeState);	
+				disabledStates.remove(activeState.stateID);
+			}
 			
-			renderer.canvas.updateUIForStateChange();
+			renderer.canvas.updateUIForStateChange(_id);
 			
 			renderer.particleHandler.updateParticleSystemsForStateSwitch();
 
 			gameManager.gameObjectHandler.updateGameObjectsForStateSwitch();
+			
 			
 			//Checks to see that the start method didn't already run
 			if(!activeState.startRan) {

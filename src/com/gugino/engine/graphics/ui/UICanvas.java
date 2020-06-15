@@ -10,6 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.UIObject;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
+import com.gugino.engine.util.debug.Debug;
 
 public class UICanvas {
 	private HashMap<String, UIObject> enabledUIObjects = new HashMap<String, UIObject>();
@@ -17,9 +18,9 @@ public class UICanvas {
 	
 	public void update(GameManager _gm) {
 		if(!enabledUIObjects.isEmpty()) {
-			for(UIObject _object : enabledUIObjects.values()) {
-				if(_object.getEnabled()) {
-					_object.update(_gm);	
+			for (int i = 0; i <= enabledUIObjects.size() - 1; i++) {
+				if (((UIObject) enabledUIObjects.values().toArray()[i]).getEnabled()) {
+					((UIObject) enabledUIObjects.values().toArray()[i]).update(_gm);
 				}
 			}
 		}
@@ -105,18 +106,18 @@ public class UICanvas {
 		}
 	}
 	
-	public void updateUIForStateChange() {
+	public void updateUIForStateChange(int _newStateID) {
 		ArrayList<UIObject> _uiToDisable = new ArrayList<UIObject>();
 		ArrayList<UIObject> _uiToEnable = new ArrayList<UIObject>();
 		
 		for(UIObject _enabledObject : enabledUIObjects.values()) {
-			if(_enabledObject.getParentState().getStateID() != StateManager.activeState.getStateID()) {
+			if(_enabledObject.getParentState().getStateID() != _newStateID) {
 				_uiToDisable.add(_enabledObject);
 			}	
 		}
 	
 		for(UIObject _disabledObject : disabledUIObjects.values()) {
-			if(_disabledObject.getParentState().getStateID() == StateManager.activeState.getStateID()) {
+			if(_disabledObject.getParentState().getStateID() == _newStateID) {
 				_uiToEnable.add(_disabledObject);
 			}
 		}

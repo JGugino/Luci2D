@@ -3,14 +3,17 @@
  */
 package com.gugino.game.states;
 
+import java.awt.Color;
+
 import com.gugino.engine.GameManager;
-import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
+import com.gugino.engine.graphics.ui.uiobject.UITextBoxObject;
+import com.gugino.engine.graphics.ui.uiobject.enums.TextBoxStyle;
+import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 import com.gugino.engine.tilemaps.TileMap;
-import com.gugino.engine.util.debug.Debug;
 import com.gugino.game.Main;
 import com.gugino.game.Maps.Map01;
 import com.gugino.game.objects.*;
@@ -39,6 +42,9 @@ public class LevelOne extends GameState{
 		player = new Player(0, 0, 64, 64, GameObjectLayers.MIDGROUND, this);
 
 		_gm.gameObjectHandler.addGameObject("Player", player);
+
+		//_r.canvas.addUIObject("Text_Box", new UITextBoxObject(0, 0, 400, 50, TextBoxStyle.SQUARED, Color.BLACK, Color.WHITE, UIObjectLayer.FOREGROUND,
+		//this));
 	}
 
 	@Override

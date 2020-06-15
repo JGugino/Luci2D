@@ -10,12 +10,15 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
 import com.gugino.engine.graphics.ui.uiobject.UIButtonObject;
+import com.gugino.engine.graphics.ui.uiobject.UITextBoxObject;
 import com.gugino.engine.graphics.ui.uiobject.UITextObject;
 import com.gugino.engine.graphics.ui.uiobject.enums.ButtonStyle;
+import com.gugino.engine.graphics.ui.uiobject.enums.TextBoxStyle;
 import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.graphics.ui.uiobject.interfaces.IClickable;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
+import com.gugino.engine.util.debug.Debug;
 import com.gugino.game.Main;
 
 public class Menu extends GameState{
@@ -47,8 +50,19 @@ public class Menu extends GameState{
 			}
 		});
 		
+		UIButtonObject settingsButton = new UIButtonObject("Settings", Color.black, Color.lightGray, Color.gray, Color.white, WindowHandler.windowWidth/2 - 125, WindowHandler.windowHeight/2 + 100, 250, 100, ButtonStyle.ROUNDED, UIObjectLayer.FOREGROUND, this);
+
+		settingsButton.assignButtonListener(new IClickable() {
+			
+			@Override
+			public void onClick(String _inputSource) {
+				Debug.printLine("Settings");
+			}
+		});
+		
 		_r.canvas.addUIObject("Title_Text", titleText);
 		_r.canvas.addUIObject("Play_Button", playButton);
+		_r.canvas.addUIObject("Settings_Button", settingsButton);
 	}
 
 	@Override
