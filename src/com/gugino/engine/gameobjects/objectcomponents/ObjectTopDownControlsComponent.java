@@ -7,6 +7,8 @@ package com.gugino.engine.gameobjects.objectcomponents;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
+import com.gugino.engine.gameobjects.enums.TopDownControlLayouts;
+
 import java.awt.event.KeyEvent;
 
 
@@ -16,32 +18,40 @@ public class ObjectTopDownControlsComponent extends GameObjectComponent {
 
     public float objectWalkingSpeed = 2.5f;
 
-    public ObjectTopDownControlsComponent(GameObject _componentParent) {
+    public TopDownControlLayouts controlsLayout;
+    
+    public ObjectTopDownControlsComponent(GameObject _componentParent, TopDownControlLayouts _layout) {
         super(GameObjectComponentTypes.TOP_DOWN_MOVEMENT_MANAGER, _componentParent);
+        this.controlsLayout = _layout;
     }
 
     @Override
     public void componentUpdate(GameManager _gm, double _deltaTime) {
-        //Vertical Movement
-        if(_gm.keyboardHandler.isKeyDown(UP_KEY)){
-            componentParent.gameObjectYVelocity = (float)(-objectWalkingSpeed *_deltaTime);
-            componentParent.gameObjectY += componentParent.gameObjectYVelocity;
-        }else if(_gm.keyboardHandler.isKeyDown(DOWN_KEY)){
-            componentParent.gameObjectYVelocity = (float)(objectWalkingSpeed *_deltaTime);
-            componentParent.gameObjectY += componentParent.gameObjectYVelocity;
-        }else{
-            componentParent.gameObjectYVelocity = 0;
-        }
-
-        //Horizontal Movement
-        if(_gm.keyboardHandler.isKeyDown(LEFT_KEY)){
-            componentParent.gameObjectXVelocity = (float)(-objectWalkingSpeed *_deltaTime);
-            componentParent.gameObjectX += componentParent.gameObjectXVelocity;
-        }else if(_gm.keyboardHandler.isKeyDown(RIGHT_KEY)){
-            componentParent.gameObjectXVelocity = (float)(objectWalkingSpeed *_deltaTime);
-            componentParent.gameObjectX += componentParent.gameObjectXVelocity;
-        }else{
-            componentParent.gameObjectXVelocity = 0;
-        }
+    	
+    	if(controlsLayout == TopDownControlLayouts.VERTICAL || controlsLayout == TopDownControlLayouts.BOTH) {
+            //Vertical Movement
+            if(_gm.keyboardHandler.isKeyDown(UP_KEY)){
+                componentParent.gameObjectYVelocity = (float)(-objectWalkingSpeed *_deltaTime);
+                componentParent.gameObjectY += componentParent.gameObjectYVelocity;
+            }else if(_gm.keyboardHandler.isKeyDown(DOWN_KEY)){
+                componentParent.gameObjectYVelocity = (float)(objectWalkingSpeed *_deltaTime);
+                componentParent.gameObjectY += componentParent.gameObjectYVelocity;
+            }else{
+                componentParent.gameObjectYVelocity = 0;
+            }	
+    	}
+    	
+    	if(controlsLayout == TopDownControlLayouts.HORIZONTAL || controlsLayout == TopDownControlLayouts.BOTH) {
+            //Horizontal Movement
+            if(_gm.keyboardHandler.isKeyDown(LEFT_KEY)){
+                componentParent.gameObjectXVelocity = (float)(-objectWalkingSpeed *_deltaTime);
+                componentParent.gameObjectX += componentParent.gameObjectXVelocity;
+            }else if(_gm.keyboardHandler.isKeyDown(RIGHT_KEY)){
+                componentParent.gameObjectXVelocity = (float)(objectWalkingSpeed *_deltaTime);
+                componentParent.gameObjectX += componentParent.gameObjectXVelocity;
+            }else{
+                componentParent.gameObjectXVelocity = 0;
+            }	
+    	}
     }
 }

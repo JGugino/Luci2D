@@ -15,6 +15,10 @@ import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
 	
+	
+	//TODO: Setup thread pooler for easier use and disposal of threads
+	//TODO: Move GameObject Collision to its own thread and have collision checking only run if the object is actually colliding with something.
+	
 	//Booleans for if the game is running and if it should render this frame
 	public boolean isRunning = false, shouldRender = false;
 	

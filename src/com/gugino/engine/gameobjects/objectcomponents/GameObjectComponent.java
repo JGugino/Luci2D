@@ -13,6 +13,8 @@ public abstract class GameObjectComponent {
 	public GameObjectComponentTypes componentType;
 	public GameObject componentParent;
 	
+	public boolean isEnabled = true;
+	
 	public GameObjectComponent(GameObjectComponentTypes _componentType, GameObject _componentParent) {
 		this.componentType = _componentType;
 		this.componentParent = _componentParent;

@@ -4,15 +4,17 @@
 
 package com.gugino.engine.tilemaps;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
-import com.gugino.engine.gameobjects.objectcomponents.ObjectSpriteRenderer;
+import com.gugino.engine.gameobjects.objectcomponents.ObjectColliderComponent;
+import com.gugino.engine.graphics.renderers.Sprites.Sprite;
 import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
-import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
+import com.gugino.engine.tilemaps.enums.TileTypes;
 import com.gugino.engine.util.debug.Debug;
 
 public class TileMap {
@@ -25,6 +27,7 @@ public class TileMap {
     public int mapHeight;
 
     public ArrayList<Tile> generatedTiles = new ArrayList<>();
+    public ArrayList<TileObject> generatedTileObjects = new ArrayList<>();
 
     public Tile previousCreatedTile;
 
@@ -38,6 +41,17 @@ public class TileMap {
 
         initTileMap();
     }
+    
+    public TileMap(String _mapID, BufferedImage[] _mapTiles, MapInformation _mapInformation, int _mapWidth, int _mapHeight){
+        this.tileMapID = _mapID;
+        this.tileMapSprites = null;
+        this.mapTiles = new Tile[_mapTiles.length];
+        this.tileMapInformation = _mapInformation;
+        this.mapWidth = _mapWidth;
+        this.mapHeight = _mapHeight;
+
+        initTileMap(_mapTiles);
+    }
 
     private void initTileMap(){
         for (int _t = 0; _t < tileMapSprites.sprites.length; _t++) {
@@ -45,8 +59,16 @@ public class TileMap {
             mapTiles[_t] = _newTile;
         }
     }
+    
+    private void initTileMap(BufferedImage[] _tiles){
+        for (int _t = 0; _t < _tiles.length; _t++) {
+        	Sprite _tileSprite = new Sprite("tile_"+_t, _tiles[_t], _tiles[_t].getWidth(), _tiles[_t].getHeight());
+            Tile _newTile = new Tile("tile_"+_t,_tileSprite.spriteWidth, _tileSprite.spriteHeight, _tileSprite);
+            mapTiles[_t] = _newTile;
+        }
+    }
 
-    public void generateTileMap(GameManager _gm){
+    public void generateTileMap(GameManager _gm, float _startXPos, float _startYPos, GameObjectLayers _mapLayer, TileTypes _tilesType){
         int _index = 0;
         
         for (int _r = 0; _r < tileMapInformation.mapPattern.length; _r++) {
@@ -58,11 +80,11 @@ public class TileMap {
 
                     if(_foundTile != null){
                         if(previousCreatedTile == null){
-                            Tile _createdTile = new Tile(tileMapID + " - tile_"+_index, _foundTile.tileWidth, _foundTile.tileHeight, 0, (int)(_r * _foundTile.tileHeight), _foundTile.tileSprite);
+                            Tile _createdTile = new Tile(tileMapID + " - tile_"+_index, _foundTile.tileWidth, _foundTile.tileHeight, (int)_startXPos, (int)(_startYPos + _r * _foundTile.tileHeight), _foundTile.tileSprite, _tilesType);
                             previousCreatedTile = _createdTile;
                             generatedTiles.add(_createdTile);
                         }else{
-                            Tile _createdTile = new Tile(tileMapID + " - tile_"+_index, _foundTile.tileWidth, _foundTile.tileHeight, (int)(previousCreatedTile.tileX + _foundTile.tileWidth), (int)(_r * _foundTile.tileHeight), _foundTile.tileSprite);
+                            Tile _createdTile = new Tile(tileMapID + " - tile_"+_index, _foundTile.tileWidth, _foundTile.tileHeight, (int)(previousCreatedTile.tileX + _foundTile.tileWidth), (int)(_startYPos + _r * _foundTile.tileHeight), _foundTile.tileSprite, _tilesType);
                             previousCreatedTile = _createdTile;
                             generatedTiles.add(_createdTile);
                         }
@@ -82,22 +104,19 @@ public class TileMap {
             if(_foundObject != null){
                 Debug.printWarning("Tile already exists! - " + _tile.tileID);
             }else if(_foundObject == null){
-            _gm.gameObjectHandler.addGameObject(_tile.tileID, new GameObject(_tile.tileX, _tile.tileY, _tile.tileWidth, _tile.tileHeight, GameObjectLayers.BACKGROUND,
-                StateManager.activeState) {
-             @Override
-             public void start(GameManager _gm, Renderer _r) {
-                 addGameObjectComponent(new ObjectSpriteRenderer(this, _tile.tileSprite.spriteImage));
-             }
-
-             @Override
-             public void update(GameManager _gm, double _deltaTime) {
-             }
-         
-             @Override
-             public void render(GameManager _gm, Renderer _r) {   
-             }
-             });
+            	TileObject _newTile = new TileObject(_tile.tileID, _tile.tileX, _tile.tileY, _tile.tileWidth, _tile.tileHeight, _mapLayer, _tile.tileSprite, _tile.tileType, StateManager.activeState);
+            	
+            	if(_newTile.tileType == TileTypes.SOLID) {
+            		ObjectColliderComponent _collider = new ObjectColliderComponent(_newTile);
+            		_newTile.addGameObjectComponent(_collider);
+            	}
+            	
+            	generatedTileObjects.add(_newTile);
             }
+        }
+        
+        for(TileObject _tO : generatedTileObjects) {
+        	_gm.gameObjectHandler.addGameObject(_tO.tileID, _tO);
         }
     }
 

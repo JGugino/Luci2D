@@ -27,17 +27,22 @@ public class ObjectColliderComponent extends GameObjectComponent{
 
 	@Override
 	public void componentUpdate(GameManager _gm, double _deltaTime) {
-		if(!componentParent.isColliding()){
-			if(parentGravityComponent != null){
-				//parentGravityComponent.setIsFalling(true);
-			}
+		if(this.isEnabled == true) {
+			if(!componentParent.isColliding()){
+				if(parentGravityComponent != null){
+					//parentGravityComponent.setIsFalling(true);
+				}
+			}	
 		}
 	}
 	
 	@Override
 	public void componentCollisionUpdate(GameObject _collision) {
-		//TODO: Finish, needs to make objects with physics component push able
-		objectCollision(_collision);
+		if(this.isEnabled == true) {
+			//TODO: Finish, needs to make objects with physics component push able
+			objectCollision(_collision);
+			Debug.printWarning("collision checking");
+		}
 	}
 
 	private void objectCollision(GameObject _collision){
@@ -126,7 +131,7 @@ public class ObjectColliderComponent extends GameObjectComponent{
 
 	@Override
 	public void componentRender(GameManager _gm, Renderer _r) {
-		if(componentParent.showBoundingBox) {
+		if(componentParent.showBoundingBox && this.isEnabled) {
 			_r.getGraphics().setColor(componentParent.getBoundingBoxColor());
 			_r.getGraphics().drawRect((int)componentParent.gameObjectX, (int)componentParent.gameObjectY, (int)componentParent.gameObjectWidth, (int)componentParent.gameObjectHeight);
 			_r.getGraphics().setColor(Color.white);

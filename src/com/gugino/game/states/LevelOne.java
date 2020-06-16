@@ -3,17 +3,15 @@
  */
 package com.gugino.game.states;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
 import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
-import com.gugino.engine.graphics.ui.uiobject.UITextBoxObject;
-import com.gugino.engine.graphics.ui.uiobject.enums.TextBoxStyle;
-import com.gugino.engine.graphics.ui.uiobject.enums.UIObjectLayer;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.GameState;
 import com.gugino.engine.tilemaps.TileMap;
+import com.gugino.engine.tilemaps.enums.TileTypes;
 import com.gugino.game.Main;
 import com.gugino.game.Maps.Map01;
 import com.gugino.game.objects.*;
@@ -35,9 +33,16 @@ public class LevelOne extends GameState{
 
 		Map01 _info = new Map01();
 
-		map = new TileMap("Map01", groundTiles, _info, 1280, 768);
+		
+		BufferedImage[] _images = new BufferedImage[3];
+		
+		_images[0] = groundTiles.sprites[0].spriteImage;
+		_images[1] = groundTiles.sprites[1].spriteImage;
+		_images[2] = groundTiles.sprites[2].spriteImage;
+		
+		map = new TileMap("Map01", _images, _info, 1280, 768);
 
-		map.generateTileMap(_gm);
+		map.generateTileMap(_gm, 100, 100, GameObjectLayers.BACKGROUND, TileTypes.TRIGGER);
 
 		player = new Player(0, 0, 64, 64, GameObjectLayers.MIDGROUND, this);
 

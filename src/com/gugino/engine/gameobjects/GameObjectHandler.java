@@ -34,7 +34,9 @@ public class GameObjectHandler {
 				
 				if(!_object.gameObjectComponents.isEmpty()) {
 					for(GameObjectComponent _gameObjectComponent : _object.gameObjectComponents.values()) {
-						_gameObjectComponent.componentUpdate(_gm, _deltaTime);
+						if(_gameObjectComponent.isEnabled) {
+							_gameObjectComponent.componentUpdate(_gm, _deltaTime);	
+						}
 					}
 				}
 			}	
@@ -73,7 +75,9 @@ public class GameObjectHandler {
 				_background.render(_gm, _r);
 				if(!_background.gameObjectComponents.isEmpty()) {
 					for(GameObjectComponent _gameObjectComponent : _background.gameObjectComponents.values()) {
-						_gameObjectComponent.componentRender(_gm, _r);
+						if(_gameObjectComponent.isEnabled) {
+							_gameObjectComponent.componentRender(_gm, _r);	
+						}
 					}
 				}
 			}
@@ -82,7 +86,9 @@ public class GameObjectHandler {
 				_farground.render(_gm, _r);
 				if(!_farground.gameObjectComponents.isEmpty()) {
 					for(GameObjectComponent _gameObjectComponent : _farground.gameObjectComponents.values()) {
-						_gameObjectComponent.componentRender(_gm, _r);
+						if(_gameObjectComponent.isEnabled) {
+							_gameObjectComponent.componentRender(_gm, _r);	
+						}
 					}
 				}
 			}
@@ -91,7 +97,9 @@ public class GameObjectHandler {
 				_midground.render(_gm, _r);
 				if(!_midground.gameObjectComponents.isEmpty()) {
 					for(GameObjectComponent _gameObjectComponent : _midground.gameObjectComponents.values()) {
-						_gameObjectComponent.componentRender(_gm, _r);
+						if(_gameObjectComponent.isEnabled) {
+							_gameObjectComponent.componentRender(_gm, _r);	
+						}
 					}
 				}
 			}
@@ -100,7 +108,9 @@ public class GameObjectHandler {
 				_foreground.render(_gm, _r);
 				if(!_foreground.gameObjectComponents.isEmpty()) {
 					for(GameObjectComponent _gameObjectComponent : _foreground.gameObjectComponents.values()) {
-						_gameObjectComponent.componentRender(_gm, _r);
+						if(_gameObjectComponent.isEnabled) {
+							_gameObjectComponent.componentRender(_gm, _r);	
+						}
 					}
 				}
 			}

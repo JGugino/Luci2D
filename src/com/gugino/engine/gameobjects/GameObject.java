@@ -59,6 +59,14 @@ public abstract class GameObject {
 		}
 	}
 	
+	public void removeGameObjectComponent(GameObjectComponent _componentToRemove) {
+		if(gameObjectComponents.containsKey(_componentToRemove.componentType)) {
+			gameObjectComponents.remove(_componentToRemove.componentType, _componentToRemove);
+		}else {
+			Debug.printError("GameObject " + gameObjectID + " doesn't contains the " + _componentToRemove.componentType + " component!");
+		}
+	}
+	
 	//Abstract methods for update and rendering that all GameObjects must have
 	public abstract void start(GameManager _gm, Renderer _r);
 	public abstract void update(GameManager _gm, double _deltaTime);

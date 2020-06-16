@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.GameObject;
 import com.gugino.engine.gameobjects.enums.GameObjectLayers;
+import com.gugino.engine.gameobjects.enums.TopDownControlLayouts;
 import com.gugino.engine.gameobjects.interfaces.IKillable;
 import com.gugino.engine.gameobjects.objectcomponents.*;
 import com.gugino.engine.loops.Renderer;
@@ -52,7 +53,7 @@ public class Player extends GameObject implements IKillable{
 		//Adds platformer style controls to Player GameObject
 		//ObjectPlatformerControlsComponent _controls = new ObjectPlatformerControlsComponent(this);
 		//_controls.hasDoubleJump(true);
-		addGameObjectComponent(new ObjectTopDownControlsComponent(this));
+		addGameObjectComponent(new ObjectTopDownControlsComponent(this, TopDownControlLayouts.BOTH));
 	}
 	
 	@Override
