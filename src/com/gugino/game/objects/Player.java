@@ -79,7 +79,7 @@ public class Player extends GameObject implements IKillable{
 	
 	@Override
 	public void onCollisionEnter(GameObject _collision) {
-		//Debug.printLine("Player Enter - " + _collision.getGameObjectID());
+		Debug.printLine("Player Enter - " + _collision.getGameObjectID());
 	}
 	
 	@Override
@@ -87,6 +87,6 @@ public class Player extends GameObject implements IKillable{
 	
 	@Override
 	public void onCollisionExit(GameObject _collision) {
-		//Debug.printLine("Player Exit - " + _collision.getGameObjectID());
+		Debug.printLine("Player Exit - " + _collision.getGameObjectID());
 	}
 }

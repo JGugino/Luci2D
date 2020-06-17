@@ -105,6 +105,7 @@ public class GameManager implements Runnable{
 		try {
 			//Stops the main thread
 			mainThread.join();
+			gameObjectHandler.objectCollisionHandler.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

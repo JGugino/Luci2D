@@ -21,14 +21,15 @@ public class GameObjectHandler {
 	public GameObjectCollisionHandler objectCollisionHandler;
 	
 	public GameObjectHandler(GameManager _gm, Renderer _r) {
-		objectCollisionHandler = new GameObjectCollisionHandler();
+		objectCollisionHandler = new GameObjectCollisionHandler(_gm);
 		gameManager = _gm;
 		renderer = _r;
+		
+		objectCollisionHandler.start();
 	}
 	
 	public void update(GameManager _gm, double _deltaTime) {
 		if(!enabledGameObjects.isEmpty()) {
-			objectCollisionHandler.update(_gm);
 			for(GameObject _object : enabledGameObjects.values()) {
 				_object.update(_gm, _deltaTime);
 				
