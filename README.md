@@ -2,7 +2,7 @@
 # **Luci2D**
 
 #### Created by: Gugino
-#### version 0.2.6a
+#### version 0.2.7.3a
 
 Luci2D is a 2D game framework built upon java's awt library with the goal of providing a more user friendly alternative for creating 2D games using vanilla java.
 
