@@ -3,8 +3,8 @@
  */
 package com.gugino.engine.audio;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -25,15 +25,16 @@ public class AudioClip {
 	protected AudioInputStream clipAudioStream;
 	protected Clip audioClip;
 	
+	protected boolean waitForEndOfClip = false;
+	
 	public AudioClip(String _clipID, String _clipPath, boolean _isLooping) {
 		this.clipID = _clipID;
 		this.clipPath = _clipPath;
 		this.isLooping = _isLooping;
 		
-		File _audioClip = new File(_clipPath).getAbsoluteFile();
+		URL _audioClip = getClass().getResource(_clipPath);
 		
 		if(_audioClip != null) {
-			if(_audioClip.exists()) {
 				try {
 					clipAudioStream = AudioSystem.getAudioInputStream(_audioClip);
 					audioClip = AudioSystem.getClip();
@@ -42,35 +43,39 @@ public class AudioClip {
 					if(isLooping) {
 						audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 					}
-				} catch (UnsupportedAudioFileException e) {
-					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (LineUnavailableException e) {
 					e.printStackTrace();
+				} catch (UnsupportedAudioFileException e) {
+					e.printStackTrace();
 				}	
-			}else {
-				Debug.printError("No audio file found at" + _audioClip.getAbsolutePath());
-			}
 		}
 	}
 	
-	public void playClip() {
+	public void playClip(boolean _waitForEnd) {
+		waitForEndOfClip = _waitForEnd;
 		if(clipStatus != ClipStatus.PLAYING) {
-			if(!audioClip.isOpen()) {
-				try {
-					audioClip.open(clipAudioStream);
-				} catch (LineUnavailableException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+			if(audioClip != null) {
+				if(!audioClip.isOpen()) {
+					try {
+						audioClip.open(clipAudioStream);
+					} catch (LineUnavailableException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
+				
+				audioClip.start();
+				clipStatus = ClipStatus.PLAYING;	
 			}
-			
-			audioClip.start();
-			clipStatus = ClipStatus.PLAYING;
 		}else {
-			if(audioClip.getMicrosecondPosition() >= audioClip.getMicrosecondLength()) {
+			if(waitForEndOfClip) {
+				if(audioClip.getMicrosecondPosition() >= audioClip.getMicrosecondLength()) {
+					restartClip();
+				}	
+			}else {
 				restartClip();
 			}
 		}
@@ -89,7 +94,7 @@ public class AudioClip {
 	public void resumeClip() {
 		if(clipStatus == ClipStatus.PAUSED) {
 			audioClip.setMicrosecondPosition(currentClipFrame);
-			playClip();
+			playClip(waitForEndOfClip);
 		}
 	}
 	
@@ -106,7 +111,7 @@ public class AudioClip {
 		clipStatus = ClipStatus.STOPPED;
 		currentClipFrame = 0L;
 		audioClip.setMicrosecondPosition(currentClipFrame);
-		playClip();
+		playClip(waitForEndOfClip);
 	}
 	
 	public String getClipID() {
