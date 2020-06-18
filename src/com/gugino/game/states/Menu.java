@@ -34,7 +34,7 @@ public class Menu extends GameState{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
-		titleText = new UITextObject("Luci2D Demo Game", WindowHandler.windowWidth/2 - 75, 25, UIObjectLayer.FOREGROUND, this);
+		titleText = new UITextObject("Luci2D Demo Game", WindowHandler.windowWidth/2 - 75, 25, Color.black, UIObjectLayer.FOREGROUND, this);
 		playButton = new UIButtonObject("Play", Color.black, Color.lightGray, Color.gray, Color.white, WindowHandler.windowWidth/2 - 125, WindowHandler.windowHeight/2 - 100, 250, 100, ButtonStyle.ROUNDED, UIObjectLayer.FOREGROUND, this);
 
 		spriteSheet = _r.imageRenderer.getImageFromPath("/ground_tiles_sprite_sheet.png");
@@ -73,7 +73,7 @@ public class Menu extends GameState{
 	}
 	
 	@Override
-	public void onActive(GameManager _gm) {
+	public void onActive(GameManager _gm, Renderer _r) {
 		_gm.showDebugInformation = false;
 	}
 	

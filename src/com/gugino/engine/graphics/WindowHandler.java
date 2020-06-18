@@ -11,10 +11,12 @@ import javax.swing.JFrame;
 public class WindowHandler {
 	
 	//Default title for untitled windows
-	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.7a";
+	public static final String DEFAULT_WINDOW_TITLE = "Luci2D - v0.2.7.3a";
 	
 	public static int windowWidth;
 	public static int windowHeight;
+	
+	private boolean isResizable = true;
 	
 	//Games FPS
 	public long fps = 0;
@@ -32,7 +34,9 @@ public class WindowHandler {
 	public Canvas windowCanvas;
 	
 	//Constructor to create window with title, width and height
-	public WindowHandler(String _windowTitle, int _windowWidth, int _windowHeight) {
+	public WindowHandler(String _windowTitle, int _windowWidth, int _windowHeight, boolean _isResizable) {
+		this.isResizable = _isResizable;
+		
 		//Creates new instance of JFrame with the title passed in
 		windowFrame = new JFrame(_windowTitle);
 		
@@ -53,7 +57,7 @@ public class WindowHandler {
 		//Sets the windows default close operation
 		windowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets if the window can be resized to false
-		windowFrame.setResizable(true);
+		windowFrame.setResizable(_isResizable);
 		//Sets the windows start location to the center of the screen
 		windowFrame.setLocationRelativeTo(null);
 		//Adds the canvas to the windows frame
@@ -63,5 +67,9 @@ public class WindowHandler {
 		windowFrame.setVisible(true);
 		
 		windowCanvas.requestFocus();
+	}
+	
+	public boolean isResizeable() {
+		return isResizable;
 	}
 }

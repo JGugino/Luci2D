@@ -71,7 +71,7 @@ public class StateManager {
 			//checks if the activeState is not null
 			if(activeState != null) {
 				//removes current state from the enabled states
-				activeState.onDisable(gameManager);
+				activeState.onDisable(gameManager, renderer);
 				disabledStates.put(activeState.stateID, activeState);
 				enabledStates.remove(activeState.stateID);	
 			}
@@ -98,7 +98,7 @@ public class StateManager {
 				activeState.start(gameManager, gameManager.renderer);	
 			}
 			
-			activeState.onActive(gameManager);
+			activeState.onActive(gameManager, renderer);
 			
 			return;
 		}else {

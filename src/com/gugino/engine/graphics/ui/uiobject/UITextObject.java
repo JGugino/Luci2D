@@ -18,11 +18,11 @@ public class UITextObject extends UIObject{
 	
 	public Color objectColor;
 	
-	public UITextObject(String _text, float _objectX, float _objectY, UIObjectLayer _objectLayer, GameState _parentState) {
+	public UITextObject(String _text, float _objectX, float _objectY, Color _color, UIObjectLayer _objectLayer, GameState _parentState) {
 		super(_objectX, _objectY,  UIObjectType.TEXT, _objectLayer, _parentState);
 		this.objectText = _text;
 		this.objectFont = new Font("San-Serif", Font.PLAIN, 18);
-		this.objectColor = Color.BLACK;
+		this.objectColor = _color;
 	}
 	
 	public UITextObject(String _text, float _objectX, float _objectY, Font _font, UIObjectLayer _objectLayer, GameState _parentState) {

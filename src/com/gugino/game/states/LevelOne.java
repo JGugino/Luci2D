@@ -68,7 +68,7 @@ public class LevelOne extends GameState{
 	}
 	
 	@Override
-	public void onActive(GameManager _gm) {
+	public void onActive(GameManager _gm, Renderer _r) {
 		_gm.showDebugInformation = true;
 		player.gameObjectX = 300;
 		player.gameObjectY = 100;

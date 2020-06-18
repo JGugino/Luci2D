@@ -120,6 +120,14 @@ public class TileMap {
         }
     }
 
+    public void resetTileMapObjects() {
+    	for (TileObject _object : generatedTileObjects) {
+			if(!_object.gameObjectActive) {
+				_object.gameObjectActive = true;
+			}
+		}
+    }
+    
     protected Tile findTileByID(String _tileID){
         for (int _t = 0; _t < mapTiles.length; _t++) {
             if(mapTiles[_t].tileID.equals(_tileID)){

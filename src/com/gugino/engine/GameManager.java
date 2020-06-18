@@ -14,11 +14,6 @@ import com.gugino.engine.loops.Updater;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
-	
-	
-	//TODO: Setup thread pooler for easier use and disposal of threads
-	//TODO: Move GameObject Collision to its own thread and have collision checking only run if the object is actually colliding with something.
-	
 	//Booleans for if the game is running and if it should render this frame
 	public boolean isRunning = false, shouldRender = false;
 	
@@ -52,7 +47,7 @@ public class GameManager implements Runnable{
 	//Constructor for GameManager which takes in the current abstract game created and, a width and height for the window and uses a default title
 	public GameManager(int _windowWidth, int _windowHeight, Game _game) {
 		//Creates the game window using default title and defined width/height
-		windowHandler = new WindowHandler(WindowHandler.DEFAULT_WINDOW_TITLE, _windowWidth, _windowHeight);
+		windowHandler = new WindowHandler(WindowHandler.DEFAULT_WINDOW_TITLE, _windowWidth, _windowHeight, true);
 		
 		//Creates new instances of the keyboard and mouse handlers
 		keyboardHandler = new KeyboardHandler();
@@ -66,9 +61,9 @@ public class GameManager implements Runnable{
 	}
 	
 	//Constructor for GameManager which takes the current abstract game created, a string for the window title and a width and height for the window
-	public GameManager(String _windowTitle, int _windowWidth, int _windowHeight, Game _game) {
+	public GameManager(String _windowTitle, int _windowWidth, int _windowHeight, boolean _resizable, Game _game) {
 		//Creates the game window using defined title, and width/height
-		windowHandler = new WindowHandler(_windowTitle, _windowWidth, _windowHeight);
+		windowHandler = new WindowHandler(_windowTitle, _windowWidth, _windowHeight, _resizable);
 		
 		//Creates new instances of the keyboard and mouse handlers
 		keyboardHandler = new KeyboardHandler();
