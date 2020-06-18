@@ -29,6 +29,9 @@ public class LevelOne extends GameState{
 
 	@Override
 	public void start(GameManager _gm, Renderer _r) {
+		
+		_gm.audioManager.importAudioClip("Clip", "./res/menu_background.wav", false);
+		
 		groundTiles = _r.imageRenderer.generatedSpriteSheets.get("ground_tiles");
 
 		Map01 _info = new Map01();

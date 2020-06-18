@@ -62,8 +62,10 @@ public class Player extends GameObject implements IKillable{
 		
 		if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_9)) {
 			_healthManager.takeHealth(2);
+			_gm.audioManager.findClipByID("Clip").playClip();
 		}else if(_gm.keyboardHandler.isKeyDown(KeyEvent.VK_0)) {
 			_healthManager.addHealth(2);
+			_gm.audioManager.findClipByID("Clip").pauseClip();;
 		}
 	}
 	

@@ -3,6 +3,7 @@
  */
 package com.gugino.engine;
 
+import com.gugino.engine.audio.AudioManager;
 import com.gugino.engine.gameobjects.GameObjectHandler;
 import com.gugino.engine.graphics.WindowHandler;
 import com.gugino.engine.input.KeyboardHandler;
@@ -29,6 +30,9 @@ public class GameManager implements Runnable{
 	
 	//GameObjectHandler object
 	public GameObjectHandler gameObjectHandler;
+	
+	//AudioManager object
+	public AudioManager audioManager;
 	
 	//Object of the abstract class Game
 	public Game currentGame;
@@ -91,6 +95,9 @@ public class GameManager implements Runnable{
 		
 		//Creates new instance of the GameObjectHandler
 		gameObjectHandler = new GameObjectHandler(this, renderer);
+		
+		//Creates new instance of the AudioManager
+		audioManager = new AudioManager();
 		
 		//Starts the main thread
 		mainThread.start();
