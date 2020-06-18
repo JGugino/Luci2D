@@ -128,6 +128,18 @@ public class TileMap {
 		}
     }
     
+    public int calculateTotalActiveTileObjects() {
+    	ArrayList<TileObject> _activeObjects = new ArrayList<TileObject>();
+    	
+    	for (TileObject _object : generatedTileObjects) {
+			if(_object.gameObjectActive) {
+				_activeObjects.add(_object);
+			}
+		}
+    	
+    	return _activeObjects.size();
+    }
+    
     protected Tile findTileByID(String _tileID){
         for (int _t = 0; _t < mapTiles.length; _t++) {
             if(mapTiles[_t].tileID.equals(_tileID)){
