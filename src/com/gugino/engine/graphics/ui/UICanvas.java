@@ -9,8 +9,6 @@ import java.util.HashMap;
 import com.gugino.engine.GameManager;
 import com.gugino.engine.graphics.ui.uiobject.UIObject;
 import com.gugino.engine.loops.Renderer;
-import com.gugino.engine.states.StateManager;
-import com.gugino.engine.util.debug.Debug;
 
 public class UICanvas {
 	private HashMap<String, UIObject> enabledUIObjects = new HashMap<String, UIObject>();

@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
 import com.gugino.engine.loops.Renderer;
-import com.gugino.engine.util.debug.Debug;
 
 public class StateManager {
 	

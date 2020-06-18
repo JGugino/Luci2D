@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gugino.engine.GameManager;
+import com.gugino.engine.gameobjects.interfaces.ICollisionAction;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectComponent;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
+import com.gugino.engine.tilemaps.TileMap;
 import com.gugino.engine.util.debug.Debug;
 
 public class GameObjectHandler {
@@ -31,14 +33,16 @@ public class GameObjectHandler {
 		if(!enabledGameObjects.isEmpty()) {
 			objectCollisionHandler.collisionUpdate(_gm);
 			for(GameObject _object : enabledGameObjects.values()) {
-				_object.update(_gm, _deltaTime);
-				
-				if(!_object.gameObjectComponents.isEmpty()) {
-					for(GameObjectComponent _gameObjectComponent : _object.gameObjectComponents.values()) {
-						if(_gameObjectComponent.isEnabled) {
-							_gameObjectComponent.componentUpdate(_gm, _deltaTime);	
+				if(_object.gameObjectActive) {
+					_object.update(_gm, _deltaTime);
+					
+					if(!_object.gameObjectComponents.isEmpty()) {
+						for(GameObjectComponent _gameObjectComponent : _object.gameObjectComponents.values()) {
+							if(_gameObjectComponent.isEnabled) {
+								_gameObjectComponent.componentUpdate(_gm, _deltaTime);	
+							}
 						}
-					}
+					}	
 				}
 			}	
 		}
@@ -52,7 +56,8 @@ public class GameObjectHandler {
 			ArrayList<GameObject> _backgroundObjects = new ArrayList<GameObject>(); 
 			
 			for(GameObject _object : enabledGameObjects.values()) {
-				switch(_object.gameObjectSortingLayer) {
+				if(_object.gameObjectActive) {
+					switch(_object.gameObjectSortingLayer) {
 					case FOREGROUND:
 						_foregroundObjects.add(_object);
 						break;
@@ -68,6 +73,7 @@ public class GameObjectHandler {
 					case BACKGROUND:
 						_backgroundObjects.add(_object);
 						break;
+				}	
 				}
 			}
 			
@@ -161,8 +167,8 @@ public class GameObjectHandler {
 		if(!enabledGameObjects.containsKey(_objectID) && disabledGameObjects.containsKey(_objectID)) {
 			disabledGameObjects.get(_objectID).gameObjectActive = true;
 			enabledGameObjects.put(_objectID, disabledGameObjects.get(_objectID));
-			disabledGameObjects.get(_objectID).onEnable();
 			disabledGameObjects.remove(_objectID);
+			enabledGameObjects.get(_objectID).onEnable();
 		}else if(enabledGameObjects.containsKey(_objectID) && !disabledGameObjects.containsKey(_objectID)) {
 			System.out.println("GameObject already enabled - " + _objectID);
 		}else {
@@ -198,6 +204,46 @@ public class GameObjectHandler {
 		}else {
 			Debug.printError("One or both of the objects specified do not exist! Please check your spelling and try again: Object ID(object1/object2)" + _objectOneID + "/" + _objectTwoID);
 			return false;
+		}
+	}
+	
+	public boolean collidingWithTileMap(String _collidingObjectID, TileMap _tileMap) {
+		GameObject _collidingObject = findGameObjectByID(_collidingObjectID);
+		
+		if(_collidingObject != null && _tileMap != null) {
+			for(GameObject _o : _tileMap.generatedTileObjects) {
+				if(_o.gameObjectActive) {
+					if(_collidingObject.getBoundingBox().intersects(_o.getBoundingBox())) {
+						return true;
+					}else {
+						return false;
+					}	
+				}else {
+					return false;
+				}
+			}
+			return false;
+		}else {
+			Debug.printError("Either the object or tilemap don't exist!");
+			return false;
+		}
+	}
+	
+	public void collidingWithTileMap(String _collidingObjectID, TileMap _tileMap, ICollisionAction _collisionAction) {
+		GameObject _collidingObject = findGameObjectByID(_collidingObjectID);
+		
+		if(_collidingObject != null && _tileMap != null) {
+			for(GameObject _o : _tileMap.generatedTileObjects) {
+				if(_o.gameObjectActive) {
+					if(_collidingObject.getBoundingBox().intersects(_o.getBoundingBox())) {
+						if(_collisionAction != null) {
+							_collisionAction.onCollision(_o.getGameObjectID());
+						}
+					}	
+				}
+			}
+		}else {
+			Debug.printError("Either the object or tilemap don't exist!");
 		}
 	}
 	

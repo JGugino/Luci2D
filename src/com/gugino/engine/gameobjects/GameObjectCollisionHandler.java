@@ -37,12 +37,16 @@ public class GameObjectCollisionHandler{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void doCollisionEnterTrigger(GameObject _object01, GameObject _object02) {
 		
 		if(!didEnterTrigger) {
 			didEnterTrigger = true;
 			didExitTrigger = false;
 
+			_object01.onCollisionEnter(_object02);
+			_object02.onCollisionEnter(_object01);
+			
 			if(_object01.getGameObjectsComponents().containsKey(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER)){
 				ObjectPlatformerControlsComponent _platformer = (ObjectPlatformerControlsComponent)_object01.getGameObjectsComponents().get(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER);
 				_platformer.isJumping = false;
@@ -53,6 +57,9 @@ public class GameObjectCollisionHandler{
 				collidingObjects.put(_object01.gameObjectID + "-" + _object02.gameObjectID, new GameObject[] {_object01, _object02});	
 			}
 		}
+		
+		_object01.onCollisionStay(_object02);
+		_object02.onCollisionStay(_object01);
 		
 		if((_object01.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))
 				&& (_object02.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))) {
@@ -66,11 +73,15 @@ public class GameObjectCollisionHandler{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void doCollisionExitTrigger(GameObject _object01, GameObject _object02) {
 		if (!didExitTrigger && didEnterTrigger) {
 			didExitTrigger = true;
 			didEnterTrigger = false;
 
+			_object01.onCollisionExit(_object02);
+			_object02.onCollisionExit(_object01);
+			
 			if (collidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)
 					&& !prevCollidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)) {
 				prevCollidingObjects.put(_object01.gameObjectID + "-" + _object02.gameObjectID,
