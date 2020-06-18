@@ -76,17 +76,4 @@ public class Player extends GameObject implements IKillable{
 	public void render(GameManager _gm, Renderer _r) {
 		//_r.shapeRenderer.drawFilledRect(gameObjectX, gameObjectY, gameObjectWidth, gameObjectHeight, Color.green);
 	}
-	
-	@Override
-	public void onCollisionEnter(GameObject _collision) {
-		Debug.printLine("Player Enter - " + _collision.getGameObjectID());
-	}
-	
-	@Override
-	public void onCollisionStay(GameObject _collision) {}
-	
-	@Override
-	public void onCollisionExit(GameObject _collision) {
-		Debug.printLine("Player Exit - " + _collision.getGameObjectID());
-	}
 }

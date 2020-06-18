@@ -73,8 +73,11 @@ public abstract class GameObject {
 	public abstract void render(GameManager _gm, Renderer _r);
 	
 	//Optional methods for collision detection
+	@Deprecated
 	public void onCollisionEnter(GameObject _collision) {}
+	@Deprecated
 	public void onCollisionStay(GameObject _collision) {}
+	@Deprecated
 	public void onCollisionExit(GameObject _collision) {}
 	
 	//Optional methods for when GameObject is enabled or disabled

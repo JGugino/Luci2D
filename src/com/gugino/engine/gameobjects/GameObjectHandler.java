@@ -10,6 +10,7 @@ import com.gugino.engine.GameManager;
 import com.gugino.engine.gameobjects.objectcomponents.GameObjectComponent;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.states.StateManager;
+import com.gugino.engine.util.debug.Debug;
 
 public class GameObjectHandler {
 	private HashMap<String, GameObject> enabledGameObjects = new HashMap<String, GameObject>();
@@ -21,15 +22,14 @@ public class GameObjectHandler {
 	public GameObjectCollisionHandler objectCollisionHandler;
 	
 	public GameObjectHandler(GameManager _gm, Renderer _r) {
-		objectCollisionHandler = new GameObjectCollisionHandler(_gm);
+		objectCollisionHandler = new GameObjectCollisionHandler();
 		gameManager = _gm;
 		renderer = _r;
-		
-		objectCollisionHandler.start();
 	}
 	
 	public void update(GameManager _gm, double _deltaTime) {
 		if(!enabledGameObjects.isEmpty()) {
+			objectCollisionHandler.collisionUpdate(_gm);
 			for(GameObject _object : enabledGameObjects.values()) {
 				_object.update(_gm, _deltaTime);
 				
@@ -181,6 +181,23 @@ public class GameObjectHandler {
 			System.out.println("GameObject already disabled - " + _objectID);
 		}else {
 			System.err.println("GameObject doesn't exists - " + _objectID);
+		}
+	}
+	
+	
+	public boolean objectsColliding(String _objectOneID, String _objectTwoID) {
+		GameObject _object01 = findGameObjectByID(_objectOneID);
+		GameObject _object02 = findGameObjectByID(_objectTwoID);
+		
+		if(_object01 != null && _object02 != null) {
+			if(_object01.getBoundingBox().intersects(_object02.getBoundingBox())) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			Debug.printError("One or both of the objects specified do not exist! Please check your spelling and try again: Object ID(object1/object2)" + _objectOneID + "/" + _objectTwoID);
+			return false;
 		}
 	}
 	

@@ -10,52 +10,38 @@ import com.gugino.engine.gameobjects.enums.GameObjectComponentTypes;
 import com.gugino.engine.gameobjects.objectcomponents.ObjectColliderComponent;
 import com.gugino.engine.gameobjects.objectcomponents.ObjectPlatformerControlsComponent;
 
-public class GameObjectCollisionHandler extends Thread{
+public class GameObjectCollisionHandler{
 
 	private HashMap<String, GameObject[]> collidingObjects = new HashMap<String, GameObject[]>();
 	private HashMap<String, GameObject[]> prevCollidingObjects = new HashMap<String, GameObject[]>();	
 	
 	private boolean didEnterTrigger = false, didExitTrigger = false;
-	
-	private GameManager gameManager;
-	
-	public GameObjectCollisionHandler(GameManager _gm) {
-		this.gameManager = _gm;
-	}
-	
-	@Override
-	public void run() {
-		while(gameManager.isRunning) {
-			if(!gameManager.gameObjectHandler.getEnabledGameObjects().isEmpty()) {
-				for(GameObject _object01 : gameManager.gameObjectHandler.getEnabledGameObjects().values()) {
-					for(GameObject _object02 : gameManager.gameObjectHandler.getEnabledGameObjects().values()) {
-						if(_object01.gameObjectID != _object02.gameObjectID) {
-							checkForCollision(_object01, _object02);
-						}
+
+	public void collisionUpdate(GameManager _gm) {
+		if(!_gm.gameObjectHandler.getEnabledGameObjects().isEmpty()) {
+			for(GameObject _object01 : _gm.gameObjectHandler.getEnabledGameObjects().values()) {
+				for(GameObject _object02 : _gm.gameObjectHandler.getEnabledGameObjects().values()) {
+					if(_object01.gameObjectID != _object02.gameObjectID) {
+						checkForCollision(_object01, _object02);
 					}
-				}	
+				}
 			}	
-		}
+		}	
 	}
 
-	protected synchronized void checkForCollision(GameObject _object01, GameObject _object02) {
+	protected void checkForCollision(GameObject _object01, GameObject _object02) {
 		if(_object01.getBoundingBox().intersects(_object02.getBoundingBox())){
-			System.out.println("Enter");
-				doCollisionEnterTrigger(_object01, _object02);	
+			doCollisionEnterTrigger(_object01, _object02);	
 		}else{
-			System.out.println("Exit");
-				doCollisionExitTrigger(_object01, _object02);
+			doCollisionExitTrigger(_object01, _object02);
 		}
 	}
 	
-	private synchronized void doCollisionEnterTrigger(GameObject _object01, GameObject _object02) {
+	private void doCollisionEnterTrigger(GameObject _object01, GameObject _object02) {
 		
 		if(!didEnterTrigger) {
 			didEnterTrigger = true;
 			didExitTrigger = false;
-
-			_object01.onCollisionEnter(_object02);
-			_object02.onCollisionEnter(_object01);
 
 			if(_object01.getGameObjectsComponents().containsKey(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER)){
 				ObjectPlatformerControlsComponent _platformer = (ObjectPlatformerControlsComponent)_object01.getGameObjectsComponents().get(GameObjectComponentTypes.PLATFORMER_MOVEMENT_MANAGER);
@@ -67,9 +53,6 @@ public class GameObjectCollisionHandler extends Thread{
 				collidingObjects.put(_object01.gameObjectID + "-" + _object02.gameObjectID, new GameObject[] {_object01, _object02});	
 			}
 		}
-		
-		_object01.onCollisionStay(_object02);
-		_object02.onCollisionStay(_object01);
 		
 		if((_object01.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))
 				&& (_object02.gameObjectComponents.containsKey(GameObjectComponentTypes.COLLIDER))) {
@@ -83,13 +66,10 @@ public class GameObjectCollisionHandler extends Thread{
 		}
 	}
 	
-	private synchronized void doCollisionExitTrigger(GameObject _object01, GameObject _object02) {
+	private void doCollisionExitTrigger(GameObject _object01, GameObject _object02) {
 		if (!didExitTrigger && didEnterTrigger) {
 			didExitTrigger = true;
 			didEnterTrigger = false;
-			
-			_object01.onCollisionExit(_object02);
-			_object02.onCollisionExit(_object01);
 
 			if (collidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)
 					&& !prevCollidingObjects.containsKey(_object01.gameObjectID + "-" + _object02.gameObjectID)) {
