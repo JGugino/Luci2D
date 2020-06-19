@@ -44,20 +44,20 @@ To begin working with the Luci2D framework first you can either compile the jar 
 1. To begin start by opening the Eclipse IDE, once started click `File`, `New -> Java Project` and follow the prompts to setup a basic Java Project.
 <br/>
 <br/>
-![Create Project](/images/project_create.png)
+![Create Project](images/project_create.png)
 1. Once you have created a new project you to want add the `Luci2D_(version).jar` to your projects referenced libraries, also at this point it is useful to add a `res` class folder to your build path as well for future use with referencing images/audio.
    - To create the resource folder that Luci2D relys on to load images/audio files, first right click the root of the newly created project the select `New -> Folder`. Once the folder is created drag and drop the download `Luci2D_(version).jar` into the folder, and when prompted to copy files click ok.
    <br>
    <br>
-   ![Create res folder](/images/create_res_folder.png)
+   ![Create res folder](images/create_res_folder.png)
    - Right click the root of your newly created projects and select the `Properties` option. Once the window opens Select `Java Build Path` on the left side of the window, then click the `Libraries` tab on the right side panel in the `Properties` window. After the `Libraries` tab is selected press the `Add JARs` button, then navigate to the `Luci2D_(version).jar` you added to the res folder and then press OK.
    <br>
    <br>
-   ![Add Jar File](/images/include_jar_file.png)
+   ![Add Jar File](images/include_jar_file.png)
    - Now to added the `res` folder as a class folder, within the same `Properties` window you added the jar file in press the `Add Class Folder` button then select the `res` folder inside your project.
    <br>
    <br>
-   ![Add Class Folder](/images/include_class_folder.png)
+   ![Add Class Folder](images/include_class_folder.png)
 
     <br>
     <br>
@@ -66,7 +66,7 @@ To begin working with the Luci2D framework first you can either compile the jar 
 1. To get a basic window up and running with Luci2D is quite simple, to begin by creating a new java file which includes a `main` method. The package structure does not effect any functionally so you can organize your project anyway you see fit.
 <br>
 <br>
-![Create new class](/images/game_class_create.png)
+![Create new class](images/game_class_create.png)
 2. Once you have created the new class make sure the class extends `Game`, and implement any required methods (All classes that inherit from the `Game` class need the `start(GameManager _gm, Renderer _r)`, `update(GameManager _gm, double _delta)`, and `render(GameManager _gm, Renderer _r)` methods.).
     ```
     package com.gugino.demo;
