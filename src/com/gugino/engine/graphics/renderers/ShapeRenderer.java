@@ -28,11 +28,11 @@ public class ShapeRenderer {
 		renderer.getGraphics().setColor(Color.white);
 	}
 	
-	public void drawFilledRect(float _x, float _y, int _width, int _height, Color _color, boolean _hasBorder , Color _borderColor) {
+	public void drawFilledRect(float _x, float _y, int _width, int _height, Color _color, Color _borderColor) {
 		renderer.getGraphics().setColor(_color);
 		renderer.getGraphics().fillRect((int)_x, (int)_y, _width, _height);
 		
-		if(_hasBorder) {
+		if(_borderColor != null) {
 			renderer.getGraphics().setColor(_borderColor);
 			renderer.getGraphics().drawRect((int)_x, (int)_y, _width, _height);
 		}
@@ -54,11 +54,11 @@ public class ShapeRenderer {
 		renderer.getGraphics().setColor(Color.white);
 	}
 	
-	public void drawFilledRoundedRect(float _x, float _y, int _width, int _height, int _arcWidth, int _arcHeight, Color _color, boolean _hasBorder , Color _borderColor) {
+	public void drawFilledRoundedRect(float _x, float _y, int _width, int _height, int _arcWidth, int _arcHeight, Color _color, Color _borderColor) {
 		renderer.getGraphics().setColor(_color);
 		renderer.getGraphics().fillRoundRect((int)_x, (int)_y, _width, _height, _arcWidth, _arcHeight);
 		
-		if(_hasBorder) {
+		if(_borderColor != null) {
 			renderer.getGraphics().setColor(_borderColor);
 			renderer.getGraphics().drawRoundRect((int)_x, (int)_y, _width, _height, _arcHeight, _arcHeight);
 		}
@@ -79,11 +79,11 @@ public class ShapeRenderer {
 		renderer.getGraphics().setColor(Color.white);	
 	}
 	
-	public void drawFilledCircle(float _x, float _y, int _width, int _height, Color _color, boolean _hasBorder , Color _borderColor) {
+	public void drawFilledCircle(float _x, float _y, int _width, int _height, Color _color, Color _borderColor) {
 		renderer.getGraphics().setColor(_color);
 		renderer.getGraphics().fillOval((int)_x, (int)_y, _width, _height);
 		
-		if(_hasBorder) {
+		if(_borderColor != null) {
 			renderer.getGraphics().setColor(_borderColor);
 			renderer.getGraphics().drawOval((int)_x, (int)_y, _width, _height);
 		}
