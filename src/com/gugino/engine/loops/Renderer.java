@@ -15,6 +15,7 @@ import com.gugino.engine.graphics.renderers.FontRenderer;
 import com.gugino.engine.graphics.renderers.ImageRenderer;
 import com.gugino.engine.graphics.renderers.ShapeRenderer;
 import com.gugino.engine.graphics.ui.UICanvas;
+import com.gugino.engine.lighting.LightHandler;
 import com.gugino.engine.util.debug.DebugRenderer;
 
 public class Renderer {
@@ -30,7 +31,9 @@ public class Renderer {
 	public UICanvas canvas;
 	
 	public ParticleHandler particleHandler;
-
+	
+	public LightHandler lightHandler;
+	
 	public FontRenderer fontRenderer;
 	public ShapeRenderer shapeRenderer;
 	public ImageRenderer imageRenderer;
@@ -47,6 +50,8 @@ public class Renderer {
 		imageRenderer = new ImageRenderer(this);
 
 		particleHandler = new ParticleHandler();
+		
+		lightHandler = new LightHandler();
 
 		debugRenderer = new DebugRenderer();
 	}
@@ -95,6 +100,7 @@ public class Renderer {
 			
 			//Runs the render method for the particle handler
 			particleHandler.render(_gm, this);
+			
 
 			//Sets end point for graphics to translate based in cameras x and y positions
 			graphics2D.translate(mainCamera.cameraX, mainCamera.cameraY);
@@ -118,6 +124,12 @@ public class Renderer {
 
 			//Runs the render method to render all canvas objects
 			canvas.render(_gm, this);
+			
+			if(_gm.showSplashScreen) {
+				if(_gm.splashScreenManager.isSplashScreenActive()) {
+					_gm.splashScreenManager.splashRender(_gm, this);
+				}	
+			}
 			
 			/*
 			 * RENDER UI STUFF HERE - END

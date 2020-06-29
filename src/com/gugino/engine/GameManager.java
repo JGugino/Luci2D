@@ -12,6 +12,7 @@ import com.gugino.engine.listeners.GameWindowListener;
 import com.gugino.engine.listeners.ResizeListener;
 import com.gugino.engine.loops.Renderer;
 import com.gugino.engine.loops.Updater;
+import com.gugino.engine.splashscreen.SplashScreenManager;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
@@ -34,6 +35,9 @@ public class GameManager implements Runnable{
 	//AudioManager object
 	public AudioManager audioManager;
 	
+	//SplashScreenManager object
+	public SplashScreenManager splashScreenManager;
+	
 	//Object of the abstract class Game
 	public Game currentGame;
 	
@@ -43,7 +47,11 @@ public class GameManager implements Runnable{
 	//Object to the games render loop
 	public Renderer renderer;
 	
+	//Boolean for whether to show debug information
 	public boolean showDebugInformation = true;
+	
+	//Boolean for whether to show splash screen
+	public boolean showSplashScreen = true;
 
 	//Games main thread
 	private Thread mainThread;
@@ -98,6 +106,8 @@ public class GameManager implements Runnable{
 		
 		//Creates new instance of the AudioManager
 		audioManager = new AudioManager();
+		
+		splashScreenManager = new SplashScreenManager(renderer);
 		
 		//Starts the main thread
 		mainThread.start();

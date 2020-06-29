@@ -3,6 +3,7 @@
  */
 package com.gugino.game.states;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import com.gugino.engine.GameManager;
@@ -14,8 +15,7 @@ import com.gugino.engine.tilemaps.TileMap;
 import com.gugino.engine.tilemaps.enums.TileTypes;
 import com.gugino.game.Main;
 import com.gugino.game.Maps.Map01;
-import com.gugino.game.objects.*;
-import java.awt.event.KeyEvent;
+import com.gugino.game.objects.Player;
 
 public class LevelOne extends GameState{
 	private Player player;

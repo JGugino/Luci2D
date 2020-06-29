@@ -61,6 +61,12 @@ public class Updater {
 				//Runs the update method for the GameObjectHandler
 				_gm.gameObjectHandler.update(_gm, _deltaTime);
 				
+				if(_gm.showSplashScreen) {
+					if(_gm.splashScreenManager.isSplashScreenActive()) {
+						_gm.splashScreenManager.splashUpdate(_deltaTime);
+					}	
+				}
+				
 				//Sets thats the frame should render equal to true
 				_gm.shouldRender = true;
 				_deltaTime --;	

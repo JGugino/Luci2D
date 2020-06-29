@@ -19,12 +19,11 @@ public class KeyboardHandler extends KeyAdapter{
 	private String keyPrefix = "key_";
 	
 	protected String pressedKeys = "";
+	
+	protected boolean isPressingKey = false;
 
 	//Triggered when a keyboard button is pressed
 	public void keyPressed(KeyEvent _event) {
-		//Appends each character pressed to pressedKeys String
-		pressedKeys += _event.getKeyChar();
-
 		//Checks if the key isn't in pressed keys HashMap and isn't in the previous pressed keys HashMap(To check for when a key is pressed for the first time)
 		if(!keyPressed.containsKey(keyPrefix + _event.getKeyCode()) && !prevPressedKeys.containsKey(keyPrefix + _event.getKeyCode())) {
 			//Puts the key into the pressed keys HashMap
@@ -36,6 +35,20 @@ public class KeyboardHandler extends KeyAdapter{
 			//Put the key into the pressed keys HashMap
 			keyPressed.put(keyPrefix + _event.getKeyCode(), new Dimension(_event.getKeyCode(), _event.getKeyCode()));
 		}
+		
+		if(!isPressingKey) {
+			isPressingKey = true;	
+		}
+		
+		//Appends each character pressed to pressedKeys String
+		if((_event.getKeyCode() != KeyEvent.VK_BACK_SPACE) || (_event.getKeyCode() != KeyEvent.VK_ENTER)
+				|| (_event.getKeyCode() != KeyEvent.VK_TAB) || (_event.getKeyCode() != KeyEvent.VK_CONTROL)
+				|| (_event.getKeyCode() != KeyEvent.VK_ALT) || (_event.getKeyCode() != KeyEvent.VK_INSERT)
+				|| (_event.getKeyCode() != KeyEvent.VK_DELETE) || (_event.getKeyCode() != KeyEvent.VK_HOME)
+				|| (_event.getKeyCode() != KeyEvent.VK_PAGE_UP) || (_event.getKeyCode() != KeyEvent.VK_PAGE_DOWN)) {
+			pressedKeys += _event.getKeyChar();
+			return;
+		}
 	}
 	
 	//Triggered when a keyboard key is released
@@ -44,6 +57,10 @@ public class KeyboardHandler extends KeyAdapter{
 		keyPressed.remove(keyPrefix + _event.getKeyCode());
 		//Puts the key into the previous pressed keys HashMap
 		prevPressedKeys.put(keyPrefix + _event.getKeyCode(), new Dimension(_event.getKeyCode(), _event.getKeyCode()));
+		
+		if(isPressingKey) {
+			isPressingKey = false;	
+		}
 		
 		resetPressedKeys();
 	}
@@ -94,5 +111,9 @@ public class KeyboardHandler extends KeyAdapter{
 
 	public String getPressedKeys(){
 		return pressedKeys;
+	}
+	
+	public boolean isPressingKey() {
+		return isPressingKey;
 	}
 }
