@@ -49,7 +49,7 @@ public class UIPanelObject extends UIObject{
 	@Override
 	public void render(GameManager _gm, Renderer _r) {
 		if(panelStyle == PanelStyle.SQUARE) {
-			_r.shapeRenderer.drawFilledRect(objectXPosition, objectYPosition, objectHeight, objectHeight, panelColor);
+			_r.shapeRenderer.drawFilledRect(objectXPosition, objectYPosition, objectWidth, objectHeight, panelColor);
 		}else if(panelStyle == PanelStyle.ROUNDED) {
 			_r.shapeRenderer.drawFilledRoundedRect(objectXPosition, objectYPosition, objectWidth, objectHeight, (int)panelRoundedArcWidth, (int)panelRoundedArcHeight, panelColor);
 		}

@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import com.gugino.engine.graphics.renderers.Sprites.Sprite;
 import com.gugino.engine.graphics.renderers.Sprites.SpriteSheet;
 import com.gugino.engine.loops.Renderer;
+import com.gugino.engine.util.OpenSimplexNoise;
 import com.gugino.engine.util.debug.Debug;
 
 public class ImageRenderer {
@@ -106,6 +107,21 @@ public class ImageRenderer {
 			}
 	}
 
+	public BufferedImage generateSimplexNoiseImage(int _width, int _height, double _featureSize) {
+		OpenSimplexNoise _noise = new OpenSimplexNoise();
+		BufferedImage _holderImage = new BufferedImage(_width, _height, BufferedImage.TYPE_INT_RGB);
+		
+		for(int y = 0; y < _height; y++) {
+			for(int x = 0; x < _width; x ++) {
+				double _noiseValue = _noise.eval(x / _featureSize, y / _featureSize);	
+				int rgb = 0x010101 * (int)((_noiseValue + 1) * 127.5);
+				_holderImage.setRGB(x, y, rgb);
+			}	
+		}
+		
+		return _holderImage;
+	}
+	
 	public BufferedImage getImageFromPath(String _path) {
 		BufferedImage _tempImage = null;
 		try {
