@@ -37,7 +37,7 @@ public class Menu extends GameState{
 		titleText = new UITextObject("Luci2D Demo Game", WindowHandler.windowWidth/2 - 75, 25, Color.black, UIObjectLayer.FOREGROUND, this);
 		playButton = new UIButtonObject("Play", Color.black, Color.lightGray, Color.gray, Color.white, WindowHandler.windowWidth/2 - 125, WindowHandler.windowHeight/2 - 100, 250, 100, ButtonStyle.ROUNDED, UIObjectLayer.FOREGROUND, this);
 
-		spriteSheet = _r.imageRenderer.getImageFromPath("/ground_tiles_sprite_sheet.png");
+		spriteSheet = _r.imageRenderer.getImageFromPath("/enviroment_sprites.png");
 
 		groundTiles = _r.imageRenderer.generateSpriteSheet("ground_tiles", spriteSheet, 7, 1, 64, 64);
 

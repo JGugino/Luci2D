@@ -43,11 +43,11 @@ public class ImageRenderer {
 
 		for (int _col = 1; _col <= _totalCols; _col++) {
 			if(_totalRows <= 1){
-				_spritesToAdd[_index] = new Sprite("sprite_" + _index, _spriteSheet.getSubimage((_col *_spriteWidth) - _spriteWidth, 0, _spriteWidth, _spriteHeight), _spriteWidth, _spriteHeight);
+				_spritesToAdd[_index] = new Sprite("sprite_" + _index, _spriteSheet.getSubimage(_col + _spriteWidth, 0, _spriteWidth, _spriteHeight), _spriteWidth, _spriteHeight);
 				_index++;
 			}else if(_totalRows > 1){
 				for (int _rows = 1; _rows <= _totalRows; _rows++) {
-					_spritesToAdd[_index] = new Sprite("sprite_" + _index, _spriteSheet.getSubimage((_col *_spriteWidth) - _spriteWidth, (_rows * _spriteHeight) - _spriteHeight, _spriteWidth, _spriteHeight), _spriteWidth, _spriteHeight);
+					_spritesToAdd[_index] = new Sprite("sprite_" + _index, _spriteSheet.getSubimage(_col + _spriteWidth, _rows + _spriteHeight, _spriteWidth, _spriteHeight), _spriteWidth, _spriteHeight);
 					_index++;
 				}
 			}
@@ -120,6 +120,15 @@ public class ImageRenderer {
 		}
 		
 		return _holderImage;
+	}
+	
+	public int[] getPixelColor(BufferedImage _image, int _x, int _y) {
+		int _pixelColor = _image.getRGB(_x, _y);
+		int _red = (_pixelColor & 0x00ff0000) >> 16;
+		int _green = (_pixelColor & 0x0000ff00) >> 8;
+		int _blue = (_pixelColor & 0x000000ff);
+		
+		return new int[] {_red, _green, _blue};
 	}
 	
 	public BufferedImage getImageFromPath(String _path) {

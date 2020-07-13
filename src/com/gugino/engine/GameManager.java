@@ -16,6 +16,9 @@ import com.gugino.engine.splashscreen.SplashScreenManager;
 import com.gugino.engine.states.StateManager;
 
 public class GameManager implements Runnable{
+	
+	public static GameManager gameManager;
+	
 	//Booleans for if the game is running and if it should render this frame
 	public boolean isRunning = false, shouldRender = false;
 	
@@ -91,6 +94,10 @@ public class GameManager implements Runnable{
 	public synchronized void start() {
 		//Creates the main thread and sets this class as the target
 		mainThread = new Thread(this);
+		
+		if(gameManager == null) {
+			gameManager = this;	
+		}
 		
 		//Creates new instance of UpdateLoop
 		updater = new Updater();
